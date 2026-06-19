@@ -17,32 +17,73 @@
 .hero__inner {
   position: relative;
   z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);     /* 64px column gap */
+  align-items: center;
+  padding-bottom: var(--space-8);  /* 64px — pushes content above the fade */
+}
+
+/* Left column */
+.hero__left {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);     /* 16px — tighter vertical rhythm */
-  max-width: 760px;
-  padding-bottom: var(--space-8);  /* 64px — pushes content above the fade */
+  gap: 0;
 }
 .hero__tags {
   display: flex;
   gap: var(--space-1);     /* 8px */
   flex-wrap: wrap;
-  margin-bottom: var(--space-1);   /* 8px */
+  margin-bottom: var(--space-3);   /* 24px before h1 */
 }
-.hero__statement {
+.hero__headline {
   font-family: var(--font-heading);
-  font-size: clamp(1.875rem, 3.5vw, var(--text-5xl));
-  font-weight: var(--fw-bold);
-  line-height: 1.45;
-  color: var(--color-text-body);
+  font-size: clamp(2.25rem, 4vw, var(--text-6xl));
+  font-weight: var(--fw-extrabold);
+  line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
-  max-width: 720px;
+}
+.hero__sub {
+  font-size: var(--text-lg);
+  color: var(--color-text-body);
+  line-height: 1.5;           /* 150% as requested */
+  margin-top: var(--space-4); /* 32px gap between h1 and paragraph */
+  max-width: 480px;
 }
 .hero__cta {
   display: flex;
   gap: var(--space-2);     /* 16px */
   flex-wrap: wrap;
-  margin-top: var(--space-2);     /* 16px */
+  margin-top: var(--space-5);  /* 40px below paragraph */
+}
+
+/* Right column */
+.hero__right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.hero__image {
+  width: 100%;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: var(--color-surface);
+}
+.hero__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .hero__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+  .hero__right { justify-content: stretch; }
+  .hero__headline { font-size: clamp(2rem, 6vw, var(--text-4xl)); }
+  .hero__sub { max-width: 100%; }
 }
 
 /* ===== FEATURED CARD ===== */
