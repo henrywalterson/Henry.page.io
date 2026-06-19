@@ -1,27 +1,14 @@
 /* ===== HERO ===== */
 .hero {
   background: var(--gradient-hero);
-  padding-top: var(--space-6);         /* 48px */
-  padding-bottom: var(--space-8);      /* 64px */
-  position: relative;
-  overflow: hidden;
-}
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 96px;
-  background: linear-gradient(to bottom, transparent, #ffffff);
-  pointer-events: none;
+  padding-top: var(--space-10);        /* 80px */
+  padding-bottom: var(--space-12);     /* 96px */
 }
 .hero__inner {
-  position: relative;
-  z-index: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-8);     /* 64px column gap */
   align-items: center;
-  padding-bottom: var(--space-8);  /* 64px — pushes content above the fade */
 }
 
 /* Left column */
