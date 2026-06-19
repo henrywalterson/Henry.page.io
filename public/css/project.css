@@ -4,7 +4,7 @@
 /* ===== PROJECT HERO ===== */
 .project-hero { padding-bottom: 0; }
 .project-hero__inner {
-  padding-top: var(--space-5);     /* 40px — snug after back link */
+  padding-top: var(--space-3);     /* 24px — tight after back link */
   padding-bottom: var(--space-8);
   display: flex;
   flex-direction: column;
@@ -219,7 +219,10 @@
    Reusable across all project detail pages
    ============================================== */
 
-/* ===== SECTION TAG PILL (reusable) ===== */
+/* ===== SECTION TAG PILL (reusable) =====
+   All variants share identical shape — only background + text color differ.
+   border: none on all — no variant uses a border.
+   ========================================= */
 .proj-tag {
   display: inline-block;
   padding: 4px 14px;
@@ -229,19 +232,17 @@
   letter-spacing: 0.09em;
   text-transform: uppercase;
   margin-bottom: var(--space-4);
+  border: none;
   background: var(--color-surface-2);
   color: var(--color-text-muted);
-  border: 1px solid var(--color-border);
 }
 .proj-tag--dark {
   background: var(--color-text-heading);
   color: #ffffff;
-  border-color: transparent;
 }
 .proj-tag--accent {
   background: var(--color-pill-bg);
   color: var(--color-accent-1);
-  border-color: var(--color-accent-3);
 }
 
 /* ===== PULL-QUOTE (reusable, appears 3×) ===== */
@@ -372,7 +373,7 @@
   counter-reset: decision;
 }
 .proj-decision-card {
-  background: var(--color-surface);
+  background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-4);
@@ -381,6 +382,7 @@
   grid-template-columns: 1fr 1fr;
   gap: var(--space-6);
   align-items: start;
+  box-shadow: var(--shadow-xs);
 }
 .proj-decision-card__text { display: flex; flex-direction: column; }
 .proj-decision-card__num {
