@@ -14,7 +14,19 @@
       "Bash(mkdir -p /Users/huynhduchuy/Portfolio/.claude)",
       "mcp__Claude_Preview__preview_start",
       "Bash(git init *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(git commit -m ' *)",
+      "Bash(python3 /Users/huynhduchuy/Portfolio/ui-ux-pro-max-skill-main/cli/assets/scripts/search.py \"portfolio designer spacing typography\" --domain style -n 2)",
+      "Bash(python3 /Users/huynhduchuy/Portfolio/ui-ux-pro-max-skill-main/cli/assets/scripts/search.py \"portfolio\" --domain typography -n 2)",
+      "Bash(python3 src/ui-ux-pro-max/scripts/search.py \"portfolio spacing alignment professional\" --domain ux -n 5)",
+      "Bash(python3 src/ui-ux-pro-max/scripts/search.py \"typography hierarchy professional\" --domain style -n 5)",
+      "Bash(python3 src/ui-ux-pro-max/scripts/search.py \"portfolio designer minimal\" --domain color -n 3)",
+      "Bash(python3 src/ui-ux-pro-max/scripts/search.py \"section spacing white space content width\" --domain ux -n 5)",
+      "Bash(python3 src/ui-ux-pro-max/scripts/search.py \"font pairing professional portfolio\" --domain typography -n 3)",
+      "Bash(python3 src/ui-ux-pro-max/scripts/search.py \"portfolio product designer personal site\" --domain style -n 5)"
     ]
   }
 }
