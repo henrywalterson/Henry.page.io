@@ -98,7 +98,7 @@
 
 .card__image {
   width: 100%;
-  aspect-ratio: 3/2;
+  aspect-ratio: 16/9;
   overflow: hidden;
   background: var(--color-surface);
 }

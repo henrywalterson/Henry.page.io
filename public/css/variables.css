@@ -30,7 +30,12 @@
   /* =====================
      GRADIENTS
   ===================== */
-  --gradient-hero: linear-gradient(160deg, #ffffff 0%, #dbeafe 55%, #bfdbfe 100%);
+  --gradient-hero:
+    radial-gradient(at 15% 25%, hsla(213, 94%, 68%, 0.35) 0px, transparent 55%),
+    radial-gradient(at 85%  8%, hsla(204, 80%, 80%, 0.40) 0px, transparent 50%),
+    radial-gradient(at 65% 85%, hsla(221, 70%, 50%, 0.22) 0px, transparent 50%),
+    radial-gradient(at  5% 80%, hsla(199, 85%, 88%, 0.35) 0px, transparent 50%),
+    #ffffff;
   --gradient-text: linear-gradient(90deg, #1e3a8a, #3b82f6);
   --gradient-btn:  linear-gradient(135deg, #1e3a8a, #3b82f6);
 

@@ -19,7 +19,7 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);     /* 24px */
+  gap: var(--space-2);     /* 16px — tighter vertical rhythm */
   max-width: 760px;
   padding-bottom: var(--space-8);  /* 64px — pushes content above the fade */
 }
@@ -204,10 +204,15 @@
 
 /* ===== CONTACT ===== */
 .contact { background: var(--color-surface); }
-.contact__inner { max-width: 640px; }
+.contact__inner {
+  max-width: 640px;
+  margin-inline: auto;
+  text-align: center;
+}
 .contact__actions {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-3);              /* 24px */
   flex-wrap: wrap;
   margin-top: var(--space-4);       /* 32px */
