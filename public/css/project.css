@@ -1,14 +1,14 @@
 /* ===== PROJECT BACK LINK ===== */
-.project-back { padding-block: var(--space-5); }
+.project-back { padding-block: var(--space-2); }  /* 16px — tight, no dead air */
 
 /* ===== PROJECT HERO ===== */
 .project-hero { padding-bottom: 0; }
 .project-hero__inner {
-  padding-top: var(--space-12);
+  padding-top: var(--space-5);     /* 40px — snug after back link */
   padding-bottom: var(--space-8);
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-3);             /* 24px */
   max-width: 760px;
 }
 .project-hero__title {
@@ -32,7 +32,7 @@
 .project-hero__cover img { width: 100%; height: 100%; object-fit: cover; }
 
 /* ===== META ===== */
-.project-meta { padding-block: var(--space-10); border-bottom: 1px solid var(--color-border); }
+.project-meta { padding-block: var(--space-6); border-bottom: 1px solid var(--color-border); }  /* 48px */
 .project-meta__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -65,7 +65,7 @@
 }
 
 /* ===== PROJECT SECTIONS ===== */
-.project-section { padding-block: var(--space-16); border-bottom: 1px solid var(--color-border); }
+.project-section { padding-block: var(--space-10); border-bottom: 1px solid var(--color-border); }  /* 80px */
 .project-section--accent { background: var(--color-surface); }
 .project-section__inner { max-width: 760px; display: flex; flex-direction: column; gap: var(--space-5); }
 .project-section__heading {
@@ -170,19 +170,40 @@
   border: 1px solid var(--color-border);
 }
 
-/* ===== PROJECT FOOTER CTA ===== */
-.project-footer-cta {
-  padding-block: var(--space-16);
+/* ===== PROJECT CLOSING ===== */
+.project-closing {
+  padding-block: var(--space-10);   /* 80px */
+  border-top: 1px solid var(--color-border);
   background: var(--color-surface);
 }
-.project-footer-cta__inner {
+.project-closing__inner {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-6);              /* 48px between text and actions */
 }
-.project-footer-cta__links {
+.project-closing__thanks {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-heading);
+  margin-bottom: var(--space-2);    /* 16px above email */
+}
+.project-closing__email {
+  font-size: var(--text-base);
+  font-weight: var(--fw-medium);
+  color: var(--color-accent-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.project-closing__email:hover { color: var(--color-accent-1); }
+.project-closing__actions {
   display: flex;
-  gap: var(--space-8);
+  flex-direction: column;
+  gap: var(--space-4);              /* 32px between button and nav links */
+}
+.project-closing__nav {
+  display: flex;
+  gap: var(--space-8);              /* 64px between all-projects and next */
   flex-wrap: wrap;
 }
 
