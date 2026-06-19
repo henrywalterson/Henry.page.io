@@ -1,7 +1,7 @@
 /* ===== HERO ===== */
 .hero {
   background: var(--gradient-hero);
-  padding-top: var(--space-8);         /* 64px */
+  padding-top: var(--space-6);         /* 48px */
   padding-bottom: var(--space-8);      /* 64px */
   position: relative;
   overflow: hidden;
@@ -29,20 +29,14 @@
   flex-wrap: wrap;
   margin-bottom: var(--space-1);   /* 8px */
 }
-.hero__headline {
+.hero__statement {
   font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 5vw, var(--text-6xl));
-  font-weight: var(--fw-extrabold);
-  line-height: var(--leading-tight);
-  color: var(--color-text-heading);
+  font-size: clamp(1.875rem, 3.5vw, var(--text-5xl));
+  font-weight: var(--fw-bold);
+  line-height: 1.45;
+  color: var(--color-text-body);
   letter-spacing: var(--tracking-tight);
-}
-.hero__sub {
-  font-size: var(--text-lg);
-  color: var(--color-text-muted);
-  max-width: 560px;
-  line-height: var(--leading-relaxed);
-  margin-top: var(--space-1);     /* 8px */
+  max-width: 720px;
 }
 .hero__cta {
   display: flex;
@@ -213,9 +207,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-3);              /* 24px */
+  gap: var(--space-1);              /* 8px — paired action group */
   flex-wrap: wrap;
-  margin-top: var(--space-4);       /* 32px */
+  margin-top: var(--space-3);       /* 24px */
 }
 .contact__email-row {
   display: flex;
