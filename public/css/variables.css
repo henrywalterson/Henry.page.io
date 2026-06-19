@@ -1,73 +1,139 @@
+/*
+  Design System — 8px Grid
+  Base unit: 8px
+  All spacing = multiples of 8px
+  Font: Space Grotesk (heading) + Archivo (body)
+*/
+
 :root {
-  /* Colors */
-  --color-bg: #ffffff;
-  --color-surface: #f8fafc;
-  --color-border: #e2e8f0;
-  --color-text-heading: #0f172a;
-  --color-text-body: #334155;
-  --color-text-muted: #64748b;
-  --color-text-inverse: #ffffff;
-  --color-accent-1: #1e3a8a;
-  --color-accent-2: #3b82f6;
-  --color-accent-3: #60a5fa;
-  --color-pill-bg: #eff6ff;
-  --color-pill-text: #1e3a8a;
-  --color-pill-dark-bg: rgba(255, 255, 255, 0.18);
-  --color-pill-dark-text: #ffffff;
+  /* =====================
+     COLORS
+  ===================== */
+  --color-bg:             #ffffff;
+  --color-surface:        #f8fafc;
+  --color-surface-2:      #f1f5f9;
+  --color-border:         #e2e8f0;
+  --color-border-subtle:  #f1f5f9;
 
-  /* Gradients */
+  --color-text-heading:   #0f172a;
+  --color-text-body:      #334155;
+  --color-text-muted:     #64748b;
+  --color-text-inverse:   #ffffff;
+
+  --color-accent-1:       #1e3a8a;
+  --color-accent-2:       #3b82f6;
+  --color-accent-3:       #93c5fd;
+
+  --color-pill-bg:        #eff6ff;
+  --color-pill-text:      #1e3a8a;
+
+  /* =====================
+     GRADIENTS
+  ===================== */
   --gradient-hero: linear-gradient(160deg, #ffffff 0%, #dbeafe 55%, #bfdbfe 100%);
-  --gradient-text: linear-gradient(90deg, #3b82f6, #60a5fa);
-  --gradient-btn: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  --gradient-text: linear-gradient(90deg, #1e3a8a, #3b82f6);
+  --gradient-btn:  linear-gradient(135deg, #1e3a8a, #3b82f6);
 
-  /* Typography */
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 1.875rem;
-  --text-4xl: 2.25rem;
-  --text-5xl: 3rem;
-  --text-6xl: 3.75rem;
-  --fw-normal: 400;
-  --fw-medium: 500;
-  --fw-semibold: 600;
-  --fw-bold: 700;
+  /* =====================
+     TYPOGRAPHY
+     Heading: Space Grotesk — distinctive, modern
+     Body:    Archivo — clean, legible
+  ===================== */
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
+  --font-body:    'Archivo', system-ui, sans-serif;
+
+  /* Type scale (major third — 1.25×) */
+  --text-xs:   0.75rem;    /* 12px */
+  --text-sm:   0.875rem;   /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg:   1.125rem;   /* 18px */
+  --text-xl:   1.25rem;    /* 20px */
+  --text-2xl:  1.5rem;     /* 24px */
+  --text-3xl:  1.875rem;   /* 30px */
+  --text-4xl:  2.25rem;    /* 36px */
+  --text-5xl:  3rem;       /* 48px */
+  --text-6xl:  3.75rem;    /* 60px */
+  --text-7xl:  4.5rem;     /* 72px */
+
+  --fw-normal:    400;
+  --fw-medium:    500;
+  --fw-semibold:  600;
+  --fw-bold:      700;
   --fw-extrabold: 800;
-  --leading-tight: 1.15;
-  --leading-snug: 1.35;
+
+  --leading-tight:  1.1;
+  --leading-snug:   1.3;
   --leading-normal: 1.6;
+  --leading-relaxed:1.75;
 
-  /* Spacing */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.25rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-10: 2.5rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  --space-20: 5rem;
-  --space-24: 6rem;
-  --space-32: 8rem;
+  --tracking-tight:  -0.03em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.04em;
+  --tracking-wider:   0.08em;
+  --tracking-widest:  0.12em;
 
-  /* Layout */
-  --container-max: 1120px;
-  --container-padding: var(--space-6);
+  /* =====================
+     SPACING — 8px grid
+     --space-N = N × 8px
+  ===================== */
+  --space-px:  1px;
+  --space-0:   0px;
+  --space-1:   8px;    /* 1 × 8 */
+  --space-2:   16px;   /* 2 × 8 */
+  --space-3:   24px;   /* 3 × 8 */
+  --space-4:   32px;   /* 4 × 8 */
+  --space-5:   40px;   /* 5 × 8 */
+  --space-6:   48px;   /* 6 × 8 */
+  --space-7:   56px;   /* 7 × 8 */
+  --space-8:   64px;   /* 8 × 8 */
+  --space-10:  80px;   /* 10 × 8 */
+  --space-12:  96px;   /* 12 × 8 */
+  --space-14:  112px;  /* 14 × 8 */
+  --space-16:  128px;  /* 16 × 8 */
+  --space-20:  160px;  /* 20 × 8 */
+  --space-24:  192px;  /* 24 × 8 */
+  --space-32:  256px;  /* 32 × 8 */
 
-  /* Borders & Shadows */
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  /* Semantic aliases */
+  --gap-xs:     var(--space-1);   /* 8px  — inline gaps, icon spacing */
+  --gap-sm:     var(--space-2);   /* 16px — tight component gaps */
+  --gap-md:     var(--space-3);   /* 24px — standard gaps */
+  --gap-lg:     var(--space-4);   /* 32px — card/section internal */
+  --gap-xl:     var(--space-6);   /* 48px — between major blocks */
+  --gap-2xl:    var(--space-8);   /* 64px — section dividers */
+
+  --section-sm:  var(--space-8);   /* 64px  — tight sections */
+  --section-md:  var(--space-12);  /* 96px  — standard sections */
+  --section-lg:  var(--space-16);  /* 128px — hero/feature sections */
+
+  /* =====================
+     LAYOUT
+  ===================== */
+  --container-max:     1120px;
+  --container-padding: var(--space-3);  /* 24px gutter */
+
+  /* =====================
+     BORDERS & RADIUS
+     All multiples of 4px
+  ===================== */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
   --radius-full: 9999px;
+
+  /* =====================
+     SHADOWS
+  ===================== */
+  --shadow-xs:   0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
   --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06);
   --shadow-card-hover: 0 4px 12px rgba(0,0,0,0.08), 0 12px 32px rgba(0,0,0,0.1);
 
-  /* Transitions */
-  --transition: 200ms ease;
+  /* =====================
+     TRANSITIONS
+  ===================== */
+  --transition-fast:   150ms ease;
+  --transition:        200ms ease;
+  --transition-slow:   350ms ease;
 }
