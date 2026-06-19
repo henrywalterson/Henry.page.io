@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>[PLACEHOLDER: Project One] · [PLACEHOLDER: Your Name]</title>
+  <title>VietCharm · [PLACEHOLDER: Your Name]</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/public/css/base.css" />
   <link rel="stylesheet" href="/public/css/components.css" />
   <link rel="stylesheet" href="/public/css/project.css" />
+  <link rel="stylesheet" href="/public/css/vietcharm.css" />
 </head>
 <body>
 
@@ -35,107 +36,130 @@
     <a href="/" class="link-arrow link-arrow--back">← Back to home</a>
   </div>
 
-  <!-- HERO -->
-  <section class="project-hero">
+  <!-- ========== HERO ========== -->
+  <section class="project-hero vc-hero">
     <div class="container project-hero__inner">
-      <span class="pill">[PLACEHOLDER: tag e.g. Mobile App]</span>
-      <h1 class="project-hero__title">[PLACEHOLDER: Project One — Two-Line Title Here]</h1>
-      <p class="project-hero__sub">[PLACEHOLDER: subtitle]</p>
+      <div class="vc-hero__tags">
+        <span class="vc-tag">Self-initiated</span>
+        <span class="vc-tag">UX/UI Redesign</span>
+        <span class="vc-tag">Solo</span>
+        <span class="vc-tag">2025</span>
+      </div>
+      <div class="vc-hero__scope">
+        <span class="vc-scope">Homepage</span>
+        <span class="vc-scope">Booking flow</span>
+        <span class="vc-scope">Desktop &amp; Mobile</span>
+      </div>
+      <p class="vc-hero__label">VIETCHARM</p>
+      <h1 class="project-hero__title">Redesigning a cultural dining show's website to match the premium tone and refine the conversion-ready experience, starting from mobile.</h1>
+      <span class="vc-corner-label">UX/UI REDESIGN</span>
     </div>
     <div class="project-hero__cover">
-      <img src="https://placehold.co/1200x600/3B82F6/FFFFFF?text=Project+One+Cover" alt="Project One cover" />
+      <img src="https://placehold.co/1440x640/0f172a/ffffff?text=VIETCHARM" alt="VietCharm cover" />
     </div>
   </section>
 
-  <!-- META -->
+  <!-- ========== META ========== -->
   <section class="project-meta">
     <div class="container project-meta__grid">
       <div class="project-meta__cell">
         <p class="project-meta__label">Role</p>
-        <p class="project-meta__value">[PLACEHOLDER: Lead Product Designer]</p>
+        <p class="project-meta__value">UX/UI Designer (Solo)</p>
       </div>
       <div class="project-meta__cell">
-        <p class="project-meta__label">Company / Product</p>
-        <p class="project-meta__value">[PLACEHOLDER: Company / Product Name]</p>
+        <p class="project-meta__label">Type</p>
+        <p class="project-meta__value">Self-initiated Redesign</p>
       </div>
       <div class="project-meta__cell">
-        <p class="project-meta__label">Timeline</p>
-        <p class="project-meta__value">[PLACEHOLDER: Jan 2024 – Mar 2024]</p>
+        <p class="project-meta__label">Year</p>
+        <p class="project-meta__value">2025</p>
       </div>
       <div class="project-meta__cell">
-        <p class="project-meta__label">Tools</p>
-        <p class="project-meta__value">[PLACEHOLDER: Figma, Maze, Notion]</p>
+        <p class="project-meta__label">Scope</p>
+        <p class="project-meta__value">Homepage · Booking flow · Desktop &amp; Mobile</p>
       </div>
     </div>
+  </section>
+
+  <!-- ========== PROBLEM ========== -->
+  <section class="project-section vc-problems">
     <div class="container">
-      <p class="project-summary">[PLACEHOLDER: One-line project summary that captures the core value delivered]</p>
+
+      <div class="vc-problem-block">
+        <div class="vc-problem-block__left">
+          <p class="vc-section-label">PROBLEM</p>
+          <h2 class="vc-problem-block__heading">The homepage made it hard for users to find their way and make confident decisions.</h2>
+          <p class="vc-problem-block__body">Three different nav items all lead to the same page. The feature section overwhelms users with text. The ticket section gives no spatial context to justify the price difference.</p>
+        </div>
+        <div class="vc-problem-block__outcome">
+          <p class="vc-outcome-label">OUTCOME →</p>
+          <p class="vc-outcome-text">Clearer navigation and visual decision support reduce hesitation — keeping potential buyers engaged long enough to convert.</p>
+        </div>
+      </div>
+
+      <div class="vc-problem-block">
+        <div class="vc-problem-block__left">
+          <p class="vc-section-label">PROBLEM</p>
+          <h2 class="vc-problem-block__heading">Booking flow has unnecessary friction at the point of highest purchase intent.</h2>
+          <p class="vc-problem-block__body">Brand content appears before the booking form. There's no persistent order summary, no progress indicator, and no refund policy near the CTA.</p>
+        </div>
+        <div class="vc-problem-block__outcome">
+          <p class="vc-outcome-label">OUTCOME →</p>
+          <p class="vc-outcome-text">Fewer steps, persistent order visibility, and trust signals at checkout lower abandonment at the highest-intent moment in the funnel.</p>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- CONTEXT -->
-  <section class="project-section">
-    <div class="container project-section__inner">
-      <h2 class="project-section__heading">Context</h2>
-      <p>[PLACEHOLDER: 2–3 sentences describing the context.]</p>
-    </div>
-  </section>
-
-  <!-- THE PROBLEM -->
+  <!-- ========== PROCESS ========== -->
   <section class="project-section project-section--accent">
     <div class="container project-section__inner">
-      <h2 class="project-section__heading">The Problem</h2>
-      <p class="project-problem">[PLACEHOLDER: A clear, bold statement of the core problem.]</p>
-    </div>
-  </section>
-
-  <!-- PROCESS -->
-  <section class="project-section">
-    <div class="container project-section__inner">
-      <h2 class="project-section__heading">Process &amp; Research</h2>
-      <p>[PLACEHOLDER: Describe the research and process phase.]</p>
+      <p class="vc-section-label">PROCESS</p>
+      <h2 class="project-section__heading">Without access to analytics or heatmaps, I audited the site the way a real user would, then applied structured heuristic evaluation.</h2>
+      <div class="vc-references">
+        <div class="vc-reference-item">Nielsen's Usability Heuristics</div>
+        <div class="vc-reference-item">Baymard Institute checkout flow research</div>
+        <div class="vc-reference-item">Luxury hospitality brand reference</div>
+      </div>
       <div class="project-image">
-        <img src="https://placehold.co/900x500/E0E7FF/1E3A8A?text=Research+%2F+Process+Diagram" alt="Research diagram" />
-        <p class="project-image__caption">[PLACEHOLDER: Diagram or process map caption]</p>
+        <img src="https://placehold.co/960x540/E0E7FF/1E3A8A?text=[PLACEHOLDER:+Lighthouse+score+%2F+WAVE+report+%2F+date-picker+bug+screenshot]" alt="Process evidence — Lighthouse score, WAVE report, date-picker bug" />
+        <p class="project-image__caption">Evidence: Lighthouse score · WAVE accessibility report · date-picker bug</p>
       </div>
     </div>
   </section>
 
-  <!-- KEY DECISIONS -->
+  <!-- ========== WHAT COULD BE IMPROVED ========== -->
   <section class="project-section">
     <div class="container">
-      <h2 class="project-section__heading">Key Decisions</h2>
-      <div class="decisions">
+      <div class="vc-improve-grid">
 
-        <div class="decision">
-          <div class="decision__header">
-            <span class="decision__number">01</span>
-            <h3 class="decision__title">[PLACEHOLDER: Key Decision Heading]</h3>
-          </div>
-          <p class="decision__reasoning">[PLACEHOLDER: Explain the rationale for this design decision.]</p>
-          <div class="project-image">
-            <img src="https://placehold.co/800x450/F1F5F9/334155?text=Decision+01+Screen" alt="Decision 01" />
+        <div class="vc-improve-col">
+          <p class="vc-section-label">WHAT COULD BE IMPROVED</p>
+          <h2 class="vc-improve-title">Home page</h2>
+          <ul class="vc-issue-list">
+            <li>3 nav items lead to the same page</li>
+            <li>No fallback when video fails to load</li>
+            <li>Feature section overwhelms with text</li>
+            <li>Ticket section lacks spatial context</li>
+            <li>Schedule is long and hard to scan</li>
+          </ul>
+          <div class="project-image" style="margin-top: var(--space-6);">
+            <img src="https://placehold.co/560x400/F1F5F9/334155?text=[PLACEHOLDER:+Homepage+issues+screenshot]" alt="Homepage issues" />
           </div>
         </div>
 
-        <div class="decision">
-          <div class="decision__header">
-            <span class="decision__number">02</span>
-            <h3 class="decision__title">[PLACEHOLDER: Key Decision Heading]</h3>
-          </div>
-          <p class="decision__reasoning">[PLACEHOLDER: Explain the rationale for this design decision.]</p>
-          <div class="project-image">
-            <img src="https://placehold.co/800x450/F1F5F9/334155?text=Decision+02+Screen" alt="Decision 02" />
-          </div>
-        </div>
-
-        <div class="decision">
-          <div class="decision__header">
-            <span class="decision__number">03</span>
-            <h3 class="decision__title">[PLACEHOLDER: Key Decision Heading]</h3>
-          </div>
-          <p class="decision__reasoning">[PLACEHOLDER: Explain the rationale for this design decision.]</p>
-          <div class="project-image">
-            <img src="https://placehold.co/800x450/F1F5F9/334155?text=Decision+03+Screen" alt="Decision 03" />
+        <div class="vc-improve-col">
+          <p class="vc-section-label">WHAT COULD BE IMPROVED</p>
+          <h2 class="vc-improve-title">Booking page</h2>
+          <ul class="vc-issue-list">
+            <li>Content appears before the booking form</li>
+            <li>No step indicator mid-flow</li>
+            <li>No persistent order summary</li>
+            <li>Redundant "Book now" CTA on nav bar when in booking flow</li>
+          </ul>
+          <div class="project-image" style="margin-top: var(--space-6);">
+            <img src="https://placehold.co/560x400/F1F5F9/334155?text=[PLACEHOLDER:+Booking+page+issues+screenshot]" alt="Booking page issues" />
           </div>
         </div>
 
@@ -143,54 +167,76 @@
     </div>
   </section>
 
-  <!-- FINAL SCREENS -->
-  <section class="project-section">
+  <!-- ========== HOW I SOLVED IT ========== -->
+  <section class="project-section project-section--accent">
     <div class="container">
-      <h2 class="project-section__heading">Final Screens</h2>
-      <div class="screens-gallery">
-        <figure class="screen">
-          <img src="https://placehold.co/700x500/DBEAFE/1E40AF?text=Final+Screen+1" alt="Final Screen 1" />
-          <figcaption>[PLACEHOLDER: Screen caption]</figcaption>
-        </figure>
-        <figure class="screen">
-          <img src="https://placehold.co/700x500/DBEAFE/1E40AF?text=Final+Screen+2" alt="Final Screen 2" />
-          <figcaption>[PLACEHOLDER: Screen caption]</figcaption>
-        </figure>
-        <figure class="screen">
-          <img src="https://placehold.co/700x500/DBEAFE/1E40AF?text=Final+Screen+3" alt="Final Screen 3" />
-          <figcaption>[PLACEHOLDER: Screen caption]</figcaption>
-        </figure>
+      <div class="vc-improve-grid">
+
+        <div class="vc-improve-col">
+          <p class="vc-section-label">WHAT I HAVE DONE</p>
+          <h2 class="vc-improve-title">Homepage</h2>
+          <ul class="vc-solution-list">
+            <li><span class="vc-problem-tag">3 nav items lead to the same page</span> → Consolidated into 2 clear CTAs in hero</li>
+            <li><span class="vc-problem-tag">No fallback when video fails to load</span> → Added image fallback</li>
+            <li><span class="vc-problem-tag">Feature section overwhelms with text</span> → Replaced with expanding panels</li>
+            <li><span class="vc-problem-tag">Ticket section lacks spatial context</span> → Added interactive seating map</li>
+            <li><span class="vc-problem-tag">Schedule is long and hard to scan</span> → Condensed into 3 main sections</li>
+          </ul>
+          <div class="project-image" style="margin-top: var(--space-6);">
+            <img src="https://placehold.co/560x400/DBEAFE/1E40AF?text=[PLACEHOLDER:+Homepage+redesign+screen]" alt="Homepage redesign" />
+          </div>
+        </div>
+
+        <div class="vc-improve-col">
+          <p class="vc-section-label">WHAT I HAVE DONE</p>
+          <h2 class="vc-improve-title">Booking Page</h2>
+          <ul class="vc-solution-list">
+            <li><span class="vc-problem-tag">Content appears before the booking form</span> → Form moved to the top, content removed</li>
+            <li><span class="vc-problem-tag">No step indicator mid-flow</span> → Added 2-step progress bar</li>
+            <li><span class="vc-problem-tag">No persistent order summary</span> → Sticky sidebar with itemized breakdown</li>
+            <li><span class="vc-problem-tag">Redundant "Book now" CTA</span> → Removed from nav when in booking flow</li>
+          </ul>
+          <div class="project-image" style="margin-top: var(--space-6);">
+            <img src="https://placehold.co/560x400/DBEAFE/1E40AF?text=[PLACEHOLDER:+Booking+redesign+screen]" alt="Booking redesign" />
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- IMPACT -->
+  <!-- ========== LESSON LEARNED ========== -->
+  <section class="project-section">
+    <div class="container project-section__inner">
+      <h2 class="project-section__heading">Lesson learned</h2>
+      <ul class="vc-lesson-list">
+        <li>User intent dictates content hierarchy.</li>
+        <li>Simplify first, scale complexity later.</li>
+        <li>Responsive means adapting behavior, not resizing.</li>
+        <li>Decisions were validated through heuristic evaluation under data constraints.</li>
+        <li>Trust signals matter at the point of conversion.</li>
+        <li>Structural friction kills conversion before visuals even matter.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== WHAT'S NEXT ========== -->
   <section class="project-section project-section--accent">
     <div class="container project-section__inner">
-      <h2 class="project-section__heading">Result &amp; Impact</h2>
-      <div class="impact-grid">
-        <div class="impact-metric">
-          <span class="impact-metric__value">[XX%]</span>
-          <span class="impact-metric__label">[PLACEHOLDER: metric label]</span>
-        </div>
-        <div class="impact-metric">
-          <span class="impact-metric__value">[XX%]</span>
-          <span class="impact-metric__label">[PLACEHOLDER: metric label]</span>
-        </div>
-      </div>
+      <h2 class="project-section__heading">What's next</h2>
+      <p>If I had more time, I'd validate these decisions with real users, particularly first-time visitors arriving from social ads, to confirm whether the changes actually reduce friction or surface new ones I haven't seen yet.</p>
     </div>
   </section>
 
-  <!-- REFLECTION -->
-  <section class="project-section">
-    <div class="container project-section__inner">
-      <h2 class="project-section__heading">Reflection</h2>
-      <blockquote class="pullquote">[PLACEHOLDER: A pull-quote capturing the most important lesson or takeaway.]</blockquote>
-      <p class="reflection-limitation">[PLACEHOLDER: A brief, honest note on what you would do differently or what was out of scope.]</p>
+  <!-- ========== CLOSING ========== -->
+  <section class="vc-closing">
+    <div class="container vc-closing__inner">
+      <p class="vc-closing__thanks">Thanks for your time</p>
+      <a href="mailto:huyisdesigning@gmail.com" class="vc-closing__email">huyisdesigning@gmail.com</a>
     </div>
   </section>
 
-  <!-- FOOTER CTA -->
+  <!-- ========== FOOTER CTA ========== -->
   <section class="project-footer-cta">
     <div class="container project-footer-cta__inner">
       <a href="#" class="btn" target="_blank" rel="noopener noreferrer">See full case study on Behance →</a>
