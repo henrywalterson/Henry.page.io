@@ -7,6 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/x-icon" href="/Images/favicon_io/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/Images/favicon_io/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/Images/favicon_io/favicon-16x16.png" />
   <link rel="stylesheet" href="/public/css/variables.css" />
   <link rel="stylesheet" href="/public/css/base.css" />
   <link rel="stylesheet" href="/public/css/components.css" />
@@ -37,23 +40,32 @@
 
       <div class="hero__left">
         <div class="hero__tags">
-          <span class="pill">Based in Vietnam</span>
-          <span class="pill">Product Designer</span>
           <span class="pill">Huy Huynh</span>
+          <span class="pill">Product Designer</span>
+          <span class="pill">Based in Vietnam</span>
         </div>
         <h1 class="hero__headline">
-          <span class="text-gradient">Human-Centric Is a Myth.</span>
+          <span class="text-gradient">Human-Centric<br>Is a Myth.</span>
         </h1>
-        <p class="hero__sub">I bring a systems-thinking approach to product development. I design experiences by connecting user needs, business goals, and technology constraints.</p>
+        <p class="hero__sub">Five years designing both visual identities and digital products taught me one thing: great experiences aren't built around users alone, they come from the balance between user needs, business goals, and technology constraints.</p>
         <div class="hero__cta">
           <a href="#works" class="btn">View my work</a>
-          <a href="#contact" class="btn btn--ghost">Let's solve a problem</a>
+          <a href="#contact" class="btn btn--soft">Let's solve a problem</a>
         </div>
+        <img class="hero__mobile-img" src="/Images/Hero_mobile.png" alt="Huy Huynh" />
       </div>
 
       <div class="hero__right">
         <div class="hero__image">
-          <img src="https://placehold.co/560x480/e2e8f0/94a3b8?text=Your+Photo" alt="Huy Huynh — Product Designer" />
+          <div class="hero__photo-wrap">
+            <img src="/Images/hero_avatar.png" alt="Huy Huynh — Product Designer" />
+          </div>
+          <span class="hero__bubble" data-depth="1.2" style="top:30%;left:20%">你好</span>
+          <span class="hero__bubble" data-depth="0.7" style="top:28%;right:10%">Hello</span>
+          <span class="hero__bubble" data-depth="1.6" style="top:44%;left:8%">Xin chào</span>
+          <span class="hero__bubble" data-depth="0.5" style="top:56%;right:12%">Bonjour</span>
+          <span class="hero__bubble" data-depth="1.9" style="bottom:20%;left:16%">Hola</span>
+          <span class="hero__bubble" data-depth="1.0" style="bottom:16%;right:8%">こんにちは</span>
         </div>
       </div>
 
@@ -63,32 +75,54 @@
   <!-- MY WORKS -->
   <section class="section case-studies" id="works">
     <div class="container">
-      <p class="section__label">My Works</p>
+      <p class="section__label fade-up">My Works</p>
       <div class="cards-grid">
 
-        <a href="/project-one/" class="card">
+        <a href="/vietcharm/" class="card fade-up" style="transition-delay:0.12s">
           <div class="card__image">
-            <img src="https://placehold.co/600x400/0f172a/ffffff?text=VIETCHARM" alt="VietCharm" />
+            <img src="/Images/thumbnails_vietcharm.jpg" alt="VietCharm" />
           </div>
           <div class="card__body">
-            <span class="pill">UX/UI Redesign</span>
+            <div class="card__pills">
+              <span class="pill">UX/UI Redesign</span>
+              <span class="pill">Self-Initiated</span>
+            </div>
             <h3 class="card__title">VietCharm — Homepage &amp; Booking Flow</h3>
-            <p class="card__desc">Self-initiated redesign to match premium tone and reduce conversion friction.</p>
-            <span class="link-arrow">View case study →</span>
+            <p class="card__desc">Self-initiated UX/UI redesign of a cultural dining show's website (homepage + booking flow), desktop and mobile, to match premium tone and reduce conversion friction.</p>
+            <div class="card__footer">
+              <span class="link-arrow">View →</span>
+            </div>
           </div>
         </a>
 
-        <div class="card card--locked">
+        <div class="card card--locked fade-up" style="transition-delay:0.12s">
           <div class="card__image">
-            <img src="https://placehold.co/600x400/4338CA/FFFFFF?text=FRENlit" alt="FRENlit" />
+            <img src="/Images/thumbnails_frenlit.jpg" alt="FRENlit" />
           </div>
           <div class="card__body">
-            <span class="pill">Mobile App</span>
-            <h3 class="card__title">FRENlit — Social Discovery App</h3>
-            <p class="card__desc">Designing a new way to discover and connect with people around shared interests.</p>
             <span class="card__coming-soon">Coming Soon</span>
+            <h3 class="card__title">FRENLIT — AI Group Planning App</h3>
+            <p class="card__desc">FRENLIT helps friend groups turn "where should we go?" chats into booked plan. By collecting group's preferences, it makes planning hangouts fast, simple, and actually fun.</p>
           </div>
         </div>
+
+        <a href="/graphics/" class="card fade-up" style="transition-delay:0.12s">
+          <div class="card__image">
+            <img src="/Images/thumbnails_graphics.jpg" alt="My Graphics Works" />
+          </div>
+          <div class="card__body">
+            <div class="card__pills">
+              <span class="pill">Graphic Design</span>
+              <span class="pill">Branding</span>
+              <span class="pill">E-com</span>
+            </div>
+            <h3 class="card__title">My Graphics Works</h3>
+            <p class="card__desc">A curated collection of my graphic design works, featuring posters, banners, e-commerce store layouts, and brand identity work.</p>
+            <div class="card__footer">
+              <span class="link-arrow">View →</span>
+            </div>
+          </div>
+        </a>
 
       </div>
     </div>
@@ -98,48 +132,52 @@
   <section class="section about-experience" id="about">
     <div class="container about-experience__inner">
 
-      <div class="about-col">
+      <div class="about-col fade-up">
         <p class="section__label">About</p>
-        <h2 class="section__title">[PLACEHOLDER: A short heading about yourself]</h2>
-        <p>[PLACEHOLDER: 2–3 sentence bio. Who are you, what do you care about, and what makes your design perspective unique?]</p>
-        <p>[PLACEHOLDER: Optional second paragraph.]</p>
-        <a href="#" class="btn btn--outline" style="margin-top: var(--space-6);">Download Resume</a>
+        <p>Hi, it's Huy here. After graduating with a Bachelor's degree in Literature, i grew interested in language and visual communication, which led me into Graphic Design. Over time, I became increasingly interested in how people interact with design beyond aesthetics, that's why i chose to be a Product Designer, where I apply a systems-thinking approach to create meaningful and sustainable digital experiences.</p>
+
+        <div class="tools-section">
+          <h4 class="tools-section__title">Tools I use as a Designer</h4>
+          <div class="tools-icons">
+            <div class="tool-icon" title="Figma"><img src="/Images/icon_figma.png" alt="Figma" /></div>
+            <div class="tool-icon" title="Photoshop"><img src="/Images/Icon_pts.png" alt="Photoshop" /></div>
+            <div class="tool-icon" title="Illustrator"><img src="/Images/icon_illus.png" alt="Illustrator" /></div>
+            <div class="tool-icon" title="Affinity"><img src="/Images/icon_affinity.png" alt="Affinity" /></div>
+            <div class="tool-icon" title="Notion"><img src="/Images/icon_notion.png" alt="Notion" /></div>
+            <div class="tool-icon" title="CapCut"><img src="/Images/icon_CC.png" alt="CapCut" /></div>
+          </div>
+        </div>
       </div>
 
-      <div class="about-experience__divider" aria-hidden="true"></div>
-
       <div class="experience-col">
-        <p class="section__label">Experience</p>
-        <h2 class="section__title">Where I've worked</h2>
-        <div class="timeline">
+        <p class="section__label fade-up">Experience</p>
+        <div class="exp-cards">
 
-          <div class="timeline__item">
-            <div class="timeline__dot"></div>
-            <div class="timeline__content">
-              <span class="timeline__dates">[PLACEHOLDER: Jan 2024 – Present]</span>
-              <h3 class="timeline__role">[PLACEHOLDER: Senior Product Designer]</h3>
-              <p class="timeline__company">[PLACEHOLDER: Company Name]</p>
-              <p class="timeline__desc">[PLACEHOLDER: One-line description of your role and impact here.]</p>
+          <div class="exp-card fade-up" style="transition-delay:0.1s">
+            <div class="exp-card__body">
+              <h3 class="exp-card__role">UI/UX Designer</h3>
+              <p class="exp-card__meta">Kompa.ai · Contract <span class="exp-card__sep">|</span> Nov 2025 – Present</p>
             </div>
           </div>
 
-          <div class="timeline__item">
-            <div class="timeline__dot"></div>
-            <div class="timeline__content">
-              <span class="timeline__dates">[PLACEHOLDER: Jun 2022 – Dec 2023]</span>
-              <h3 class="timeline__role">[PLACEHOLDER: Product Designer]</h3>
-              <p class="timeline__company">[PLACEHOLDER: Company Name]</p>
-              <p class="timeline__desc">[PLACEHOLDER: One-line description of your role and impact here.]</p>
+          <div class="exp-card fade-up" style="transition-delay:0.2s">
+            <div class="exp-card__body">
+              <h3 class="exp-card__role">Creative Designer</h3>
+              <p class="exp-card__meta">Tevel Labs · Full-time <span class="exp-card__sep">|</span> Feb 2024 – Jun 2025</p>
             </div>
           </div>
 
-          <div class="timeline__item">
-            <div class="timeline__dot"></div>
-            <div class="timeline__content">
-              <span class="timeline__dates">[PLACEHOLDER: Mar 2021 – May 2022]</span>
-              <h3 class="timeline__role">[PLACEHOLDER: Junior UX Designer]</h3>
-              <p class="timeline__company">[PLACEHOLDER: Company Name]</p>
-              <p class="timeline__desc">[PLACEHOLDER: One-line description of your role and impact here.]</p>
+          <div class="exp-card fade-up" style="transition-delay:0.3s">
+            <div class="exp-card__body">
+              <h3 class="exp-card__role">Graphic Designer</h3>
+              <p class="exp-card__meta">TELOS Agency · Freelance <span class="exp-card__sep">|</span> Dec 2023 – Apr 2025</p>
+            </div>
+          </div>
+
+          <div class="exp-card fade-up" style="transition-delay:0.4s">
+            <div class="exp-card__body">
+              <h3 class="exp-card__role">Lead Graphic Designer</h3>
+              <p class="exp-card__meta">DIZITECH · Full-time <span class="exp-card__sep">|</span> Mar 2020 – Dec 2023</p>
             </div>
           </div>
 
@@ -149,17 +187,46 @@
     </div>
   </section>
 
+  <!-- LIFE OUTSIDE WORK -->
+  <section class="section life-outside">
+    <div class="container">
+      <p class="section__label fade-up">Life outside Work</p>
+      <p class="life-sub fade-up" style="transition-delay:0.1s">Understanding users means understanding people. And there's no better way to do that than by building meaningful connections, with others and with myself. They continually inspire the way I think, create, and design.</p>
+      <div class="life-gallery">
+        <div class="life-gallery__half">
+          <div class="life-gallery__col fade-up" style="transition-delay:0.0s">
+            <img src="/Images/life_outside/01.jpg" alt="" />
+            <img src="/Images/life_outside/02.jpg" alt="" />
+          </div>
+          <div class="life-gallery__col fade-up" style="transition-delay:0.08s">
+            <img src="/Images/life_outside/03.jpg" alt="" />
+            <img src="/Images/life_outside/04.jpg" alt="" />
+          </div>
+        </div>
+        <div class="life-gallery__half">
+          <div class="life-gallery__col fade-up" style="transition-delay:0.16s">
+            <img src="/Images/life_outside/05.jpg" alt="" />
+            <img src="/Images/life_outside/06.jpg" alt="" />
+          </div>
+          <div class="life-gallery__col fade-up" style="transition-delay:0.24s">
+            <img src="/Images/life_outside/07.jpg" alt="" />
+            <img src="/Images/life_outside/08.jpg" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- GET IN TOUCH -->
   <section class="section contact" id="contact">
-    <div class="container contact__inner">
-      <p class="section__label">Contact</p>
-      <h2 class="section__title">Let's solve a problem</h2>
+    <div class="contact__inner fade-up">
+      <p class="section__label">Let's solve a problem</p>
       <div class="contact__actions">
-        <a href="https://www.linkedin.com/in/huyhuynhcreative/" class="btn" target="_blank" rel="noopener noreferrer">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57A1.62 1.62 0 0 1 14.54 11.95A1.62 1.62 0 0 1 16.16 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/></svg>
+        <a href="https://www.linkedin.com/in/huyhuynhcreative/" class="btn btn--lg" target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57A1.62 1.62 0 0 1 14.54 11.95A1.62 1.62 0 0 1 16.16 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/></svg>
           LinkedIn
         </a>
-        <div class="contact__email-row">
+        <div class="contact__email-row contact__email-row--lg">
           <span class="contact__email-addr">huyisdesigning@gmail.com</span>
           <button class="btn btn--ghost contact__copy-btn" id="copyBtn" onclick="copyEmail(this)">Copy</button>
         </div>
@@ -177,6 +244,66 @@ function copyEmail(btn) {
     setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
   });
 }
+
+// Hero entrance
+document.addEventListener('DOMContentLoaded', function() {
+  document.body.classList.add('is-loaded');
+});
+
+// Match hero image height to left column content
+(function() {
+  function syncHeroImage() {
+    var left = document.querySelector('.hero__left');
+    var img  = document.querySelector('.hero__image');
+    if (!left || !img) return;
+    img.style.height = left.offsetHeight + 'px';
+  }
+  window.addEventListener('load', syncHeroImage);
+  window.addEventListener('resize', syncHeroImage);
+  document.addEventListener('DOMContentLoaded', syncHeroImage);
+})();
+
+// Hero bubble parallax
+(function() {
+  var hero = document.querySelector('.hero');
+  var bubbles = document.querySelectorAll('.hero__bubble');
+  if (!hero || !bubbles.length) return;
+  hero.addEventListener('mousemove', function(e) {
+    var rect = hero.getBoundingClientRect();
+    var dx = (e.clientX - (rect.left + rect.width  / 2)) / (rect.width  / 2);
+    var dy = (e.clientY - (rect.top  + rect.height / 2)) / (rect.height / 2);
+    var max = 15;
+    bubbles.forEach(function(b) {
+      var d = parseFloat(b.dataset.depth) || 1;
+      b.style.transform = 'translate(' + (dx * max * d) + 'px,' + (dy * max * d) + 'px)';
+    });
+  });
+  hero.addEventListener('mouseleave', function() {
+    bubbles.forEach(function(b) { b.style.transform = ''; });
+  });
+})();
+
+// Scroll fade-up
+(function() {
+  var els = document.querySelectorAll('.fade-up');
+  if (!els.length) return;
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        // Tool icons fan-out fires after about-col fades in
+        if (e.target.classList.contains('about-col')) {
+          setTimeout(function() {
+            var icons = e.target.querySelector('.tools-icons');
+            if (icons) icons.classList.add('is-visible');
+          }, 650);
+        }
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+  els.forEach(function(el) { io.observe(el); });
+})();
 </script>
 </body>
 </html>
