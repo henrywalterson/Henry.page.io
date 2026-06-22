@@ -278,6 +278,7 @@
 }
 @media (max-width: 768px) {
   .exp-card__role { font-size: 20px; }
+  .exp-card__meta { font-size: 1rem; }
 }
 
 /* ===== LIFE OUTSIDE WORK ===== */

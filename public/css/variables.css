@@ -142,3 +142,10 @@
   --transition:        200ms ease;
   --transition-slow:   350ms ease;
 }
+
+@media (max-width: 768px) {
+  :root {
+    --text-sm:   0.875rem;   /* 14px on mobile */
+    --text-base: 0.875rem;   /* 14px on mobile */
+  }
+}
