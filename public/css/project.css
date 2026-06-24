@@ -295,6 +295,45 @@
   color: var(--color-text-heading);
 }
 
+/* ── Image skeleton loading ── */
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.img-wrap {
+  display: block;
+  width: 100%;
+  min-height: 200px;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-2) 25%,
+    var(--color-border)    50%,
+    var(--color-surface-2) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite linear;
+}
+.img-wrap.loaded {
+  animation: none;
+  background: none;
+  min-height: 0;
+}
+.img-wrap img {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.img-wrap.loaded img {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .img-wrap { animation: none; }
+  .img-wrap img { transition: none; }
+}
+
 /* ── Scroll fade-up (reuse homepage pattern) ── */
 .project-section.fade-up {
   opacity: 0;

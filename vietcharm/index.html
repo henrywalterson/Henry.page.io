@@ -225,5 +225,19 @@ function copyEmail(btn) {
   sections.forEach(function (s) { io.observe(s); });
 })();
 </script>
+<script>
+(function () {
+  document.querySelectorAll('img[loading="lazy"]').forEach(function (img) {
+    var wrap = document.createElement('div');
+    wrap.className = 'img-wrap';
+    wrap.style.borderRadius = window.getComputedStyle(img).borderRadius;
+    img.parentNode.insertBefore(wrap, img);
+    wrap.appendChild(img);
+    function onLoad() { wrap.classList.add('loaded'); }
+    if (img.complete && img.naturalWidth > 0) { onLoad(); }
+    else { img.addEventListener('load', onLoad); }
+  });
+})();
+</script>
 </body>
 </html>
