@@ -235,6 +235,12 @@
   .experience-col { padding-left: 0; }
 }
 @media (max-width: 768px) {
+  .tool-icon { width: 32px; height: 32px; border-radius: 8px; }
+  .tools-icons .tool-icon:nth-child(2) { transform: translateX(-40px); }
+  .tools-icons .tool-icon:nth-child(3) { transform: translateX(-80px); }
+  .tools-icons .tool-icon:nth-child(4) { transform: translateX(-120px); }
+  .tools-icons .tool-icon:nth-child(5) { transform: translateX(-160px); }
+  .tools-icons .tool-icon:nth-child(6) { transform: translateX(-200px); }
   .about-col { border-bottom: none; padding-bottom: 0; }
   .about-experience__inner { gap: var(--space-12); }
 }
