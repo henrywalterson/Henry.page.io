@@ -26,8 +26,8 @@
   margin-bottom: var(--space-3);   /* 24px before h1 */
 }
 .hero__tags .pill {
-  background: #DEE7EF;
-  color: #8F9EC0;
+  background: #ffffff;
+  color: #3e5589;
 }
 .hero__headline {
   font-family: var(--font-heading);
