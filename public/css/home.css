@@ -241,6 +241,7 @@
   .tools-icons .tool-icon:nth-child(4) { transform: translateX(-120px); }
   .tools-icons .tool-icon:nth-child(5) { transform: translateX(-160px); }
   .tools-icons .tool-icon:nth-child(6) { transform: translateX(-200px); }
+  .tools-icons.is-visible .tool-icon   { transform: translateX(0); }
   .about-col { border-bottom: none; padding-bottom: 0; }
   .about-experience__inner { gap: var(--space-12); }
 }
