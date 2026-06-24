@@ -236,7 +236,7 @@
 }
 @media (max-width: 768px) {
   .about-col { border-bottom: none; padding-bottom: 0; }
-  .about-experience__inner { gap: 96px; }
+  .about-experience__inner { gap: var(--space-12); }
 }
 
 /* ===== EXPERIENCE CARDS ===== */
