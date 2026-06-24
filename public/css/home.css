@@ -1,17 +1,8 @@
 /* ===== HERO ===== */
 .hero {
-  background: var(--gradient-hero);
+  background: #f4f6f9;
   padding-top: var(--space-8);
   padding-bottom: var(--space-8);
-  position: relative;
-}
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 160px;
-  background: linear-gradient(to bottom, transparent, #f4f6f9);
-  pointer-events: none;
 }
 .hero__inner {
   display: grid;
