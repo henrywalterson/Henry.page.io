@@ -24,7 +24,7 @@
     <ul class="nav__links">
       <li><a href="/#works">Works</a></li>
       <li><a href="/#about">About</a></li>
-      <li><a href="#" class="nav__resume">Resume</a></li>
+      <li><a href="https://drive.google.com/file/d/1cN5ndifgaYTYiHjeY8iInz5z8-p-zOun/view?usp=sharing" class="nav__resume" target="_blank" rel="noopener noreferrer">Resume</a></li>
     </ul>
     <a href="#contact" class="btn btn--sm">Let's solve a problem</a>
     <button class="nav__burger" aria-label="Toggle menu" aria-expanded="false">
@@ -130,12 +130,14 @@
       <p class="section__label">Let's solve a problem</p>
       <div class="contact__actions">
         <a href="https://www.linkedin.com/in/huyhuynhcreative/" class="btn btn--lg" target="_blank" rel="noopener noreferrer">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57A1.62 1.62 0 0 1 14.54 11.95A1.62 1.62 0 0 1 16.16 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/></svg>
-          LinkedIn
+          <span class="btn__label"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57A1.62 1.62 0 0 1 14.54 11.95A1.62 1.62 0 0 1 16.16 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/></svg>LinkedIn</span>
+          <span class="btn__arrow-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></span>
         </a>
         <div class="contact__email-row contact__email-row--lg">
           <span class="contact__email-addr">huyisdesigning@gmail.com</span>
-          <button class="btn btn--ghost contact__copy-btn" onclick="copyEmail(this)">Copy</button>
+          <button class="btn btn--ghost contact__copy-btn" onclick="copyEmail(this)" aria-label="Copy email">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </button>
         </div>
       </div>
     </div>
@@ -145,10 +147,16 @@
 
 <script src="/public/js/nav.js"></script>
 <script>
+var COPY_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+var CHECK_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
 function copyEmail(btn) {
   navigator.clipboard.writeText('huyisdesigning@gmail.com').then(function () {
-    btn.textContent = 'Copied!';
-    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+    btn.innerHTML = CHECK_ICON;
+    btn.classList.add('contact__copy-btn--copied');
+    setTimeout(function () {
+      btn.innerHTML = COPY_ICON;
+      btn.classList.remove('contact__copy-btn--copied');
+    }, 2000);
   });
 }
 </script>

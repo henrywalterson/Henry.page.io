@@ -119,11 +119,7 @@
   .hero__cta {
     flex-direction: column;
     gap: 16px;
-  }
-  .hero__cta .btn {
-    width: 100%;
-    justify-content: center;
-    text-align: center;
+    align-items: flex-start;
   }
   .hero__mobile-img {
     display: block;
