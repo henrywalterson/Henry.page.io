@@ -25,6 +25,10 @@
   flex-wrap: wrap;
   margin-bottom: var(--space-3);   /* 24px before h1 */
 }
+.hero__tags .pill {
+  background: #DEE7EF;
+  color: #8F9EC0;
+}
 .hero__headline {
   font-family: var(--font-heading);
   font-size: clamp(2.25rem, 4vw, var(--text-6xl));
