@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="/Images/Hero_mobile.png" media="(max-width: 768px)" />
   <link rel="icon" type="image/x-icon" href="/Images/favicon_io/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/Images/favicon_io/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/Images/favicon_io/favicon-16x16.png" />
@@ -80,7 +81,7 @@
 
         <a href="/vietcharm/" class="card fade-up" style="transition-delay:0.12s">
           <div class="card__image">
-            <img src="/Images/thumbnails_vietcharm.jpg" alt="VietCharm" />
+            <img src="/Images/thumbnails_vietcharm.jpg" alt="VietCharm" loading="lazy" decoding="async" />
           </div>
           <div class="card__body">
             <div class="card__pills">
@@ -97,7 +98,7 @@
 
         <div class="card card--locked fade-up" style="transition-delay:0.12s">
           <div class="card__image">
-            <img src="/Images/thumbnails_frenlit.jpg" alt="FRENlit" />
+            <img src="/Images/thumbnails_frenlit.jpg" alt="FRENlit" loading="lazy" decoding="async" />
           </div>
           <div class="card__body">
             <span class="card__coming-soon">Coming Soon</span>
@@ -108,7 +109,7 @@
 
         <a href="/graphics/" class="card fade-up" style="transition-delay:0.12s">
           <div class="card__image">
-            <img src="/Images/thumbnails_graphics.jpg" alt="My Graphics Works" />
+            <img src="/Images/thumbnails_graphics.jpg" alt="My Graphics Works" loading="lazy" decoding="async" />
           </div>
           <div class="card__body">
             <div class="card__pills">
@@ -139,12 +140,12 @@
         <div class="tools-section">
           <h4 class="tools-section__title">Tools I use as a Designer</h4>
           <div class="tools-icons">
-            <div class="tool-icon" title="Figma"><img src="/Images/icon_figma.png" alt="Figma" /></div>
-            <div class="tool-icon" title="Photoshop"><img src="/Images/Icon_pts.png" alt="Photoshop" /></div>
-            <div class="tool-icon" title="Illustrator"><img src="/Images/icon_illus.png" alt="Illustrator" /></div>
-            <div class="tool-icon" title="Affinity"><img src="/Images/icon_affinity.png" alt="Affinity" /></div>
-            <div class="tool-icon" title="Notion"><img src="/Images/icon_notion.png" alt="Notion" /></div>
-            <div class="tool-icon" title="CapCut"><img src="/Images/icon_CC.png" alt="CapCut" /></div>
+            <div class="tool-icon" title="Figma"><img src="/Images/icon_figma.png" alt="Figma" loading="lazy" decoding="async" /></div>
+            <div class="tool-icon" title="Photoshop"><img src="/Images/Icon_pts.png" alt="Photoshop" loading="lazy" decoding="async" /></div>
+            <div class="tool-icon" title="Illustrator"><img src="/Images/icon_illus.png" alt="Illustrator" loading="lazy" decoding="async" /></div>
+            <div class="tool-icon" title="Affinity"><img src="/Images/icon_affinity.png" alt="Affinity" loading="lazy" decoding="async" /></div>
+            <div class="tool-icon" title="Notion"><img src="/Images/icon_notion.png" alt="Notion" loading="lazy" decoding="async" /></div>
+            <div class="tool-icon" title="CapCut"><img src="/Images/icon_CC.png" alt="CapCut" loading="lazy" decoding="async" /></div>
           </div>
         </div>
       </div>
@@ -195,22 +196,22 @@
       <div class="life-gallery">
         <div class="life-gallery__half">
           <div class="life-gallery__col fade-up" style="transition-delay:0.0s">
-            <img src="/Images/life_outside/01.jpg" alt="" />
-            <img src="/Images/life_outside/02.jpg" alt="" />
+            <img src="/Images/life_outside/01.jpg" alt="" loading="lazy" decoding="async" />
+            <img src="/Images/life_outside/02.jpg" alt="" loading="lazy" decoding="async" />
           </div>
           <div class="life-gallery__col fade-up" style="transition-delay:0.08s">
-            <img src="/Images/life_outside/03.jpg" alt="" />
-            <img src="/Images/life_outside/04.jpg" alt="" />
+            <img src="/Images/life_outside/03.jpg" alt="" loading="lazy" decoding="async" />
+            <img src="/Images/life_outside/04.jpg" alt="" loading="lazy" decoding="async" />
           </div>
         </div>
         <div class="life-gallery__half">
           <div class="life-gallery__col fade-up" style="transition-delay:0.16s">
-            <img src="/Images/life_outside/05.jpg" alt="" />
-            <img src="/Images/life_outside/06.jpg" alt="" />
+            <img src="/Images/life_outside/05.jpg" alt="" loading="lazy" decoding="async" />
+            <img src="/Images/life_outside/06.jpg" alt="" loading="lazy" decoding="async" />
           </div>
           <div class="life-gallery__col fade-up" style="transition-delay:0.24s">
-            <img src="/Images/life_outside/07.jpg" alt="" />
-            <img src="/Images/life_outside/08.jpg" alt="" />
+            <img src="/Images/life_outside/07.jpg" alt="" loading="lazy" decoding="async" />
+            <img src="/Images/life_outside/08.jpg" alt="" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>
@@ -287,6 +288,7 @@ document.addEventListener('DOMContentLoaded', function() {
 (function() {
   var els = document.querySelectorAll('.fade-up');
   if (!els.length) return;
+  var isMobile = window.matchMedia('(max-width: 768px)').matches;
   var io = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
       if (e.isIntersecting) {
@@ -301,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
         io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+  }, { threshold: 0.05, rootMargin: isMobile ? '0px' : '0px 0px -32px 0px' });
   els.forEach(function(el) { io.observe(el); });
 })();
 </script>

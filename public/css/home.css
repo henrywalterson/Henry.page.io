@@ -373,6 +373,13 @@ body.is-loaded .hero__right    { animation: heroFadeUp 0.70s cubic-bezier(0.22,1
   .tools-icons.is-visible .tool-icon:hover { transform: none; }
 }
 
+@media (max-width: 768px) {
+  .fade-up {
+    transform: translateY(12px);
+    transition-duration: 0.4s;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero__tags, .hero__headline, .hero__sub, .hero__cta, .hero__right { opacity: 1; }
   body.is-loaded .hero__tags,
