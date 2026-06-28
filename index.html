@@ -230,7 +230,7 @@ function copyEmail(btn) {
 (function() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger); // still used by fade-up below
 
   document.querySelectorAll('.tg').forEach(function(group) {
     group.innerHTML = Array.from(group.textContent).map(function(c) {
@@ -241,15 +241,15 @@ function copyEmail(btn) {
   var allChars = Array.from(document.querySelectorAll('.tg-ch'));
   var each = 0.95 / Math.max(allChars.length - 1, 1);
   var fadeOut = 0.12;
+  var hero = document.querySelector('.hero-reveal');
   var navH = document.querySelector('.nav').offsetHeight;
   var hint = document.querySelector('.hero-scroll-hint');
 
-  // Fallback: hide hint on first touch regardless of scroll event state
-  if (hint) {
-    window.addEventListener('touchstart', function() {
-      hint.classList.add('is-hidden');
-    }, { once: true, passive: true });
-  }
+  // Cache scrollable distance; update on resize
+  var heroScrollable = hero.offsetHeight - window.innerHeight;
+  window.addEventListener('resize', function() {
+    heroScrollable = hero.offsetHeight - window.innerHeight;
+  }, { passive: true });
 
   // Suppress auto-scroll when user navigates via a link
   var suppressLeave = false;
@@ -260,23 +260,11 @@ function copyEmail(btn) {
     });
   });
 
-  var tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.hero-reveal',
-      start: 'top ' + navH + 'px',
-      end: 'bottom bottom',
-      scrub: 0.5,
-      invalidateOnRefresh: true,
-      onUpdate: function(self) {
-        if (hint && self.progress > 0.01) hint.classList.add('is-hidden');
-      },
-      onLeave: function() {
-        if (suppressLeave) return;
-        var works = document.getElementById('works');
-        if (works) works.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  });
+  // Paused timeline — driven manually via rAF so it works on iOS momentum scroll
+  // (iOS does not fire scroll events during momentum, but rAF + getBoundingClientRect does update)
+  var tl = gsap.timeline({ paused: true });
+  tl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
+  tl.to(allChars, { color: '#ffffff', duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
 
   // Proximity hover on text (desktop only)
   if (window.matchMedia('(hover: hover)').matches) {
@@ -296,9 +284,24 @@ function copyEmail(btn) {
     });
   }
 
-  // text white → blue → white
-  tl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
-  tl.to(allChars, { color: '#ffffff', duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
+  var leaveTriggered = false;
+
+  (function tick() {
+    if (heroScrollable > 0) {
+      // progress = how far we've scrolled into the hero section (0 → 1)
+      var progress = Math.max(0, Math.min(1, (navH - hero.getBoundingClientRect().top) / heroScrollable));
+      tl.progress(progress);
+
+      if (hint && progress > 0.01) hint.classList.add('is-hidden');
+
+      if (!suppressLeave && !leaveTriggered && progress >= 0.99) {
+        leaveTriggered = true;
+        var works = document.getElementById('works');
+        if (works) works.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    requestAnimationFrame(tick);
+  })();
 
 })();
 
