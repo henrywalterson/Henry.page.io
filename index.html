@@ -230,7 +230,7 @@ function copyEmail(btn) {
 (function() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  gsap.registerPlugin(ScrollTrigger); // still used by fade-up below
+  gsap.registerPlugin(ScrollTrigger); // used by fade-up animations below
 
   document.querySelectorAll('.tg').forEach(function(group) {
     group.innerHTML = Array.from(group.textContent).map(function(c) {
@@ -239,19 +239,19 @@ function copyEmail(btn) {
   });
 
   var allChars = Array.from(document.querySelectorAll('.tg-ch'));
-  var each = 0.95 / Math.max(allChars.length - 1, 1);
+  var n = allChars.length;
+  var each = 0.95 / Math.max(n - 1, 1);
   var fadeOut = 0.12;
-  var hero = document.querySelector('.hero-reveal');
-  var navH = document.querySelector('.nav').offsetHeight;
   var hint = document.querySelector('.hero-scroll-hint');
 
-  // Cache scrollable distance; update on resize
-  var heroScrollable = hero.offsetHeight - window.innerHeight;
-  window.addEventListener('resize', function() {
-    heroScrollable = hero.offsetHeight - window.innerHeight;
-  }, { passive: true });
+  // Final settled color per character index after full scroll:
+  // Blue  (#3677E4): "Product Designer" (0-15), "creating digital products" (61-85), "for both users and businesses." (102-131)
+  // Muted (#C9D0E4): " with a visual design background, focused on " (16-60), " that work well " (86-101)
+  function finalColor(i) {
+    if (i <= 15 || (i >= 61 && i <= 85) || i >= 102) return '#3677E4';
+    return '#C9D0E4';
+  }
 
-  // Suppress auto-scroll when user navigates via a link
   var suppressLeave = false;
   document.querySelectorAll('a[href^="#"], a[href*="/#"]').forEach(function(a) {
     a.addEventListener('click', function() {
@@ -260,17 +260,54 @@ function copyEmail(btn) {
     });
   });
 
-  // Paused timeline — driven manually via rAF so it works on iOS momentum scroll
-  // (iOS does not fire scroll events during momentum, but rAF + getBoundingClientRect does update)
+  // ── MOBILE: auto-play on first scroll gesture ──────────────────────────────
+  if (window.matchMedia('(max-width: 768px)').matches) {
+    var mTl = gsap.timeline({ paused: true });
+    mTl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
+    mTl.to(allChars, { color: function(i) { return finalColor(i); }, duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
+    mTl.eventCallback('onComplete', function() {
+      if (hint) hint.textContent = 'keep scrolling';
+      setTimeout(function() {
+        if (hint) hint.classList.add('is-hidden');
+        if (!suppressLeave) {
+          var works = document.getElementById('works');
+          if (works) works.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 700);
+    });
+
+    var mStarted = false;
+    function startMobile() {
+      if (mStarted) return;
+      mStarted = true;
+      mTl.play();
+    }
+    window.addEventListener('touchmove', startMobile, { once: true, passive: true });
+    window.addEventListener('scroll', startMobile, { once: true, passive: true });
+    return;
+  }
+
+  // ── DESKTOP: rAF scroll-driven ─────────────────────────────────────────────
+  var hero = document.querySelector('.hero-reveal');
+  var navH = document.querySelector('.nav').offsetHeight;
+
+  var heroScrollable = hero.offsetHeight - window.innerHeight;
+  window.addEventListener('resize', function() {
+    heroScrollable = hero.offsetHeight - window.innerHeight;
+  }, { passive: true });
+
+  // Paused timeline driven by rAF — getBoundingClientRect updates during iOS momentum scroll
   var tl = gsap.timeline({ paused: true });
   tl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
-  tl.to(allChars, { color: '#ffffff', duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
+  tl.to(allChars, { color: function(i) { return finalColor(i); }, duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
 
-  // Proximity hover on text (desktop only)
+  // Proximity hover — disabled once user starts scrolling
+  var hasScrolled = false;
   if (window.matchMedia('(hover: hover)').matches) {
     var heroText = document.querySelector('.hero-reveal__text');
     var RADIUS = 120;
     heroText.addEventListener('mousemove', function(e) {
+      if (hasScrolled) return;
       allChars.forEach(function(ch) {
         var r = ch.getBoundingClientRect();
         var cx = r.left + r.width / 2;
@@ -284,18 +321,27 @@ function copyEmail(btn) {
     });
   }
 
+  var hintChanged = false;
   var leaveTriggered = false;
 
   (function tick() {
     if (heroScrollable > 0) {
-      // progress = how far we've scrolled into the hero section (0 → 1)
       var progress = Math.max(0, Math.min(1, (navH - hero.getBoundingClientRect().top) / heroScrollable));
       tl.progress(progress);
 
-      if (hint && progress > 0.01) hint.classList.add('is-hidden');
+      if (progress > 0.01 && !hasScrolled) {
+        hasScrolled = true;
+        allChars.forEach(function(ch) { ch.classList.remove('is-hovered'); });
+      }
+
+      if (hasScrolled && !hintChanged && hint) {
+        hintChanged = true;
+        hint.textContent = 'keep scrolling';
+      }
 
       if (!suppressLeave && !leaveTriggered && progress >= 0.99) {
         leaveTriggered = true;
+        if (hint) hint.classList.add('is-hidden');
         var works = document.getElementById('works');
         if (works) works.scrollIntoView({ behavior: 'smooth' });
       }

@@ -74,7 +74,7 @@
 }
 
 @media (max-width: 768px) {
-  .hero-reveal { height: 400svh; }
+  .hero-reveal { height: 100svh; }
   .hero-reveal__sticky {
     height: calc(100svh - 64px);
     align-items: flex-start;
