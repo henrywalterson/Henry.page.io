@@ -30,7 +30,7 @@
 /* Scroll hint */
 .hero-scroll-hint {
   position: fixed;
-  bottom: 24px;
+  bottom: 52px;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -40,7 +40,7 @@
   border: none;
   cursor: pointer;
   font-family: var(--font-body);
-  font-size: var(--text-base);
+  font-size: calc(var(--text-base) * 2);
   color: var(--color-text-body);
   pointer-events: none;
   animation: scroll-hint-bounce 1.8s ease-in-out infinite;

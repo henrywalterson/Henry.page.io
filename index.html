@@ -249,7 +249,7 @@ function copyEmail(btn) {
   // Muted (#C9D0E4): " with a visual design background, focused on " (16-60), " that work well " (86-101)
   function finalColor(i) {
     if (i <= 15 || (i >= 61 && i <= 85) || i >= 102) return '#3677E4';
-    return '#C9D0E4';
+    return '#D4DFFF';
   }
 
   var suppressLeave = false;
@@ -322,7 +322,10 @@ function copyEmail(btn) {
   }
 
   var hintChanged = false;
-  var leaveTriggered = false;
+  // If page loaded with a hash (e.g. /#about or /#contact from a detail page),
+  // skip the auto-jump so the browser can scroll to the intended section.
+  var leaveTriggered = window.location.hash.length > 0;
+  if (leaveTriggered && hint) hint.classList.add('is-hidden');
 
   (function tick() {
     if (heroScrollable > 0) {
