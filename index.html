@@ -228,6 +228,7 @@ function copyEmail(btn) {
 (function() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.normalizeScroll(true);
 
   document.querySelectorAll('.tg').forEach(function(group) {
     group.innerHTML = Array.from(group.textContent).map(function(c) {
@@ -243,12 +244,6 @@ function copyEmail(btn) {
   var navH = document.querySelector('.nav').offsetHeight;
 
   var hint = document.querySelector('.hero-scroll-hint');
-  window.addEventListener('scroll', function hideHint() {
-    if (window.scrollY > 30) {
-      if (hint) hint.classList.add('is-hidden');
-      window.removeEventListener('scroll', hideHint);
-    }
-  });
 
   // Suppress auto-scroll when user navigates via a link
   var suppressLeave = false;
@@ -266,6 +261,9 @@ function copyEmail(btn) {
       end: '+=300%',
       pin: true,
       scrub: 0.5,
+      onUpdate: function(self) {
+        if (hint && self.progress > 0.01) hint.classList.add('is-hidden');
+      },
       onLeave: function() {
         if (suppressLeave) return;
         var works = document.getElementById('works');
