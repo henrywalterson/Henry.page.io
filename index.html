@@ -227,8 +227,18 @@ function copyEmail(btn) {
 
 (function() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var hint = document.querySelector('.hero-scroll-hint');
+
+  // Mobile: skip GSAP pin (iOS scroll incompatibility), text visible via CSS
+  if (window.matchMedia('(max-width: 768px)').matches) {
+    window.addEventListener('scroll', function() {
+      if (hint) hint.classList.add('is-hidden');
+    }, { once: true });
+    return;
+  }
+
   gsap.registerPlugin(ScrollTrigger);
-  ScrollTrigger.normalizeScroll(true);
 
   document.querySelectorAll('.tg').forEach(function(group) {
     group.innerHTML = Array.from(group.textContent).map(function(c) {
@@ -242,8 +252,6 @@ function copyEmail(btn) {
 
   // start: 'top navHpx' pins immediately — no pre-pin scroll drift
   var navH = document.querySelector('.nav').offsetHeight;
-
-  var hint = document.querySelector('.hero-scroll-hint');
 
   // Suppress auto-scroll when user navigates via a link
   var suppressLeave = false;

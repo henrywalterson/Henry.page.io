@@ -76,6 +76,7 @@
   }
   .hero-reveal__inner { margin: 0 auto; }
   .hero-reveal__text { font-size: 48px; }
+  .tg { color: var(--color-text-heading); }
 
   /* About + Experience */
   .about-col { border-bottom: none; }
