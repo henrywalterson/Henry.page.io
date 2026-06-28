@@ -263,7 +263,7 @@ function copyEmail(btn) {
   var tl = gsap.timeline({
     scrollTrigger: {
       trigger: '.hero-reveal',
-      start: 'top top',
+      start: 'top ' + navH + 'px',
       end: 'bottom bottom',
       scrub: 0.5,
       invalidateOnRefresh: true,

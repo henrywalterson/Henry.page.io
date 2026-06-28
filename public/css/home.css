@@ -5,8 +5,8 @@
 }
 .hero-reveal__sticky {
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: 64px; /* nav height — sticky activates immediately at scrollY=0 */
+  height: calc(100vh - 64px);
   display: flex;
   align-items: center;
 }
@@ -76,7 +76,7 @@
 @media (max-width: 768px) {
   .hero-reveal { height: 400svh; }
   .hero-reveal__sticky {
-    height: 100svh;
+    height: calc(100svh - 64px);
     align-items: flex-start;
     padding-top: var(--space-4);
   }
