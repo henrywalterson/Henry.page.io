@@ -260,6 +260,7 @@ function copyEmail(btn) {
   document.querySelectorAll('a[href^="#"], a[href*="/#"]').forEach(function(a) {
     a.addEventListener('click', function() {
       suppressLeave = true;
+      leaveTriggered = true; // user chose a destination — disable auto-jump permanently
       setTimeout(function() { suppressLeave = false; }, 2000);
     });
   });
