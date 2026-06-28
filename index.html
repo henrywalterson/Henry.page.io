@@ -230,11 +230,22 @@ function copyEmail(btn) {
 
   var hint = document.querySelector('.hero-scroll-hint');
 
-  // Mobile: skip GSAP pin (iOS scroll incompatibility), text visible via CSS
+  // Mobile: no pin/scrub (iOS incompatibility), play wave once on load
   if (window.matchMedia('(max-width: 768px)').matches) {
-    window.addEventListener('scroll', function() {
-      if (hint) hint.classList.add('is-hidden');
-    }, { once: true });
+    document.querySelectorAll('.tg').forEach(function(group) {
+      group.innerHTML = Array.from(group.textContent).map(function(c) {
+        return '<span class="tg-ch">' + (c === '&' ? '&amp;' : c === '<' ? '&lt;' : c) + '</span>';
+      }).join('');
+    });
+    var mChars = Array.from(document.querySelectorAll('.tg-ch'));
+    if (hint) {
+      window.addEventListener('touchstart', function() {
+        hint.classList.add('is-hidden');
+      }, { once: true });
+    }
+    gsap.timeline({ delay: 0.4 })
+      .to(mChars, { color: '#3677E4', duration: 0.05, stagger: { each: 0.015, ease: 'none' } })
+      .to(mChars, { color: '#0f172a', duration: 0.05, stagger: { each: 0.01, ease: 'none' } }, '>');
     return;
   }
 
