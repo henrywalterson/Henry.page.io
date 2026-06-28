@@ -7,14 +7,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="preload" as="image" href="/Images/Hero_mobile.png" media="(max-width: 768px)" />
-  <link rel="icon" type="image/x-icon" href="/Images/favicon_io/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="/Images/favicon_io/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/Images/favicon_io/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/Images/favicon_io/favicon-16x16.png" />
   <link rel="stylesheet" href="/public/css/variables.css" />
   <link rel="stylesheet" href="/public/css/base.css" />
   <link rel="stylesheet" href="/public/css/components.css" />
   <link rel="stylesheet" href="/public/css/home.css" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 </head>
 <body>
 
@@ -35,42 +36,13 @@
 
 <main>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container hero__inner">
-
-      <div class="hero__left">
-        <div class="hero__tags">
-          <span class="pill">Huy Huynh</span>
-          <span class="pill">Product Designer</span>
-          <span class="pill">Based in Vietnam</span>
-        </div>
-        <h1 class="hero__headline">
-          <span class="text-gradient">Human-Centric<br>Is a Myth.</span>
-        </h1>
-        <p class="hero__sub">Five years in design taught me that great experiences aren't built around users alone, but by balancing user needs, business goals, and technology constraints.</p>
-        <div class="hero__cta">
-          <a href="#contact" class="btn">Let's solve a problem</a>
-        </div>
-        <img class="hero__mobile-img" src="/Images/Hero_mobile.png" alt="Huy Huynh" />
-      </div>
-
-      <div class="hero__right">
-        <div class="hero__image">
-          <div class="hero__photo-wrap">
-            <img src="/Images/hero_avatar.png" alt="Huy Huynh — Product Designer" />
-          </div>
-          <span class="hero__bubble" data-depth="1.2" style="top:30%;left:20%">你好</span>
-          <span class="hero__bubble" data-depth="0.7" style="top:28%;right:10%">Hello</span>
-          <span class="hero__bubble" data-depth="1.6" style="top:44%;left:8%">Xin chào</span>
-          <span class="hero__bubble" data-depth="0.5" style="top:56%;right:12%">Bonjour</span>
-          <span class="hero__bubble" data-depth="1.9" style="bottom:20%;left:16%">Hola</span>
-          <span class="hero__bubble" data-depth="1.0" style="bottom:16%;right:8%">こんにちは</span>
-        </div>
-      </div>
-
+  <!-- HERO REVEAL -->
+  <section class="hero-reveal">
+    <div class="hero-reveal__inner">
+      <p class="hero-reveal__text"><span class="tg">Product Designer with a </span><span class="tg">visual design background, </span><span class="tg">focused on creating </span><span class="tg">digital products that work well </span><span class="tg">for both users and businesses.</span></p>
     </div>
   </section>
+  <button class="hero-scroll-hint" aria-label="Scroll to continue">scroll to continue</button>
 
   <!-- MY WORKS -->
   <section class="section case-studies" id="works">
@@ -253,42 +225,79 @@ function copyEmail(btn) {
   });
 }
 
-// Hero entrance
-document.addEventListener('DOMContentLoaded', function() {
-  document.body.classList.add('is-loaded');
-});
-
-// Match hero image height to left column content
 (function() {
-  function syncHeroImage() {
-    var left = document.querySelector('.hero__left');
-    var img  = document.querySelector('.hero__image');
-    if (!left || !img) return;
-    img.style.height = left.offsetHeight + 'px';
-  }
-  window.addEventListener('load', syncHeroImage);
-  window.addEventListener('resize', syncHeroImage);
-  document.addEventListener('DOMContentLoaded', syncHeroImage);
-})();
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  gsap.registerPlugin(ScrollTrigger);
 
-// Hero bubble parallax
-(function() {
-  var hero = document.querySelector('.hero');
-  var bubbles = document.querySelectorAll('.hero__bubble');
-  if (!hero || !bubbles.length) return;
-  hero.addEventListener('mousemove', function(e) {
-    var rect = hero.getBoundingClientRect();
-    var dx = (e.clientX - (rect.left + rect.width  / 2)) / (rect.width  / 2);
-    var dy = (e.clientY - (rect.top  + rect.height / 2)) / (rect.height / 2);
-    var max = 15;
-    bubbles.forEach(function(b) {
-      var d = parseFloat(b.dataset.depth) || 1;
-      b.style.transform = 'translate(' + (dx * max * d) + 'px,' + (dy * max * d) + 'px)';
+  document.querySelectorAll('.tg').forEach(function(group) {
+    group.innerHTML = Array.from(group.textContent).map(function(c) {
+      return '<span class="tg-ch">' + (c === '&' ? '&amp;' : c === '<' ? '&lt;' : c) + '</span>';
+    }).join('');
+  });
+
+  var allChars = Array.from(document.querySelectorAll('.tg-ch'));
+  var each = 0.95 / Math.max(allChars.length - 1, 1);
+  var fadeOut = 0.12;
+
+  // start: 'top navHpx' pins immediately — no pre-pin scroll drift
+  var navH = document.querySelector('.nav').offsetHeight;
+
+  var hint = document.querySelector('.hero-scroll-hint');
+  window.addEventListener('scroll', function hideHint() {
+    if (window.scrollY > 30) {
+      if (hint) hint.classList.add('is-hidden');
+      window.removeEventListener('scroll', hideHint);
+    }
+  });
+
+  // Suppress auto-scroll when user navigates via a link
+  var suppressLeave = false;
+  document.querySelectorAll('a[href^="#"], a[href*="/#"]').forEach(function(a) {
+    a.addEventListener('click', function() {
+      suppressLeave = true;
+      setTimeout(function() { suppressLeave = false; }, 2000);
     });
   });
-  hero.addEventListener('mouseleave', function() {
-    bubbles.forEach(function(b) { b.style.transform = ''; });
+
+  var tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.hero-reveal',
+      start: 'top ' + navH + 'px',
+      end: '+=300%',
+      pin: true,
+      scrub: 0.5,
+      onLeave: function() {
+        if (suppressLeave) return;
+        var works = document.getElementById('works');
+        if (works) works.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   });
+
+  // Proximity hover on text (desktop only, runs parallel to scroll animation)
+  if (window.matchMedia('(hover: hover)').matches) {
+    var heroText = document.querySelector('.hero-reveal__text');
+    var RADIUS = 120;
+    heroText.addEventListener('mousemove', function(e) {
+      allChars.forEach(function(ch) {
+        var r = ch.getBoundingClientRect();
+        var cx = r.left + r.width / 2;
+        var cy = r.top + r.height / 2;
+        var d = (e.clientX - cx) * (e.clientX - cx) + (e.clientY - cy) * (e.clientY - cy);
+        ch.classList.toggle('is-hovered', d < RADIUS * RADIUS);
+      });
+    });
+    heroText.addEventListener('mouseleave', function() {
+      allChars.forEach(function(ch) { ch.classList.remove('is-hovered'); });
+    });
+  }
+
+  // Phase 1: text white → blue → white
+  tl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
+  tl.to(allChars, { color: '#ffffff', duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
+  // text animation ends at ~t=1.12
+
+
 })();
 
 // Scroll fade-up

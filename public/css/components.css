@@ -170,6 +170,7 @@
 .contact {
   background: #f4f6f9;
   padding-inline: var(--space-3);
+  padding-bottom: var(--space-3); /* 24px on desktop */
 }
 .contact__inner {
   background: url('/Images/BG_contact.png') center/cover no-repeat;
