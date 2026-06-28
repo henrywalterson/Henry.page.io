@@ -227,28 +227,6 @@ function copyEmail(btn) {
 
 (function() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  var hint = document.querySelector('.hero-scroll-hint');
-
-  // Mobile: no pin/scrub (iOS incompatibility), play wave once on load
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    document.querySelectorAll('.tg').forEach(function(group) {
-      group.innerHTML = Array.from(group.textContent).map(function(c) {
-        return '<span class="tg-ch">' + (c === '&' ? '&amp;' : c === '<' ? '&lt;' : c) + '</span>';
-      }).join('');
-    });
-    var mChars = Array.from(document.querySelectorAll('.tg-ch'));
-    if (hint) {
-      window.addEventListener('touchstart', function() {
-        hint.classList.add('is-hidden');
-      }, { once: true });
-    }
-    gsap.timeline({ delay: 0.4 })
-      .to(mChars, { color: '#3677E4', duration: 0.05, stagger: { each: 0.015, ease: 'none' } })
-      .to(mChars, { color: '#0f172a', duration: 0.05, stagger: { each: 0.01, ease: 'none' } }, '>');
-    return;
-  }
-
   gsap.registerPlugin(ScrollTrigger);
 
   document.querySelectorAll('.tg').forEach(function(group) {
@@ -260,9 +238,9 @@ function copyEmail(btn) {
   var allChars = Array.from(document.querySelectorAll('.tg-ch'));
   var each = 0.95 / Math.max(allChars.length - 1, 1);
   var fadeOut = 0.12;
-
-  // start: 'top navHpx' pins immediately — no pre-pin scroll drift
   var navH = document.querySelector('.nav').offsetHeight;
+  var hint = document.querySelector('.hero-scroll-hint');
+  var isMobile = window.matchMedia('(max-width: 768px)').matches;
 
   // Suppress auto-scroll when user navigates via a link
   var suppressLeave = false;
@@ -280,6 +258,7 @@ function copyEmail(btn) {
       end: '+=300%',
       pin: true,
       scrub: 0.5,
+      invalidateOnRefresh: true,
       onUpdate: function(self) {
         if (hint && self.progress > 0.01) hint.classList.add('is-hidden');
       },
@@ -291,7 +270,7 @@ function copyEmail(btn) {
     }
   });
 
-  // Proximity hover on text (desktop only, runs parallel to scroll animation)
+  // Proximity hover on text (desktop only)
   if (window.matchMedia('(hover: hover)').matches) {
     var heroText = document.querySelector('.hero-reveal__text');
     var RADIUS = 120;
@@ -309,11 +288,9 @@ function copyEmail(btn) {
     });
   }
 
-  // Phase 1: text white → blue → white
+  // text white → blue → white
   tl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
   tl.to(allChars, { color: '#ffffff', duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
-  // text animation ends at ~t=1.12
-
 
 })();
 

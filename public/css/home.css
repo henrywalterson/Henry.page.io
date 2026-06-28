@@ -39,8 +39,9 @@
   color: var(--color-text-body);
   pointer-events: none;
   animation: scroll-hint-bounce 1.8s ease-in-out infinite;
+  transition: opacity 0.5s ease;
 }
-.hero-scroll-hint.is-hidden { display: none; }
+.hero-scroll-hint.is-hidden { opacity: 0; }
 
 @keyframes scroll-hint-bounce {
   0%, 100% { transform: translateY(0); }
@@ -76,7 +77,6 @@
   }
   .hero-reveal__inner { margin: 0 auto; }
   .hero-reveal__text { font-size: 48px; }
-  .tg { color: var(--color-text-heading); }
 
   /* About + Experience */
   .about-col { border-bottom: none; }
