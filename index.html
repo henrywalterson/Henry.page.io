@@ -227,7 +227,12 @@ function copyEmail(btn) {
 
 (function() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // Prevent browser scroll restoration so GSAP always starts from position 0
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.normalizeScroll(true); // Required for iOS Safari scroll event detection
 
   document.querySelectorAll('.tg').forEach(function(group) {
     group.innerHTML = Array.from(group.textContent).map(function(c) {
@@ -240,7 +245,13 @@ function copyEmail(btn) {
   var fadeOut = 0.12;
   var navH = document.querySelector('.nav').offsetHeight;
   var hint = document.querySelector('.hero-scroll-hint');
-  var isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+  // Fallback: hide hint on first touch regardless of scroll event state
+  if (hint) {
+    window.addEventListener('touchstart', function() {
+      hint.classList.add('is-hidden');
+    }, { once: true, passive: true });
+  }
 
   // Suppress auto-scroll when user navigates via a link
   var suppressLeave = false;
