@@ -36,17 +36,46 @@
   margin: 0 auto;
   z-index: 50;
   width: fit-content;
-  background: none;
+  display: grid; /* both labels in same cell → width = wider label */
+  background: rgba(0, 0, 0, 0.08);
   border: none;
-  cursor: pointer;
+  border-radius: 9999px;
+  padding: 10px 24px;
+  cursor: default;
   font-family: var(--font-body);
-  font-size: calc(var(--text-base) * 2);
-  color: var(--color-text-body);
+  font-size: var(--text-base);
+  font-weight: var(--fw-medium);
+  color: #111111;
   pointer-events: none;
   animation: scroll-hint-bounce 1.8s ease-in-out infinite;
   transition: opacity 0.5s ease;
+  overflow: hidden;
 }
+.hero-scroll-hint.is-keep { animation: none; }
 .hero-scroll-hint.is-hidden { opacity: 0; }
+
+/* Stack both labels in the same grid cell */
+.hint-label {
+  grid-area: 1 / 1;
+  text-align: center;
+  transition: opacity 0.35s ease;
+}
+.hint-label--keep { opacity: 0; }
+.hero-scroll-hint.is-keep .hint-label--scroll { opacity: 0; }
+.hero-scroll-hint.is-keep .hint-label--keep  { opacity: 1; }
+
+/* Black fill layer — clips left→right as scroll progresses */
+.hint-s2 {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: #111111;
+  clip-path: inset(0 calc(100% - var(--fill, 0%)) 0 0);
+  pointer-events: none;
+}
 
 @keyframes scroll-hint-bounce {
   0%, 100% { transform: translateY(0); }

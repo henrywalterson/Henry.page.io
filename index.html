@@ -40,11 +40,15 @@
   <section class="hero-reveal">
     <div class="hero-reveal__sticky">
       <div class="hero-reveal__inner">
-        <p class="hero-reveal__text"><span class="tg">Product Designer with a </span><span class="tg">visual design background, </span><span class="tg">focused on creating </span><span class="tg">digital products that work well </span><span class="tg">for both users and businesses.</span></p>
+        <p class="hero-reveal__text"><span class="tg">Product Designer </span><span class="tg">with visual design background, </span><span class="tg">solving problems </span><span class="tg">for both users and businesses through </span><span class="tg">clear, usable products.</span></p>
       </div>
     </div>
   </section>
-  <button class="hero-scroll-hint" aria-label="Scroll to continue">scroll to continue</button>
+  <button class="hero-scroll-hint" aria-label="Scroll to continue">
+    <span class="hint-label hint-label--scroll">scroll to continue</span>
+    <span class="hint-label hint-label--keep" aria-hidden="true">keep scrolling</span>
+    <span class="hint-s2" aria-hidden="true">keep scrolling</span>
+  </button>
 
   <!-- MY WORKS -->
   <section class="section case-studies" id="works">
@@ -245,11 +249,11 @@ function copyEmail(btn) {
   var hint = document.querySelector('.hero-scroll-hint');
 
   // Final settled color per character index after full scroll:
-  // Blue  (#3677E4): "Product Designer" (0-15), "creating digital products" (61-85), "for both users and businesses." (102-131)
-  // Muted (#C9D0E4): " with a visual design background, focused on " (16-60), " that work well " (86-101)
+  // Blue  (#3677E4): "Product Designer " (0-16), "solving problems " (48-64), "clear, usable products." (103-125)
+  // Muted (#D8DDEF): "with visual design background, " (17-47), "for both users and businesses through " (65-102)
   function finalColor(i) {
-    if (i <= 15 || (i >= 61 && i <= 85) || i >= 102) return '#3677E4';
-    return '#D4DFFF';
+    if (i <= 16 || (i >= 48 && i <= 64) || i >= 103) return '#3677E4';
+    return '#D8DDEF';
   }
 
   var suppressLeave = false;
@@ -266,7 +270,7 @@ function copyEmail(btn) {
     mTl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
     mTl.to(allChars, { color: function(i) { return finalColor(i); }, duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
     mTl.eventCallback('onComplete', function() {
-      if (hint) hint.textContent = 'keep scrolling';
+      if (hint) hint.classList.add('is-keep');
       setTimeout(function() {
         if (hint) hint.classList.add('is-hidden');
         if (!suppressLeave) {
@@ -339,7 +343,11 @@ function copyEmail(btn) {
 
       if (hasScrolled && !hintChanged && hint) {
         hintChanged = true;
-        hint.textContent = 'keep scrolling';
+        hint.classList.add('is-keep');
+      }
+
+      if (hintChanged && hint) {
+        hint.style.setProperty('--fill', (progress * 100).toFixed(1) + '%');
       }
 
       if (!suppressLeave && !leaveTriggered && progress >= 0.99) {
