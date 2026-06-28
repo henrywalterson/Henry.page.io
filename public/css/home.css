@@ -1,6 +1,11 @@
 /* ===== HERO REVEAL ===== */
 .hero-reveal {
   background: #f4f6f9;
+  height: 400vh;
+}
+.hero-reveal__sticky {
+  position: sticky;
+  top: 0;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -61,7 +66,7 @@
 }
 /* Tablet: flex-start + viewport-relative padding */
 @media (max-width: 1024px) and (min-width: 769px) {
-  .hero-reveal {
+  .hero-reveal__sticky {
     align-items: flex-start;
     padding-top: 15vh;
   }
@@ -69,11 +74,11 @@
 }
 
 @media (max-width: 768px) {
-  .hero-reveal {
+  .hero-reveal { height: 400svh; }
+  .hero-reveal__sticky {
     height: 100svh;
     align-items: flex-start;
     padding-top: var(--space-4);
-    position: relative;
   }
   .hero-reveal__inner { margin: 0 auto; }
   .hero-reveal__text { font-size: 48px; }

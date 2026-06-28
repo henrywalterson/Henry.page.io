@@ -38,8 +38,10 @@
 
   <!-- HERO REVEAL -->
   <section class="hero-reveal">
-    <div class="hero-reveal__inner">
-      <p class="hero-reveal__text"><span class="tg">Product Designer with a </span><span class="tg">visual design background, </span><span class="tg">focused on creating </span><span class="tg">digital products that work well </span><span class="tg">for both users and businesses.</span></p>
+    <div class="hero-reveal__sticky">
+      <div class="hero-reveal__inner">
+        <p class="hero-reveal__text"><span class="tg">Product Designer with a </span><span class="tg">visual design background, </span><span class="tg">focused on creating </span><span class="tg">digital products that work well </span><span class="tg">for both users and businesses.</span></p>
+      </div>
     </div>
   </section>
   <button class="hero-scroll-hint" aria-label="Scroll to continue">scroll to continue</button>
@@ -228,11 +230,7 @@ function copyEmail(btn) {
 (function() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  // Prevent browser scroll restoration so GSAP always starts from position 0
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-
   gsap.registerPlugin(ScrollTrigger);
-  ScrollTrigger.normalizeScroll(true); // Required for iOS Safari scroll event detection
 
   document.querySelectorAll('.tg').forEach(function(group) {
     group.innerHTML = Array.from(group.textContent).map(function(c) {
@@ -265,9 +263,8 @@ function copyEmail(btn) {
   var tl = gsap.timeline({
     scrollTrigger: {
       trigger: '.hero-reveal',
-      start: 'top ' + navH + 'px',
-      end: '+=300%',
-      pin: true,
+      start: 'top top',
+      end: 'bottom bottom',
       scrub: 0.5,
       invalidateOnRefresh: true,
       onUpdate: function(self) {
