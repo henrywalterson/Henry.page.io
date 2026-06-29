@@ -256,22 +256,20 @@ function copyEmail(btn) {
   var hint  = document.querySelector('.hero-scroll-hint');
   var navEl = document.querySelector('.nav');
 
-  gsap.registerPlugin(ScrollTrigger);
-  document.querySelectorAll('.tg').forEach(function(group) {
-    group.innerHTML = Array.from(group.textContent).map(function(c) {
-      return '<span class="tg-ch">' + (c === '&' ? '&amp;' : c === '<' ? '&lt;' : c) + '</span>';
-    }).join('');
-  });
-  var allChars = Array.from(document.querySelectorAll('.tg-ch'));
-  var n        = allChars.length;
-  var each     = 0.95 / Math.max(n - 1, 1);
-  var fadeOut  = 0.12;
-
   // Blue (#3677E4): "Product Designer " (0-16), "solving problems " (48-64), "clear, usable products." (103-125)
   // Muted (#D8DDEF): "with visual design background, " (17-47), "for both users and businesses through " (65-102)
   function finalColor(i) {
     if (i <= 16 || (i >= 48 && i <= 64) || i >= 103) return '#3677E4';
     return '#D8DDEF';
+  }
+
+  function splitChars() {
+    document.querySelectorAll('.tg').forEach(function(group) {
+      group.innerHTML = Array.from(group.textContent).map(function(c) {
+        return '<span class="tg-ch">' + (c === '&' ? '&amp;' : c === '<' ? '&lt;' : c) + '</span>';
+      }).join('');
+    });
+    return Array.from(document.querySelectorAll('.tg-ch'));
   }
 
   var suppressLeave = false;
@@ -284,7 +282,7 @@ function copyEmail(btn) {
     });
   });
 
-  // ── MOBILE: swipe-driven with scroll lock ─────────────────────────────────
+  // ── MOBILE ────────────────────────────────────────────────────────────────
   if (window.matchMedia('(max-width: 768px)').matches) {
     if (window.location.hash.length > 0) {
       if (hint) hint.classList.add('is-hidden');
@@ -292,28 +290,22 @@ function copyEmail(btn) {
       return;
     }
 
-    // Lock page while hero plays
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
     document.body.style.width    = '100%';
 
-    function mComplete() {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width    = '';
-      if (hint) hint.classList.add('is-hidden');
-      if (navEl) navEl.classList.remove('nav--hero');
-      setTimeout(function() {
-        var works = document.getElementById('works');
-        if (works) works.scrollIntoView({ behavior: 'smooth' });
-      }, 350);
-    }
-
     if (reducedMotion) {
-      // Auto-play animation ~2s (no swipe needed), then reveal + scroll
+      // ── MOBILE + reduce motion: auto-play ~2s, no swipe needed ──────────────
+      gsap.registerPlugin(ScrollTrigger);
+      var rmChars  = splitChars();
+      var rmN      = rmChars.length;
+      var rmEach   = 0.95 / Math.max(rmN - 1, 1);
+      var rmFadeOut = 0.12;
+
       if (hint) hint.classList.add('is-hidden');
-      gsap.set(allChars, { color: '#ffffff' });
-      var mTl = gsap.timeline({
+      gsap.set(rmChars, { color: '#ffffff' });
+
+      var rmTl = gsap.timeline({
         paused: true,
         onComplete: function() {
           document.body.style.overflow = '';
@@ -336,14 +328,32 @@ function copyEmail(btn) {
           }
         }
       });
-      mTl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
-      mTl.to(allChars, { color: function(i) { return finalColor(i); }, duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
-      mTl.timeScale(mTl.duration() / 2);
-      mTl.play();
+      rmTl.to(rmChars, { color: '#3677E4', duration: 0.05, stagger: { each: rmEach, ease: 'none' } }, 0);
+      rmTl.to(rmChars, { color: function(i) { return finalColor(i); }, duration: 0.05, stagger: { each: rmEach, ease: 'none' } }, rmFadeOut);
+      rmTl.timeScale(rmTl.duration() / 2);
+      rmTl.play();
       return;
     }
 
-    // Full swipe-driven animation
+    // ── MOBILE + no reduce motion: swipe-driven ──────────────────────────────
+    gsap.registerPlugin(ScrollTrigger);
+    var allChars = splitChars();
+    var n        = allChars.length;
+    var each     = 0.95 / Math.max(n - 1, 1);
+    var fadeOut  = 0.12;
+
+    function mComplete() {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width    = '';
+      if (hint) hint.classList.add('is-hidden');
+      if (navEl) navEl.classList.remove('nav--hero');
+      setTimeout(function() {
+        var works = document.getElementById('works');
+        if (works) works.scrollIntoView({ behavior: 'smooth' });
+      }, 350);
+    }
+
     var mTl = gsap.timeline({ paused: true });
     mTl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
     mTl.to(allChars, { color: function(i) { return finalColor(i); }, duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
@@ -373,9 +383,8 @@ function copyEmail(btn) {
     return;
   }
 
-  // ── DESKTOP ───────────────────────────────────────────────────────────────
+  // ── DESKTOP + reduce motion: reveal on first scroll ────────────────────────
   if (reducedMotion) {
-    // No animation — reveal nav on first scroll
     var leaveTriggered = window.location.hash.length > 0;
     if (leaveTriggered) {
       if (hint) hint.classList.add('is-hidden');
@@ -390,6 +399,12 @@ function copyEmail(btn) {
   }
 
   // ── DESKTOP: rAF scroll-driven ─────────────────────────────────────────────
+  gsap.registerPlugin(ScrollTrigger);
+  var allChars = splitChars();
+  var n        = allChars.length;
+  var each     = 0.95 / Math.max(n - 1, 1);
+  var fadeOut  = 0.12;
+
   var hero = document.querySelector('.hero-reveal');
   var navH = document.querySelector('.nav').offsetHeight;
 
