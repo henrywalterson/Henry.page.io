@@ -252,24 +252,25 @@ function copyEmail(btn) {
 }
 
 (function() {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hint  = document.querySelector('.hero-scroll-hint');
+  var navEl = document.querySelector('.nav');
 
-  gsap.registerPlugin(ScrollTrigger); // used by fade-up animations below
+  // Char split + GSAP only when animation is needed
+  var allChars = [], each = 0, fadeOut = 0.12;
+  if (!reducedMotion) {
+    gsap.registerPlugin(ScrollTrigger);
+    document.querySelectorAll('.tg').forEach(function(group) {
+      group.innerHTML = Array.from(group.textContent).map(function(c) {
+        return '<span class="tg-ch">' + (c === '&' ? '&amp;' : c === '<' ? '&lt;' : c) + '</span>';
+      }).join('');
+    });
+    allChars = Array.from(document.querySelectorAll('.tg-ch'));
+    var n = allChars.length;
+    each = 0.95 / Math.max(n - 1, 1);
+  }
 
-  document.querySelectorAll('.tg').forEach(function(group) {
-    group.innerHTML = Array.from(group.textContent).map(function(c) {
-      return '<span class="tg-ch">' + (c === '&' ? '&amp;' : c === '<' ? '&lt;' : c) + '</span>';
-    }).join('');
-  });
-
-  var allChars = Array.from(document.querySelectorAll('.tg-ch'));
-  var n = allChars.length;
-  var each = 0.95 / Math.max(n - 1, 1);
-  var fadeOut = 0.12;
-  var hint = document.querySelector('.hero-scroll-hint');
-
-  // Final settled color per character index after full scroll:
-  // Blue  (#3677E4): "Product Designer " (0-16), "solving problems " (48-64), "clear, usable products." (103-125)
+  // Blue (#3677E4): "Product Designer " (0-16), "solving problems " (48-64), "clear, usable products." (103-125)
   // Muted (#D8DDEF): "with visual design background, " (17-47), "for both users and businesses through " (65-102)
   function finalColor(i) {
     if (i <= 16 || (i >= 48 && i <= 64) || i >= 103) return '#3677E4';
@@ -277,7 +278,6 @@ function copyEmail(btn) {
   }
 
   var suppressLeave = false;
-  var navEl = document.querySelector('.nav');
   document.querySelectorAll('a[href^="#"], a[href*="/#"]').forEach(function(a) {
     a.addEventListener('click', function() {
       suppressLeave = true;
@@ -289,65 +289,81 @@ function copyEmail(btn) {
 
   // ── MOBILE: swipe-driven with scroll lock ─────────────────────────────────
   if (window.matchMedia('(max-width: 768px)').matches) {
-    // If page loaded with a hash (e.g. /#works from detail page), skip animation
     if (window.location.hash.length > 0) {
       if (hint) hint.classList.add('is-hidden');
       if (navEl) navEl.classList.remove('nav--hero');
       return;
     }
 
+    // Lock page while hero plays (works with or without animation)
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width    = '100%';
+
+    function mComplete() {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width    = '';
+      if (hint) hint.classList.add('is-hidden');
+      if (navEl) navEl.classList.remove('nav--hero');
+      setTimeout(function() {
+        var works = document.getElementById('works');
+        if (works) works.scrollIntoView({ behavior: 'smooth' });
+      }, 350);
+    }
+
+    if (reducedMotion) {
+      // No animation — release on first swipe, instant reveal
+      document.addEventListener('touchmove', function onMove() {
+        document.removeEventListener('touchmove', onMove);
+        mComplete();
+      }, { once: true, passive: true });
+      return;
+    }
+
+    // Full swipe-driven animation
     var mTl = gsap.timeline({ paused: true });
     mTl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
     mTl.to(allChars, { color: function(i) { return finalColor(i); }, duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
 
-    var mDone       = false;
-    var accumulated = 0;
-    var lastY       = null;
-    var SWIPE_DIST  = 220; // px of net downward swipe to complete
-    var mHintDone   = false;
+    var mDone = false, accumulated = 0, lastY = null, SWIPE_DIST = 220, mHintDone = false;
 
     function setMProgress(p) {
       p = Math.max(0, Math.min(1, p));
       mTl.progress(p);
-      if (p > 0.01 && !mHintDone && hint) {
-        mHintDone = true;
-        hint.classList.add('is-keep');
-      }
-      if (mHintDone && hint) {
-        hint.style.setProperty('--fill', (p * 100).toFixed(1) + '%');
-      }
-      if (!mDone && p >= 1) {
-        mDone = true;
-        document.removeEventListener('touchmove', onMove);
-        // Unlock scroll
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.width    = '';
-        if (hint) hint.classList.add('is-hidden');
-        if (navEl) navEl.classList.remove('nav--hero');
-        setTimeout(function () {
-          var works = document.getElementById('works');
-          if (works) works.scrollIntoView({ behavior: 'smooth' });
-        }, 350);
-      }
+      if (p > 0.01 && !mHintDone && hint) { mHintDone = true; hint.classList.add('is-keep'); }
+      if (mHintDone && hint) hint.style.setProperty('--fill', (p * 100).toFixed(1) + '%');
+      if (!mDone && p >= 1) { mDone = true; document.removeEventListener('touchmove', onMove); mComplete(); }
     }
 
     function onStart(e) { lastY = e.touches[0].clientY; }
     function onMove(e) {
-      e.preventDefault(); // block native scroll while animating
+      e.preventDefault();
       if (lastY === null) { lastY = e.touches[0].clientY; return; }
-      var dy = lastY - e.touches[0].clientY; // positive = swipe down
+      var dy = lastY - e.touches[0].clientY;
       lastY  = e.touches[0].clientY;
       accumulated = Math.max(0, accumulated + dy);
       setMProgress(accumulated / SWIPE_DIST);
     }
 
-    // Lock page at top while hero plays
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.width    = '100%';
     document.addEventListener('touchstart', onStart, { passive: true });
     document.addEventListener('touchmove',  onMove,  { passive: false });
+    return;
+  }
+
+  // ── DESKTOP ───────────────────────────────────────────────────────────────
+  if (reducedMotion) {
+    // No animation — reveal nav on first scroll
+    var leaveTriggered = window.location.hash.length > 0;
+    if (leaveTriggered) {
+      if (hint) hint.classList.add('is-hidden');
+      if (navEl) navEl.classList.remove('nav--hero');
+    } else {
+      window.addEventListener('scroll', function() {
+        if (hint) hint.classList.add('is-hidden');
+        if (navEl) navEl.classList.remove('nav--hero');
+      }, { once: true, passive: true });
+    }
     return;
   }
 
@@ -360,12 +376,10 @@ function copyEmail(btn) {
     heroScrollable = hero.offsetHeight - window.innerHeight;
   }, { passive: true });
 
-  // Paused timeline driven by rAF — getBoundingClientRect updates during iOS momentum scroll
   var tl = gsap.timeline({ paused: true });
   tl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
   tl.to(allChars, { color: function(i) { return finalColor(i); }, duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
 
-  // Proximity hover — disabled once user starts scrolling
   var hasScrolled = false;
   if (window.matchMedia('(hover: hover)').matches) {
     var heroText = document.querySelector('.hero-reveal__text');
@@ -386,8 +400,6 @@ function copyEmail(btn) {
   }
 
   var hintChanged = false;
-  // If page loaded with a hash (e.g. /#about or /#contact from a detail page),
-  // skip the auto-jump so the browser can scroll to the intended section.
   var leaveTriggered = window.location.hash.length > 0;
   if (leaveTriggered && hint) hint.classList.add('is-hidden');
   if (leaveTriggered && navEl) navEl.classList.remove('nav--hero');
@@ -402,14 +414,8 @@ function copyEmail(btn) {
         allChars.forEach(function(ch) { ch.classList.remove('is-hovered'); });
       }
 
-      if (hasScrolled && !hintChanged && hint) {
-        hintChanged = true;
-        hint.classList.add('is-keep');
-      }
-
-      if (hintChanged && hint) {
-        hint.style.setProperty('--fill', (progress * 100).toFixed(1) + '%');
-      }
+      if (hasScrolled && !hintChanged && hint) { hintChanged = true; hint.classList.add('is-keep'); }
+      if (hintChanged && hint) hint.style.setProperty('--fill', (progress * 100).toFixed(1) + '%');
 
       if (!suppressLeave && !leaveTriggered && progress >= 0.99) {
         leaveTriggered = true;
