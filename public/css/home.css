@@ -30,7 +30,7 @@
 /* Scroll hint */
 .hero-scroll-hint {
   position: fixed;
-  bottom: 52px;
+  bottom: 52px; /* desktop */
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -111,6 +111,7 @@
   }
   .hero-reveal__inner { margin: 0 auto; }
   .hero-reveal__text { font-size: 40px; }
+  .hero-scroll-hint { bottom: 28px; }
 
   /* About + Experience */
   .about-col { border-bottom: none; }

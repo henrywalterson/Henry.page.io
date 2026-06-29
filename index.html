@@ -322,10 +322,9 @@ function copyEmail(btn) {
           document.body.style.width    = '';
           if (hint) hint.classList.add('is-hidden');
           if (navEl) navEl.classList.remove('nav--hero');
-          // Gentle scroll: 200ms pause then 900ms easeInOut rAF scroll
-          setTimeout(function() {
-            var works = document.getElementById('works');
-            if (!works) return;
+          // Smooth scroll immediately after unlock — 900ms easeInOut
+          var works = document.getElementById('works');
+          if (works) {
             var navH    = (document.querySelector('.nav') || {}).offsetHeight || 64;
             var startY  = window.scrollY;
             var targetY = works.offsetTop - navH;
@@ -337,7 +336,7 @@ function copyEmail(btn) {
               window.scrollTo(0, startY + (targetY - startY) * ease);
               if (p < 1) requestAnimationFrame(step);
             });
-          }, 200);
+          }
         }
       });
       mTl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
