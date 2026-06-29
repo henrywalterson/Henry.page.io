@@ -47,17 +47,21 @@ The hero is the most complex part of the page. It works differently on desktop v
 
 ### `prefers-reduced-motion` handling
 
-**Desktop + reduce motion ON:** No GSAP. Reveal nav on first scroll event.
+There are 4 completely separate code paths. Each path calls `splitChars()` independently — **do not share allChars between paths**, it caused cross-contamination bugs.
 
-**Mobile + reduce motion OFF:** Swipe-driven as described above.
+| | reduce motion OFF | reduce motion ON |
+|---|---|---|
+| **Desktop** | rAF scroll-driven animation | Reveal nav on first scroll, no GSAP |
+| **Mobile** | Swipe-driven animation | Auto-play ~2s animation |
 
-**Mobile + reduce motion ON:** Auto-play animation (~2s). Sequence:
-1. Hint pill hidden immediately.
-2. `gsap.set(allChars, { color: '#ffffff' })` resets chars (CSS reduce-motion rule makes `.tg` blue immediately — must override).
-3. Paused GSAP timeline built, then `timeScale(baseDur / 2)` to stretch to 2s, then `.play()`.
-4. `onComplete`: unlock body, remove `nav--hero`, 900ms easeInOut rAF scroll to `#works`.
+**Mobile + reduce motion ON** sequence:
+1. `splitChars()` called inside this branch only.
+2. Hint pill hidden immediately (`is-hidden`).
+3. `gsap.set(rmChars, { color: '#ffffff' })` — CSS reduce-motion rule sets `.tg { color: #3677E4 }` immediately, so chars inherit blue. Must reset to white before animating.
+4. Build timeline with `paused: true`, add tweens, `rmTl.timeScale(rmTl.duration() / 2)` to stretch to 2s, then `rmTl.play()`.
+5. `onComplete`: unlock body, remove `nav--hero`, 900ms easeInOut rAF scroll to `#works` using `works.offsetTop - navHeight`.
 
-**Important:** always call `mTl.timeScale()` BEFORE `.play()`. Do NOT create timeline without `paused: true` and then set timeScale — race condition causes onComplete to never fire.
+**Critical:** always set `timeScale` BEFORE `.play()`. Creating a timeline without `paused: true` and then setting `timeScale` causes a race condition where `onComplete` never fires.
 
 ### Scroll hint pill (`.hero-scroll-hint`)
 
@@ -130,7 +134,9 @@ On mobile: burger is also hidden in hero state:
 
 6. **ScrollTrigger is registered but not used:** `gsap.registerPlugin(ScrollTrigger)` is called for future compatibility. The hero animation uses raw rAF + `getBoundingClientRect`, not ScrollTrigger — this was intentional for iOS momentum scroll support.
 
-7. **Char splitting:** `.tg` elements get their text split into `<span class="tg-ch">` per character. Always happens (for both reduce motion ON and OFF) because the reduce motion auto-play path also needs the chars. The CSS rule `@media (prefers-reduced-motion: reduce) { .tg { color: #3677E4 } }` makes `.tg` blue immediately — GSAP's `gsap.set(allChars, { color: '#ffffff' })` overrides this for the auto-play path.
+7. **Char splitting is per-branch:** Each of the 4 paths (mobile/desktop × reduce-motion on/off) calls `splitChars()` independently. Do NOT hoist char splitting to the top of the IIFE — sharing `allChars` between the mobile auto-play and swipe paths caused GSAP to interfere across paths even when `reducedMotion` was false.
+
+8. **CSS reduce-motion overrides chars to blue:** `@media (prefers-reduced-motion: reduce) { .tg { color: #3677E4 } }` makes `.tg` blue immediately on page load. Since `.tg-ch` spans inherit from `.tg`, they also start blue. The auto-play path must call `gsap.set(rmChars, { color: '#ffffff' })` to reset before animating, otherwise the first tween (white→blue) is invisible.
 
 ---
 
