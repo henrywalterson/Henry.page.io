@@ -19,15 +19,35 @@
 </head>
 <body>
 
-<nav class="nav">
+<nav class="nav nav--hero">
   <div class="nav__inner container">
     <a href="/" class="nav__logo">hdhuy</a>
     <ul class="nav__links">
-      <li><a href="#works">Works</a></li>
-      <li><a href="#about">About</a></li>
+      <li><a href="#works">My Works</a></li>
       <li><a href="https://drive.google.com/file/d/1cN5ndifgaYTYiHjeY8iInz5z8-p-zOun/view?usp=sharing" class="nav__resume" target="_blank" rel="noopener noreferrer">Resume</a></li>
+      <li class="nav__mobile-contact-item nav__mobile-contact-item--first">
+        <a href="https://www.linkedin.com/in/huyhuynhcreative/" target="_blank" rel="noopener noreferrer">My LinkedIn<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+      </li>
+      <li class="nav__mobile-contact-item">
+        <button class="nav__mobile-copy-btn"><span>Email</span><span class="nav__mobile-copy-icon"><svg class="icon-copy" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span></button>
+      </li>
     </ul>
-    <a href="#contact" class="btn btn--sm">Contact me</a>
+    <div class="nav__contact">
+      <button class="btn btn--sm nav__contact-btn" aria-expanded="false">Contact me</button>
+      <div class="nav__dropdown">
+        <a href="https://www.linkedin.com/in/huyhuynhcreative/" target="_blank" rel="noopener noreferrer" class="nav__dropdown-item">
+          <span>My LinkedIn</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+        <button class="nav__dropdown-item nav__dropdown-item--copy">
+          <span>Email</span>
+          <span class="nav__dropdown-icon">
+            <svg class="icon-copy" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <svg class="icon-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+        </button>
+      </div>
+    </div>
     <button class="nav__burger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -257,38 +277,77 @@ function copyEmail(btn) {
   }
 
   var suppressLeave = false;
+  var navEl = document.querySelector('.nav');
   document.querySelectorAll('a[href^="#"], a[href*="/#"]').forEach(function(a) {
     a.addEventListener('click', function() {
       suppressLeave = true;
-      leaveTriggered = true; // user chose a destination — disable auto-jump permanently
+      leaveTriggered = true;
+      if (navEl) navEl.classList.remove('nav--hero');
       setTimeout(function() { suppressLeave = false; }, 2000);
     });
   });
 
-  // ── MOBILE: auto-play on first scroll gesture ──────────────────────────────
+  // ── MOBILE: swipe-driven with scroll lock ─────────────────────────────────
   if (window.matchMedia('(max-width: 768px)').matches) {
+    // If page loaded with a hash (e.g. /#works from detail page), skip animation
+    if (window.location.hash.length > 0) {
+      if (hint) hint.classList.add('is-hidden');
+      if (navEl) navEl.classList.remove('nav--hero');
+      return;
+    }
+
     var mTl = gsap.timeline({ paused: true });
     mTl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
     mTl.to(allChars, { color: function(i) { return finalColor(i); }, duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
-    mTl.eventCallback('onComplete', function() {
-      if (hint) hint.classList.add('is-keep');
-      setTimeout(function() {
+
+    var mDone       = false;
+    var accumulated = 0;
+    var lastY       = null;
+    var SWIPE_DIST  = 220; // px of net downward swipe to complete
+    var mHintDone   = false;
+
+    function setMProgress(p) {
+      p = Math.max(0, Math.min(1, p));
+      mTl.progress(p);
+      if (p > 0.01 && !mHintDone && hint) {
+        mHintDone = true;
+        hint.classList.add('is-keep');
+      }
+      if (mHintDone && hint) {
+        hint.style.setProperty('--fill', (p * 100).toFixed(1) + '%');
+      }
+      if (!mDone && p >= 1) {
+        mDone = true;
+        document.removeEventListener('touchmove', onMove);
+        // Unlock scroll
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width    = '';
         if (hint) hint.classList.add('is-hidden');
-        if (!suppressLeave) {
+        if (navEl) navEl.classList.remove('nav--hero');
+        setTimeout(function () {
           var works = document.getElementById('works');
           if (works) works.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 700);
-    });
-
-    var mStarted = false;
-    function startMobile() {
-      if (mStarted) return;
-      mStarted = true;
-      mTl.play();
+        }, 350);
+      }
     }
-    window.addEventListener('touchmove', startMobile, { once: true, passive: true });
-    window.addEventListener('scroll', startMobile, { once: true, passive: true });
+
+    function onStart(e) { lastY = e.touches[0].clientY; }
+    function onMove(e) {
+      e.preventDefault(); // block native scroll while animating
+      if (lastY === null) { lastY = e.touches[0].clientY; return; }
+      var dy = lastY - e.touches[0].clientY; // positive = swipe down
+      lastY  = e.touches[0].clientY;
+      accumulated = Math.max(0, accumulated + dy);
+      setMProgress(accumulated / SWIPE_DIST);
+    }
+
+    // Lock page at top while hero plays
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width    = '100%';
+    document.addEventListener('touchstart', onStart, { passive: true });
+    document.addEventListener('touchmove',  onMove,  { passive: false });
     return;
   }
 
@@ -331,6 +390,7 @@ function copyEmail(btn) {
   // skip the auto-jump so the browser can scroll to the intended section.
   var leaveTriggered = window.location.hash.length > 0;
   if (leaveTriggered && hint) hint.classList.add('is-hidden');
+  if (leaveTriggered && navEl) navEl.classList.remove('nav--hero');
 
   (function tick() {
     if (heroScrollable > 0) {
@@ -354,6 +414,7 @@ function copyEmail(btn) {
       if (!suppressLeave && !leaveTriggered && progress >= 0.99) {
         leaveTriggered = true;
         if (hint) hint.classList.add('is-hidden');
+        if (navEl) navEl.classList.remove('nav--hero');
         var works = document.getElementById('works');
         if (works) works.scrollIntoView({ behavior: 'smooth' });
       }

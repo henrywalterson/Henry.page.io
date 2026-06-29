@@ -26,7 +26,79 @@
   display: flex;
   gap: var(--space-4);     /* 32px */
   margin-right: auto;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
+
+/* Hero state: links + contact hidden */
+.nav.nav--hero .nav__links,
+.nav.nav--hero .nav__contact {
+  opacity: 0;
+  transform: translateY(-5px);
+  pointer-events: none;
+}
+.nav__contact {
+  position: relative;
+  flex-shrink: 0;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Contact dropdown */
+.nav__dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 6px;
+  min-width: 190px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  opacity: 0;
+  transform: translateY(-6px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 200;
+}
+.nav__contact.is-open .nav__dropdown {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+.nav__dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-heading);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  gap: 12px;
+  transition: background 0.12s ease;
+  text-align: left;
+}
+.nav__dropdown-item:hover { background: var(--color-surface); }
+.nav__dropdown-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+}
+.nav__dropdown-item svg { display: block; flex-shrink: 0; color: var(--color-text-muted); }
+.nav__dropdown-item .icon-check { display: none; }
+.nav__dropdown-item--copy.is-copied .icon-copy  { display: none; }
+.nav__dropdown-item--copy.is-copied .icon-check { display: block; }
+.nav__dropdown-item--copy.is-copied { color: #16a34a; }
+.nav__dropdown-item--copy.is-copied .nav__dropdown-icon { color: #16a34a; }
 .nav__links a {
   font-size: var(--text-sm);
   font-weight: var(--fw-medium);
@@ -59,7 +131,20 @@
 .nav__burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .nav__burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+/* Mobile-only contact items — hidden on desktop */
+.nav__mobile-contact-item { display: none; }
+
 @media (max-width: 640px) {
+  /* Burger hidden in hero state, slides in on reveal */
+  .nav__burger { transition: opacity 0.5s ease, transform 0.5s ease; }
+  .nav.nav--hero .nav__burger {
+    opacity: 0;
+    transform: translateX(8px);
+    pointer-events: none;
+  }
+  /* Nav links still accessible if burger somehow opens before hero ends */
+  .nav.nav--hero .nav__links { opacity: 1; transform: none; pointer-events: auto; }
+
   .nav__links { display: none; flex-direction: column; }
   .nav__links.is-open {
     display: flex;
@@ -67,14 +152,50 @@
     top: 64px;
     left: 0; right: 0;
     background: #fff;
-    padding: var(--space-3);   /* 24px */
+    padding: var(--space-3);
     border-bottom: 1px solid var(--color-border);
-    gap: var(--space-2);       /* 16px */
+    gap: var(--space-2);
     align-items: flex-end;
   }
   .nav__links.is-open a { font-size: var(--text-base); }
   .nav__burger { display: flex; }
-  .nav__inner > .btn { display: none; }
+  .nav__inner > .nav__contact { display: none; }
+
+  /* Mobile contact items in burger */
+  .nav__mobile-contact-item {
+    display: flex;
+    justify-content: flex-end;
+    align-self: stretch;
+    list-style: none;
+  }
+  .nav__mobile-contact-item--first {
+    border-top: 1px solid var(--color-border);
+    padding-top: 12px;
+    margin-top: 4px;
+  }
+  .nav__mobile-contact-item a,
+  .nav__mobile-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--fw-medium);
+    color: var(--color-text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+  .nav__mobile-contact-item a svg,
+  .nav__mobile-copy-icon { display: inline-flex; color: var(--color-text-muted); }
+  .nav__mobile-copy-btn .icon-check { display: none; }
+  .nav__mobile-copy-btn.is-copied,
+  .nav__mobile-copy-btn.is-copied .nav__mobile-copy-icon { color: #16a34a; }
+  .nav__mobile-copy-btn.is-copied .icon-copy  { display: none; }
+  .nav__mobile-copy-btn.is-copied .icon-check { display: block; }
 }
 
 /* ===== CARDS GRID ===== */

@@ -9,44 +9,65 @@ if (burger && links) {
   });
 }
 
-// Scroll to #contact: force lazy images to load first so layout shift
-// doesn't cause the scroll to land at the wrong position mid-page.
-document.querySelectorAll('a[href="#contact"]').forEach(function(a) {
-  a.addEventListener('click', function(e) {
-    var target = document.getElementById('contact');
-    if (!target) return;
-    e.preventDefault();
+// Contact dropdown
+(function () {
+  var wrapper = document.querySelector('.nav__contact');
+  var btn     = document.querySelector('.nav__contact-btn');
+  if (!wrapper || !btn) return;
 
-    var navH = (document.querySelector('.nav') || { offsetHeight: 0 }).offsetHeight;
+  // Toggle open
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var isOpen = wrapper.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', String(isOpen));
+  });
 
-    // Trigger eager loading on any still-lazy images
-    document.querySelectorAll('img[loading="lazy"]').forEach(function(img) {
-      img.loading = 'eager';
-    });
-
-    // Wait for all pending images; 500ms fallback if they take too long
-    var pending = Array.from(document.querySelectorAll('img')).filter(function(img) {
-      return !img.complete;
-    });
-
-    var done = false;
-    function doScroll() {
-      if (done) return;
-      done = true;
-      var y = target.getBoundingClientRect().top + window.scrollY - navH;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-
-    if (pending.length === 0) {
-      doScroll();
-    } else {
-      var loaded = 0;
-      pending.forEach(function(img) {
-        function onDone() { if (++loaded >= pending.length) doScroll(); }
-        img.addEventListener('load', onDone, { once: true });
-        img.addEventListener('error', onDone, { once: true });
+  // Email copy — keep dropdown open so user sees "Copied!" feedback, then close
+  var copyItem = wrapper.querySelector('.nav__dropdown-item--copy');
+  if (copyItem) {
+    copyItem.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var span      = copyItem.querySelector('span');
+      navigator.clipboard.writeText('huyisdesigning@gmail.com').then(function () {
+        copyItem.classList.add('is-copied');
+        span.textContent = 'Copied!';
+        setTimeout(function () {
+          copyItem.classList.remove('is-copied');
+          span.textContent = 'Email';
+          wrapper.classList.remove('is-open');
+          btn.setAttribute('aria-expanded', 'false');
+        }, 1500);
       });
-      setTimeout(doScroll, 500);
+    });
+  }
+
+  // Close when clicking outside
+  document.addEventListener('click', function () {
+    wrapper.classList.remove('is-open');
+    btn.setAttribute('aria-expanded', 'false');
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      wrapper.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
     }
+  });
+})();
+
+// Mobile burger: email copy button
+document.querySelectorAll('.nav__mobile-copy-btn').forEach(function (btn) {
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var label = btn.querySelector('span');
+    navigator.clipboard.writeText('huyisdesigning@gmail.com').then(function () {
+      btn.classList.add('is-copied');
+      label.textContent = 'Copied!';
+      setTimeout(function () {
+        btn.classList.remove('is-copied');
+        label.textContent = 'Email';
+      }, 1500);
+    });
   });
 });
