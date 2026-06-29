@@ -110,7 +110,7 @@
     padding-top: var(--space-4);
   }
   .hero-reveal__inner { margin: 0 auto; }
-  .hero-reveal__text { font-size: 32px; }
+  .hero-reveal__text { font-size: 40px; }
 
   /* About + Experience */
   .about-col { border-bottom: none; }
