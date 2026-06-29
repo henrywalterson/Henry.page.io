@@ -256,19 +256,17 @@ function copyEmail(btn) {
   var hint  = document.querySelector('.hero-scroll-hint');
   var navEl = document.querySelector('.nav');
 
-  // Char split + GSAP only when animation is needed
-  var allChars = [], each = 0, fadeOut = 0.12;
-  if (!reducedMotion) {
-    gsap.registerPlugin(ScrollTrigger);
-    document.querySelectorAll('.tg').forEach(function(group) {
-      group.innerHTML = Array.from(group.textContent).map(function(c) {
-        return '<span class="tg-ch">' + (c === '&' ? '&amp;' : c === '<' ? '&lt;' : c) + '</span>';
-      }).join('');
-    });
-    allChars = Array.from(document.querySelectorAll('.tg-ch'));
-    var n = allChars.length;
-    each = 0.95 / Math.max(n - 1, 1);
-  }
+  // Always split chars — needed for both swipe-driven and auto-play paths
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.tg').forEach(function(group) {
+    group.innerHTML = Array.from(group.textContent).map(function(c) {
+      return '<span class="tg-ch">' + (c === '&' ? '&amp;' : c === '<' ? '&lt;' : c) + '</span>';
+    }).join('');
+  });
+  var allChars = Array.from(document.querySelectorAll('.tg-ch'));
+  var n        = allChars.length;
+  var each     = 0.95 / Math.max(n - 1, 1);
+  var fadeOut  = 0.12;
 
   // Blue (#3677E4): "Product Designer " (0-16), "solving problems " (48-64), "clear, usable products." (103-125)
   // Muted (#D8DDEF): "with visual design background, " (17-47), "for both users and businesses through " (65-102)
@@ -295,7 +293,7 @@ function copyEmail(btn) {
       return;
     }
 
-    // Lock page while hero plays (works with or without animation)
+    // Lock page while hero plays
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
     document.body.style.width    = '100%';
@@ -313,11 +311,15 @@ function copyEmail(btn) {
     }
 
     if (reducedMotion) {
-      // No animation — release on first swipe, instant reveal
-      document.addEventListener('touchmove', function onMove() {
-        document.removeEventListener('touchmove', onMove);
-        mComplete();
-      }, { once: true, passive: true });
+      // Auto-play animation ~2s, skip hint pill (no swipe needed)
+      if (hint) hint.classList.add('is-hidden');
+      // CSS reduce-motion rule sets .tg to blue immediately; reset so full sweep is visible
+      gsap.set(allChars, { color: '#ffffff' });
+      var mTl = gsap.timeline({ onComplete: mComplete });
+      mTl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
+      mTl.to(allChars, { color: function(i) { return finalColor(i); }, duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
+      // Scale timeline to 2s total (base duration ≈ 1.12s)
+      mTl.timeScale(mTl.duration() / 2);
       return;
     }
 
