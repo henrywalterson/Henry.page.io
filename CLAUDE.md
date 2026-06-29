@@ -118,6 +118,20 @@ On mobile: burger is also hidden in hero state:
 - Lazy images use a `div.img-wrap` wrapper + `loaded` class for skeleton → reveal transition.
 - Post-load contact scroll: a `setInterval` correction loop (4 × 300ms) re-checks scroll target after lazy images load and can shift layout.
 
+### VietCharm (`vietcharm/index.html`)
+
+Section order: Overview → Objective → Challenge → Problem analysis → **Design solution** → Contact.
+
+Design solution sub-sections in order:
+1. **Wireframe** — `VC_Solution_Wireframe.png`
+2. **Design References** — `VC_Solution_References.png`
+3. **Homepage** — `VC_Solution_01.png`, `VC_Solution_02.gif`
+4. **Booking** — `VC_Solution_03.png`
+
+### Graphics (`graphics/index.html`)
+
+10 brand sections, each with a `section__label` title + one full-width image. Images in `Images/Proj_Graphics/`.
+
 ---
 
 ## Key non-obvious facts
