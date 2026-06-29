@@ -256,18 +256,16 @@ function copyEmail(btn) {
   var hint  = document.querySelector('.hero-scroll-hint');
   var navEl = document.querySelector('.nav');
 
-  var allChars = [], each = 0, fadeOut = 0.12;
-  if (!reducedMotion) {
-    gsap.registerPlugin(ScrollTrigger);
-    document.querySelectorAll('.tg').forEach(function(group) {
-      group.innerHTML = Array.from(group.textContent).map(function(c) {
-        return '<span class="tg-ch">' + (c === '&' ? '&amp;' : c === '<' ? '&lt;' : c) + '</span>';
-      }).join('');
-    });
-    allChars = Array.from(document.querySelectorAll('.tg-ch'));
-    var n = allChars.length;
-    each  = 0.95 / Math.max(n - 1, 1);
-  }
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.tg').forEach(function(group) {
+    group.innerHTML = Array.from(group.textContent).map(function(c) {
+      return '<span class="tg-ch">' + (c === '&' ? '&amp;' : c === '<' ? '&lt;' : c) + '</span>';
+    }).join('');
+  });
+  var allChars = Array.from(document.querySelectorAll('.tg-ch'));
+  var n        = allChars.length;
+  var each     = 0.95 / Math.max(n - 1, 1);
+  var fadeOut  = 0.12;
 
   // Blue (#3677E4): "Product Designer " (0-16), "solving problems " (48-64), "clear, usable products." (103-125)
   // Muted (#D8DDEF): "with visual design background, " (17-47), "for both users and businesses through " (65-102)
@@ -312,28 +310,36 @@ function copyEmail(btn) {
     }
 
     if (reducedMotion) {
-      // No animation — hide pill, wait 2s, then unlock + reveal + scroll
+      // Auto-play animation ~2s (no swipe needed), then reveal + scroll
       if (hint) hint.classList.add('is-hidden');
-      setTimeout(function() {
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.width    = '';
-        if (navEl) navEl.classList.remove('nav--hero');
-        var works = document.getElementById('works');
-        if (works) {
-          var navH    = (document.querySelector('.nav') || {}).offsetHeight || 64;
-          var startY  = window.scrollY;
-          var targetY = works.offsetTop - navH;
-          var dur = 900, t0 = null;
-          requestAnimationFrame(function step(ts) {
-            if (!t0) t0 = ts;
-            var p = Math.min((ts - t0) / dur, 1);
-            var ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
-            window.scrollTo(0, startY + (targetY - startY) * ease);
-            if (p < 1) requestAnimationFrame(step);
-          });
+      gsap.set(allChars, { color: '#ffffff' });
+      var mTl = gsap.timeline({
+        paused: true,
+        onComplete: function() {
+          document.body.style.overflow = '';
+          document.body.style.position = '';
+          document.body.style.width    = '';
+          if (navEl) navEl.classList.remove('nav--hero');
+          var works = document.getElementById('works');
+          if (works) {
+            var navH    = (document.querySelector('.nav') || {}).offsetHeight || 64;
+            var startY  = window.scrollY;
+            var targetY = works.offsetTop - navH;
+            var dur = 900, t0 = null;
+            requestAnimationFrame(function step(ts) {
+              if (!t0) t0 = ts;
+              var p = Math.min((ts - t0) / dur, 1);
+              var ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
+              window.scrollTo(0, startY + (targetY - startY) * ease);
+              if (p < 1) requestAnimationFrame(step);
+            });
+          }
         }
-      }, 2000);
+      });
+      mTl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
+      mTl.to(allChars, { color: function(i) { return finalColor(i); }, duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
+      mTl.timeScale(mTl.duration() / 2);
+      mTl.play();
       return;
     }
 
