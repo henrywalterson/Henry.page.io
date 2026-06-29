@@ -315,7 +315,30 @@ function copyEmail(btn) {
       if (hint) hint.classList.add('is-hidden');
       // CSS reduce-motion rule sets .tg to blue immediately; reset so full sweep is visible
       gsap.set(allChars, { color: '#ffffff' });
-      var mTl = gsap.timeline({ onComplete: mComplete });
+      var mTl = gsap.timeline({
+        onComplete: function() {
+          document.body.style.overflow = '';
+          document.body.style.position = '';
+          document.body.style.width    = '';
+          if (hint) hint.classList.add('is-hidden');
+          if (navEl) navEl.classList.remove('nav--hero');
+          // Gentle scroll: 600ms pause then 900ms easeInOut rAF scroll
+          setTimeout(function() {
+            var works = document.getElementById('works');
+            if (!works) return;
+            var startY  = window.scrollY;
+            var targetY = works.getBoundingClientRect().top + startY;
+            var dur = 900, t0 = null;
+            requestAnimationFrame(function step(ts) {
+              if (!t0) t0 = ts;
+              var p = Math.min((ts - t0) / dur, 1);
+              var ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
+              window.scrollTo(0, startY + (targetY - startY) * ease);
+              if (p < 1) requestAnimationFrame(step);
+            });
+          }, 600);
+        }
+      });
       mTl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
       mTl.to(allChars, { color: function(i) { return finalColor(i); }, duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
       // Scale timeline to 2s total (base duration ≈ 1.12s)
