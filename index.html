@@ -300,7 +300,7 @@ function copyEmail(btn) {
   });
 
   // ── MOBILE ────────────────────────────────────────────────────────────────
-  if (window.matchMedia('(max-width: 768px)').matches) {
+  if (window.matchMedia('(pointer: coarse)').matches) {
     if (window.location.hash.length > 0) {
       if (hint) hint.classList.add('is-hidden');
       if (navEl) navEl.classList.remove('nav--hero');

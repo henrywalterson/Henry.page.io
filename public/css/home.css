@@ -87,8 +87,8 @@
   display: none;
 }
 
-/* Mobile: static in the gap between text and scroll pill */
-@media (max-width: 768px) {
+/* Touch devices: static in the gap between text and scroll pill */
+@media (pointer: coarse) {
   .hero-gif {
     display: block;
     position: absolute;
@@ -102,8 +102,8 @@
   }
 }
 
-/* Desktop: centered, cursor-following via GSAP */
-@media (min-width: 769px) {
+/* Desktop (mouse): centered, cursor-following via GSAP */
+@media (pointer: fine) {
   .hero-gif {
     display: block;
     position: absolute;
@@ -128,13 +128,25 @@
 @media (prefers-reduced-motion: reduce) {
   .tg { color: #3677E4; }
 }
-/* Tablet: flex-start + viewport-relative padding */
-@media (max-width: 1024px) and (min-width: 769px) {
+/* Tablet-sized non-touch (small laptop): flex-start + viewport-relative padding */
+@media (max-width: 1024px) and (min-width: 769px) and (pointer: fine) {
   .hero-reveal__sticky {
     align-items: flex-start;
     padding-top: 15vh;
   }
   .hero-reveal__inner { margin: 0 auto; }
+}
+
+/* Touch tablets ≥769px: hero layout must match swipe-driven JS path */
+@media (pointer: coarse) and (min-width: 769px) {
+  .hero-reveal { height: 100svh; }
+  .hero-reveal__sticky {
+    height: calc(100svh - 64px);
+    align-items: flex-start;
+    padding-top: var(--space-4);
+  }
+  .hero-reveal__inner { margin: 0 auto; }
+  .hero-scroll-hint { bottom: 28px; }
 }
 
 @media (max-width: 768px) {
