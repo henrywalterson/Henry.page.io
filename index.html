@@ -59,6 +59,7 @@
   <!-- HERO REVEAL -->
   <section class="hero-reveal">
     <div class="hero-reveal__sticky">
+      <img class="hero-gif" src="/Images/Hero_animation.gif" alt="" aria-hidden="true">
       <div class="hero-reveal__inner">
         <p class="hero-reveal__text"><span class="tg">Product Designer </span><span class="tg">with visual design background, </span><span class="tg">solving problems </span><span class="tg">for both users and businesses through </span><span class="tg">clear, usable products.</span></p>
       </div>
@@ -418,6 +419,7 @@ function copyEmail(btn) {
   tl.to(allChars, { color: function(i) { return finalColor(i); }, duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
 
   var hasScrolled = false;
+  /* text proximity hover — temporarily disabled
   if (window.matchMedia('(hover: hover)').matches) {
     var heroText = document.querySelector('.hero-reveal__text');
     var RADIUS = 120;
@@ -433,6 +435,25 @@ function copyEmail(btn) {
     });
     heroText.addEventListener('mouseleave', function() {
       allChars.forEach(function(ch) { ch.classList.remove('is-hovered'); });
+    });
+  }
+  */
+
+  // GIF cursor follow — desktop only
+  var heroGif = document.querySelector('.hero-gif');
+  if (heroGif) {
+    var heroSticky = document.querySelector('.hero-reveal__sticky');
+    gsap.set(heroGif, { xPercent: -50, yPercent: -50 });
+    hero.addEventListener('mousemove', function(e) {
+      var r = heroSticky.getBoundingClientRect();
+      gsap.to(heroGif, {
+        x: e.clientX - (r.left + r.width  / 2),
+        y: e.clientY - (r.top  + r.height / 2),
+        duration: 0.5, ease: 'power2.out', overwrite: 'auto'
+      });
+    });
+    hero.addEventListener('mouseleave', function() {
+      gsap.to(heroGif, { x: 0, y: 0, duration: 0.8, ease: 'power2.out', overwrite: 'auto' });
     });
   }
 

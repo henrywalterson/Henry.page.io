@@ -82,6 +82,41 @@
   50%       { transform: translateY(6px); }
 }
 
+/* Hero GIF */
+.hero-gif {
+  display: none;
+}
+
+/* Mobile: static in the gap between text and scroll pill */
+@media (max-width: 768px) {
+  .hero-gif {
+    display: block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 100px; /* clear of pill (fixed bottom:28px, ~40px tall) + gap */
+    width: 120px;
+    height: 120px;
+    pointer-events: none;
+    z-index: 2;
+  }
+}
+
+/* Desktop: centered, cursor-following via GSAP */
+@media (min-width: 769px) {
+  .hero-gif {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: auto;
+    height: auto;
+    pointer-events: none;
+    z-index: 2;
+    will-change: transform;
+  }
+}
+
 /* Desktop proximity hover: chars near cursor turn blue */
 @media (hover: hover) {
   .tg-ch.is-hovered {
