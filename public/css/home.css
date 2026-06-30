@@ -109,8 +109,8 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    width: auto;
-    height: auto;
+    width: 160px;
+    height: 160px;
     pointer-events: none;
     z-index: 2;
     will-change: transform;
