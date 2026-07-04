@@ -357,6 +357,11 @@
   transform: translateY(0);
 }
 
+/* ── Contact section: extra top padding on desktop ── */
+@media (min-width: 769px) {
+  .contact { padding-top: 80px; }
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .project-title { font-size: var(--text-3xl); }
