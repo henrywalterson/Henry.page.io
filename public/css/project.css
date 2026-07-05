@@ -244,10 +244,10 @@
 .project-section__block {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: var(--space-4);
 }
 .project-section__block + .project-section__block {
-  margin-top: var(--space-5);
+  margin-top: var(--space-10);
 }
 .project-section__block .img-wrap + .img-wrap {
   margin-top: var(--space-4);
