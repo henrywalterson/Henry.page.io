@@ -2,11 +2,24 @@ const burger = document.querySelector('.nav__burger');
 const links = document.querySelector('.nav__links');
 
 if (burger && links) {
+  const overlay = document.createElement('div');
+  overlay.className = 'nav__overlay';
+  document.body.appendChild(overlay);
+
+  function closeBurger() {
+    burger.setAttribute('aria-expanded', 'false');
+    links.classList.remove('is-open');
+    overlay.classList.remove('is-open');
+  }
+
   burger.addEventListener('click', () => {
     const isOpen = burger.getAttribute('aria-expanded') === 'true';
     burger.setAttribute('aria-expanded', String(!isOpen));
     links.classList.toggle('is-open', !isOpen);
+    overlay.classList.toggle('is-open', !isOpen);
   });
+
+  overlay.addEventListener('click', closeBurger);
 }
 
 // Contact dropdown
