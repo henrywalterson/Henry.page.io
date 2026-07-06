@@ -311,6 +311,10 @@ function copyEmail(btn) {
     if (window.location.hash.length > 0) {
       if (hint) hint.classList.add('is-hidden');
       if (navEl) navEl.classList.remove('nav--hero');
+      var hChars = splitChars();
+      hChars.forEach(function(ch, i) { ch.style.color = finalColor(i); });
+      var hGif = document.querySelector('.hero-gif');
+      if (hGif) hGif.style.display = 'none';
       return;
     }
 
