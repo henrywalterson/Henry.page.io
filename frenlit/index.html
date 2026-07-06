@@ -20,8 +20,53 @@
     }
     @media (max-width: 768px) {
       .project-section__block .project-section__text { max-width: 100%; }
+      .project-section__block { gap: var(--space-3); }
+      .project-section__block + .project-section__block { margin-top: var(--space-4); }
+      .project-section__text h2 { font-size: var(--text-xl); }
+      /* All card lists: 1-col on mobile */
       .project-section__cards .project-section__card { min-width: 100%; }
-      .project-section__block + .project-section__block { margin-top: var(--space-8); }
+    }
+
+    /* Design Process subsections */
+    .frenlit-subsection { margin-top: var(--space-8); }
+    .frenlit-subsection h2 {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--fw-extrabold);
+      color: var(--color-text-heading);
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-2);
+    }
+    .frenlit-subsection > p {
+      font-size: var(--text-sm);
+      color: var(--color-text-body);
+      line-height: var(--leading-relaxed);
+      margin: 0;
+    }
+    .frenlit-stats-list {
+      list-style: disc;
+      padding-left: 1.25em;
+      margin: var(--space-2) 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-text-body);
+      line-height: var(--leading-relaxed);
+    }
+    /* Why Frenlit: 3 cards per row on desktop */
+    .frenlit-why-cards .project-section__card {
+      flex: 1 1 calc(33.33% - var(--space-4));
+    }
+    /* Stat grid: title + 2 × 5-col cards + 1 × 10-col conclusion — centered (1 col each side) */
+    .frenlit-stat-grid h2 { margin-bottom: 0; }
+    .frenlit-stat-grid > *:nth-child(1) { grid-column: 2 / span 10; } /* title */
+    .frenlit-stat-grid > *:nth-child(2) { grid-column: 2 / span 5; }  /* card 1 */
+    .frenlit-stat-grid > *:nth-child(3) { grid-column: 7 / span 5; }  /* card 2 */
+    .frenlit-stat-grid > *:nth-child(4) { grid-column: 2 / span 10; } /* conclusion */
+    @media (max-width: 768px) {
+      .frenlit-subsection { margin-top: var(--space-5); }
+      .frenlit-stat-grid > * { grid-column: 1 / -1 !important; }
     }
   </style>
 </head>
@@ -119,52 +164,104 @@
     <section class="project-section fade-up">
       <p class="section__label">Design Process</p>
       <a href="https://app.notion.com/p/FRENlit-UX-Case-Study-32cf2d349a29813c8ed7e15c6725dd4c?source=copy_link" target="_blank" rel="noopener noreferrer" style="display: inline-block; font-size: var(--text-sm); color: var(--color-accent-1); line-height: var(--leading-relaxed); text-decoration: underline;">Read the full UX research here.</a>
-      <div class="project-section__cards" style="align-items: stretch;">
-        <div class="project-section__card" style="flex: 1 1 0; display: flex; flex-direction: column; gap: var(--space-2);">
-          <img src="/Images/Proj_Frenlit/Design_process_1.png" alt="Research" loading="lazy" decoding="async" style="height: 64px; width: auto; display: block;" />
-          <h3 class="project-section__card-heading">Research</h3>
-          <ul style="font-size: var(--text-sm); color: var(--color-text-body); line-height: var(--leading-relaxed); padding-left: 1.2em; margin: 0; display: flex; flex-direction: column; gap: 4px; list-style: disc;">
-            <li>Find out why and how young people currently connect offline.</li>
-            <li>Interview 12 young people to know their motivations and difficulties when offline connecting.</li>
-          </ul>
+      <div style="margin-top: var(--space-4);">
+        <img src="/Images/Proj_Frenlit/Design_process_4.png" alt="Design process" class="project-section__full-img" loading="lazy" decoding="async" style="pointer-events:none;" />
+      </div>
+      <!-- Research subsection -->
+      <div class="frenlit-subsection">
+        <!-- What the numbers say + What young people say + Conclusion -->
+        <div class="project-section__cols frenlit-stat-grid" style="row-gap: var(--space-3); align-items: stretch;">
+          <h2>Research</h2>
+          <div class="project-section__card">
+            <h3 class="project-section__card-heading">What the Numbers Say</h3>
+            <ul class="frenlit-stats-list">
+              <li><strong>76.2M</strong> Vietnamese use social media, averaging <strong>2h14m</strong> a day on these platforms.</li>
+              <li><strong>69%</strong> say technology makes them feel less connected and more isolated.</li>
+              <li><strong>91%</strong> of working Gen Z still rate in-person events as the best way to connect.</li>
+            </ul>
+          </div>
+          <div class="project-section__card">
+            <h3 class="project-section__card-heading">What Young People Say</h3>
+            <p>We interviewed <strong>12 people</strong> aged 24–35 who'd had at least one offline hangout in the past two months. Young people already have a real desire to connect offline in many ways but facing friction when doing so.</p>
+          </div>
+          <div class="project-section__card project-section__card--goal">
+            <p>The desire for offline connection hasn't disappeared — our role isn't to make them want offline connection, but to <strong>help remove the barriers that prevent them from doing so.</strong></p>
+          </div>
         </div>
-        <div class="project-section__card" style="flex: 1 1 0; display: flex; flex-direction: column; gap: var(--space-2);">
-          <img src="/Images/Proj_Frenlit/Design_process_2.png" alt="Problem Defining" loading="lazy" decoding="async" style="height: 64px; width: auto; display: block;" />
-          <h3 class="project-section__card-heading">Problem Defining</h3>
-          <ul style="font-size: var(--text-sm); color: var(--color-text-body); line-height: var(--leading-relaxed); padding-left: 1.2em; margin: 0; display: flex; flex-direction: column; gap: 4px; list-style: disc;">
-            <li>Use user journey to find out where the pain points are.</li>
-            <li>Create personas to specify user's goals, needs and pain points.</li>
-            <li>Make problem statement and how might we to discover solutions.</li>
-          </ul>
+      </div>
+
+      <!-- Who is Minh Thuỳ? -->
+      <div class="frenlit-subsection">
+        <h2>Who is Minh Thuỳ?</h2>
+        <p style="max-width: calc(6 * (var(--container-max) - 2 * var(--container-padding) - 11 * var(--space-3)) / 12 + 5 * var(--space-3));">From the interview, we have the portrait of Minh Thuỳ whose core pain is always being the one who makes the hangout happen. Solving for the exhausted organizer means giving more chances for hangouts to happen.</p>
+        <div style="margin-top: var(--space-4);">
+          <img src="/Images/Proj_Frenlit/Design_process_6.png" alt="Who is Minh Thuỳ" class="project-section__full-img" loading="lazy" decoding="async" style="pointer-events:none;" />
         </div>
-        <div class="project-section__card" style="flex: 1 1 0; display: flex; flex-direction: column; gap: var(--space-2);">
-          <img src="/Images/Proj_Frenlit/Design_process_3.png" alt="Solution Audit" loading="lazy" decoding="async" style="height: 64px; width: auto; display: block;" />
-          <h3 class="project-section__card-heading">Solution Audit</h3>
-          <ul style="font-size: var(--text-sm); color: var(--color-text-body); line-height: var(--leading-relaxed); padding-left: 1.2em; margin: 0; display: flex; flex-direction: column; gap: 4px; list-style: disc;">
-            <li>Use how might we to find existed solutions.</li>
-            <li>Learn from those solutions and make a benchmark for ours.</li>
-          </ul>
+      </div>
+
+      <!-- So how might we? -->
+      <div class="frenlit-subsection">
+        <h2>So how might we?</h2>
+        <div class="project-section__cols" style="margin-top: var(--space-3);">
+          <img src="/Images/Proj_Frenlit/Design_process_1.png" alt="How might we 1" class="project-section__full-img" loading="lazy" decoding="async" style="pointer-events:none;" />
+          <img src="/Images/Proj_Frenlit/Design_process_2.png" alt="How might we 2" class="project-section__full-img" loading="lazy" decoding="async" style="pointer-events:none;" />
         </div>
-        <div class="project-section__card" style="flex: 1 1 0; display: flex; flex-direction: column; gap: var(--space-2);">
-          <img src="/Images/Proj_Frenlit/Design_process_4.png" alt="Design Solution" loading="lazy" decoding="async" style="height: 64px; width: auto; display: block;" />
-          <h3 class="project-section__card-heading">Design Solution</h3>
-          <ul style="font-size: var(--text-sm); color: var(--color-text-body); line-height: var(--leading-relaxed); padding-left: 1.2em; margin: 0; display: flex; flex-direction: column; gap: 4px; list-style: disc;">
-            <li>Use crazy 8 method to generate and find ideas.</li>
-            <li>Find inspirations for design kit.</li>
-            <li>Design user flow, wireframe.</li>
-            <li>Refine and polish for mobile-first web app.</li>
-          </ul>
+      </div>
+
+      <!-- Competitive Gaps -->
+      <div class="frenlit-subsection">
+        <h2>Competitive Gaps</h2>
+        <p>For each HMW, we audited what people already use and where it breaks down.</p>
+        <div class="project-section__cols" style="margin-top: var(--space-3);">
+          <div class="project-section__card">
+            <h3 class="project-section__card-heading">Discovering Activities</h3>
+            <p>Such as TikTok, Facebook, Thổ Địa, Momo, they lack group contexts, and results skew toward partner restaurants.</p>
+          </div>
+          <div class="project-section__card">
+            <h3 class="project-section__card-heading">Sharing the Planning Burden</h3>
+            <p>Such as Google Maps, Messenger polls, they are good at giving and gathering information, not helping users decide.</p>
+          </div>
         </div>
       </div>
       <div class="problem-images" style="margin-top: var(--space-5);">
         <img src="/Images/Proj_Frenlit/Design_process_5.png" alt="Design process 5" class="project-section__full-img" loading="lazy" decoding="async" style="pointer-events:none;" />
-        <img src="/Images/Proj_Frenlit/Design_process_6.png" alt="Design process 6" class="project-section__full-img" loading="lazy" decoding="async" style="pointer-events:none;" />
       </div>
     </section>
 
     <!-- Design Solution -->
-    <section class="project-section fade-up">
-      <p class="section__label">Design solution</p>
+    <section class="project-section fade-up" style="margin-top: var(--space-8);">
+      <p class="section__label">Design Solution</p>
+
+      <!-- Why Frenlit? -->
+      <div class="frenlit-subsection" style="margin-top: 0; margin-bottom: var(--space-10);">
+        <h2>Why Frenlit?</h2>
+        <div class="project-section__cards frenlit-why-cards" style="margin-top: var(--space-3); align-items: stretch;">
+          <div class="project-section__card">
+            <h3 class="project-section__card-heading">Discover</h3>
+            <p>Venues curated for hangouts, not generic listings</p>
+          </div>
+          <div class="project-section__card">
+            <h3 class="project-section__card-heading">Smart Group Planning</h3>
+            <p>Aggregates preferences automatically</p>
+          </div>
+          <div class="project-section__card">
+            <h3 class="project-section__card-heading">Group Deal</h3>
+            <p>Show cost signal before commitment, reducing financial anxiety</p>
+          </div>
+          <div class="project-section__card">
+            <h3 class="project-section__card-heading">No App Required to Respond</h3>
+            <p>Removes the single biggest drop-off point: asking friends to install something</p>
+          </div>
+          <div class="project-section__card">
+            <h3 class="project-section__card-heading">Show Match Percent</h3>
+            <p>"98% match" reads as a friendly recommendation</p>
+          </div>
+          <div class="project-section__card">
+            <h3 class="project-section__card-heading">Suggested Route</h3>
+            <p>Never ask "where do we go next?" again</p>
+          </div>
+        </div>
+      </div>
 
       <div class="project-section__block">
         <div class="project-section__text">
@@ -209,7 +306,7 @@
       <div class="project-section__block">
         <div class="project-section__text">
           <h2>Location Library</h2>
-          <p>Frenlit also includes a browseable library with Nearby, Group Deal, and Routes tabs. Routes are curated multi-stop experiences that groups can follow together.</p>
+          <p>Frenlit also includes a browsable library with Nearby, Group Deal, and Routes tabs. Routes are curated multi-stop experiences that groups can follow together.</p>
         </div>
         <img src="/Images/Proj_Frenlit/Design solution_Location Library.png" alt="Location library: nearby, group deals, and routes tabs" class="project-section__full-img" loading="lazy" decoding="async" />
         <img src="/Images/Proj_Frenlit/Design solution_Location Library 02.png" alt="Location library: group deals and routes detail" class="project-section__full-img" loading="lazy" decoding="async" />
@@ -234,7 +331,9 @@
           <p>Add prompts, mini games, and group challenges to make hangouts more engaging.</p>
         </div>
       </div>
-      <img src="/Images/Proj_Frenlit/Room for Innovation.png" alt="Room for Innovation" class="project-section__full-img" loading="lazy" decoding="async" style="margin-top: var(--space-5);" />
+      <div style="margin-top: var(--space-5);">
+        <img src="/Images/Proj_Frenlit/Room for Innovation.png" alt="Room for Innovation" class="project-section__full-img" loading="lazy" decoding="async" />
+      </div>
     </section>
 
   </div>

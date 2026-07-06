@@ -332,6 +332,7 @@
   min-height: 0;
 }
 .img-wrap img {
+  margin: 0;
   opacity: 0;
   transition: opacity 0.4s ease;
   display: block;
