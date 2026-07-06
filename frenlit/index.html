@@ -58,12 +58,13 @@
     .frenlit-why-cards .project-section__card {
       flex: 1 1 calc(33.33% - var(--space-4));
     }
-    /* So how might we: 2 × 4-col images centered (2 empty cols each side) */
-    .frenlit-hmw-cols > *:nth-child(1) { grid-column: 2 / span 5; }
-    .frenlit-hmw-cols > *:nth-child(2) { grid-column: 7 / span 5; }
+    /* So how might we: h2 + 2 × 5-col images centered */
+    .frenlit-hmw-cols h2 { margin-bottom: 0; }
+    .frenlit-hmw-cols > *:nth-child(1) { grid-column: 2 / span 10; } /* title */
+    .frenlit-hmw-cols > *:nth-child(2) { grid-column: 2 / span 5; }  /* img 1 */
+    .frenlit-hmw-cols > *:nth-child(3) { grid-column: 7 / span 5; }  /* img 2 */
     @media (max-width: 768px) {
-      .frenlit-hmw-cols > *:nth-child(1),
-      .frenlit-hmw-cols > *:nth-child(2) { grid-column: 1 / -1; }
+      .frenlit-hmw-cols > * { grid-column: 1 / -1 !important; }
     }
     /* Stat grid: title + 2 × 5-col cards + 1 × 10-col conclusion — centered (1 col each side) */
     .frenlit-stat-grid h2 { margin-bottom: 0; }
@@ -189,10 +190,10 @@
           </div>
           <div class="project-section__card">
             <h3 class="project-section__card-heading">What Young People Say</h3>
-            <p>We interviewed <strong>12 people</strong> aged 24–35 who'd had at least one offline hangout in the past two months. Young people already have a real <strong>desire to connect</strong> offline in many ways <strong>but facing friction</strong> when doing so.</p>
+            <p>We interviewed <strong>12 people</strong> aged 18–35 who'd had at least one offline hangout in the past month to know when and how they actually hang out. From those answers, we can say that young people already have a real <strong>desire to connect</strong> offline in many ways <strong>but face friction</strong> when doing so.</p>
           </div>
           <div class="project-section__card project-section__card--goal">
-            <p>The desire for offline connection hasn't disappeared — our role isn't to make them want offline connection, but to <strong>help remove the barriers that prevent them from doing so.</strong></p>
+            <p>The desire for offline connection hasn't disappeared, our role isn't to make them want offline connection, but to <strong>help remove the barriers that prevent them from doing so.</strong></p>
           </div>
         </div>
       </div>
@@ -208,8 +209,8 @@
 
       <!-- So how might we? -->
       <div class="frenlit-subsection">
-        <h2>So how might we?</h2>
-        <div class="project-section__cols frenlit-hmw-cols" style="margin-top: var(--space-3);">
+        <div class="project-section__cols frenlit-hmw-cols" style="row-gap: var(--space-3);">
+          <h2>So how might we?</h2>
           <img src="/Images/Proj_Frenlit/Design_process_1.png" alt="How might we 1" class="project-section__full-img" loading="lazy" decoding="async" style="pointer-events:none;" />
           <img src="/Images/Proj_Frenlit/Design_process_2.png" alt="How might we 2" class="project-section__full-img" loading="lazy" decoding="async" style="pointer-events:none;" />
         </div>
