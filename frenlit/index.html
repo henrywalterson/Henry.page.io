@@ -58,6 +58,13 @@
     .frenlit-why-cards .project-section__card {
       flex: 1 1 calc(33.33% - var(--space-4));
     }
+    /* So how might we: 2 × 4-col images centered (2 empty cols each side) */
+    .frenlit-hmw-cols > *:nth-child(1) { grid-column: 3 / span 4; }
+    .frenlit-hmw-cols > *:nth-child(2) { grid-column: 7 / span 4; }
+    @media (max-width: 768px) {
+      .frenlit-hmw-cols > *:nth-child(1),
+      .frenlit-hmw-cols > *:nth-child(2) { grid-column: 1 / -1; }
+    }
     /* Stat grid: title + 2 × 5-col cards + 1 × 10-col conclusion — centered (1 col each side) */
     .frenlit-stat-grid h2 { margin-bottom: 0; }
     .frenlit-stat-grid > *:nth-child(1) { grid-column: 2 / span 10; } /* title */
@@ -182,7 +189,7 @@
           </div>
           <div class="project-section__card">
             <h3 class="project-section__card-heading">What Young People Say</h3>
-            <p>We interviewed <strong>12 people</strong> aged 24–35 who'd had at least one offline hangout in the past two months. Young people already have a real desire to connect offline in many ways but facing friction when doing so.</p>
+            <p>We interviewed <strong>12 people</strong> aged 24–35 who'd had at least one offline hangout in the past two months. <strong>Young people already have a real desire to connect offline in many ways but facing friction when doing so.</strong></p>
           </div>
           <div class="project-section__card project-section__card--goal">
             <p>The desire for offline connection hasn't disappeared — our role isn't to make them want offline connection, but to <strong>help remove the barriers that prevent them from doing so.</strong></p>
@@ -202,7 +209,7 @@
       <!-- So how might we? -->
       <div class="frenlit-subsection">
         <h2>So how might we?</h2>
-        <div class="project-section__cols" style="margin-top: var(--space-3);">
+        <div class="project-section__cols frenlit-hmw-cols" style="margin-top: var(--space-3);">
           <img src="/Images/Proj_Frenlit/Design_process_1.png" alt="How might we 1" class="project-section__full-img" loading="lazy" decoding="async" style="pointer-events:none;" />
           <img src="/Images/Proj_Frenlit/Design_process_2.png" alt="How might we 2" class="project-section__full-img" loading="lazy" decoding="async" style="pointer-events:none;" />
         </div>
@@ -266,7 +273,7 @@
       <div class="project-section__block">
         <div class="project-section__text">
           <h2>UI Kit</h2>
-          <p>Frenlit's UI kit includes five color scales: orange, green, blue, red, and grey. Key components include venue cards, tab bars, chips, join-code inputs, and event cards.</p>
+          <p>Frenlit's UI kit includes five color scales: orange, green, blue, red, and grey. Key components include venue cards, tab bars, chips, join-code inputs, and event cards. SF Pro Rounded is used for headlines and SF Pro for body text, ensuring a consistent mobile web experience.</p>
         </div>
         <img src="/Images/Proj_Frenlit/Design solution_UI_kit.png" alt="UI Kit: color palette and component library" class="project-section__full-img" loading="lazy" decoding="async" />
       </div>
@@ -274,7 +281,7 @@
       <div class="project-section__block">
         <div class="project-section__text">
           <h2>Branding &amp; Visual Identity</h2>
-          <p>Frenlit's brand feels warm, energetic, and approachable. The flame mascot represents the spark of a good plan, while the orange-led color palette keeps the product playful and friendly. SF Pro Rounded is used for headlines and SF Pro for body text, ensuring a consistent mobile web experience.</p>
+          <p>Frenlit's brand feels warm, energetic, and approachable. The flame mascot represents the spark of a good plan, while the orange-led color palette keeps the product playful and friendly.</p>
         </div>
         <img src="/Images/Proj_Frenlit/Design solution_Branding.png" alt="Frenlit branding: logo, mascot, color palette, typography" class="project-section__full-img" loading="lazy" decoding="async" />
       </div>
