@@ -390,7 +390,11 @@ function copyEmail(btn) {
     function setMProgress(p) {
       p = Math.max(0, Math.min(1, p));
       mTl.progress(p);
-      if (mHeroGif) mHeroGif.style.opacity = Math.max(0, 1 - p * 2).toFixed(3);
+      if (mHeroGif) {
+        var gifP = Math.min(1, p * 2);
+        mHeroGif.style.filter  = 'blur(' + (gifP * 24).toFixed(1) + 'px)';
+        mHeroGif.style.opacity = gifP > 0.8 ? (1 - (gifP - 0.8) * 5).toFixed(3) : '1';
+      }
       if (p > 0.01 && !mHintDone && hint) { mHintDone = true; hint.classList.add('is-keep'); }
       if (mHintDone && hint) hint.style.setProperty('--fill', (p * 100).toFixed(1) + '%');
       if (!mDone && p >= 1) { mDone = true; document.removeEventListener('touchmove', onMove); mComplete(); }
