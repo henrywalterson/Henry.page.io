@@ -102,6 +102,21 @@
   }
 }
 
+/* Mobile swipe mode (reduce motion OFF): GIF centered in sticky container, fades on swipe.
+   Class added by JS — no media query needed since JS already guards the mobile path. */
+.hero-gif--mobile-swipe {
+  display: block;
+  position: absolute;
+  left: 50%;
+  bottom: auto;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  pointer-events: none;
+  z-index: 2;
+}
+
 /* Desktop (mouse): centered, cursor-following via GSAP */
 @media (pointer: fine) {
   .hero-gif {

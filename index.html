@@ -366,6 +366,9 @@ function copyEmail(btn) {
     var each     = 0.95 / Math.max(n - 1, 1);
     var fadeOut  = 0.12;
 
+    var mHeroGif = document.querySelector('.hero-gif');
+    if (mHeroGif) mHeroGif.classList.add('hero-gif--mobile-swipe');
+
     function mComplete() {
       document.body.style.overflow = '';
       document.body.style.position = '';
@@ -387,6 +390,7 @@ function copyEmail(btn) {
     function setMProgress(p) {
       p = Math.max(0, Math.min(1, p));
       mTl.progress(p);
+      if (mHeroGif) mHeroGif.style.opacity = Math.max(0, 1 - p * 2).toFixed(3);
       if (p > 0.01 && !mHintDone && hint) { mHintDone = true; hint.classList.add('is-keep'); }
       if (mHintDone && hint) hint.style.setProperty('--fill', (p * 100).toFixed(1) + '%');
       if (!mDone && p >= 1) { mDone = true; document.removeEventListener('touchmove', onMove); mComplete(); }
