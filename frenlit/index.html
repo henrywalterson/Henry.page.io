@@ -21,14 +21,14 @@
     @media (max-width: 768px) {
       .project-section__block .project-section__text { max-width: 100%; }
       .project-section__block { gap: var(--space-3); }
-      .project-section__block + .project-section__block { margin-top: var(--space-4); }
+      .project-section__block + .project-section__block { margin-top: var(--space-5); }
       .project-section__text h2 { font-size: var(--text-xl); }
       /* All card lists: 1-col on mobile */
       .project-section__cards .project-section__card { min-width: 100%; }
     }
 
     /* Design Process subsections */
-    .frenlit-subsection { margin-top: var(--space-8); }
+    .frenlit-subsection { margin-top: var(--space-10); }
     .frenlit-subsection h2 {
       font-family: var(--font-heading);
       font-size: var(--text-xl);
@@ -54,6 +54,9 @@
       color: var(--color-text-body);
       line-height: var(--leading-relaxed);
     }
+    /* Design Solution section top spacing */
+    .frenlit-ds { margin-top: 96px; }
+    @media (max-width: 768px) { .frenlit-ds { margin-top: var(--space-8); } }
     /* Why Frenlit: 3 cards per row on desktop */
     .frenlit-why-cards .project-section__card {
       flex: 1 1 calc(33.33% - var(--space-4));
@@ -75,6 +78,7 @@
     @media (max-width: 768px) {
       .frenlit-subsection { margin-top: var(--space-5); }
       .frenlit-stat-grid > * { grid-column: 1 / -1 !important; }
+      .frenlit-why-header { margin-bottom: var(--space-5) !important; }
     }
   </style>
 </head>
@@ -173,13 +177,16 @@
       <p class="section__label">Design Process</p>
       <a href="https://app.notion.com/p/FRENlit-UX-Case-Study-32cf2d349a29813c8ed7e15c6725dd4c?source=copy_link" target="_blank" rel="noopener noreferrer" style="display: inline-block; font-size: var(--text-sm); color: var(--color-accent-1); line-height: var(--leading-relaxed); text-decoration: underline;">Read the full UX research here.</a>
       <div style="margin-top: var(--space-4);">
-        <img src="/Images/Proj_Frenlit/Design_process_4.png" alt="Design process" class="project-section__full-img" loading="lazy" decoding="async" style="pointer-events:none;" />
+        <picture>
+          <source media="(max-width: 768px)" srcset="/Images/Proj_Frenlit/Mobile_Design_process_4.png" />
+          <img src="/Images/Proj_Frenlit/Design_process_4.png" alt="Design process" class="project-section__full-img" loading="lazy" decoding="async" style="pointer-events:none;" />
+        </picture>
       </div>
       <!-- Research subsection -->
       <div class="frenlit-subsection">
         <!-- What the numbers say + What young people say + Conclusion -->
         <div class="project-section__cols frenlit-stat-grid" style="row-gap: var(--space-3); align-items: stretch;">
-          <h2>Research</h2>
+          <h2>Research &amp; Discover</h2>
           <div class="project-section__card">
             <h3 class="project-section__card-heading">What the Numbers Say</h3>
             <ul class="frenlit-stats-list">
@@ -202,8 +209,11 @@
       <div class="frenlit-subsection">
         <h2>Who is Minh Thuỳ?</h2>
         <p style="max-width: calc(6 * (var(--container-max) - 2 * var(--container-padding) - 11 * var(--space-3)) / 12 + 5 * var(--space-3));">From the interview, we have the portrait of Minh Thuỳ whose core pain is always being the one who makes the hangout happen. Solving for the exhausted organizer means giving more chances for hangouts to happen.</p>
-        <div style="margin-top: var(--space-4);">
-          <img src="/Images/Proj_Frenlit/Design_process_6.png" alt="Who is Minh Thuỳ" class="project-section__full-img" loading="lazy" decoding="async" style="pointer-events:none;" />
+        <div style="margin-top: var(--space-3);">
+          <picture>
+            <source media="(max-width: 768px)" srcset="/Images/Proj_Frenlit/Mobile_Design_process_6.png" />
+            <img src="/Images/Proj_Frenlit/Design_process_6.png" alt="Who is Minh Thuỳ" class="project-section__full-img" loading="lazy" decoding="async" style="pointer-events:none;" />
+          </picture>
         </div>
       </div>
 
@@ -237,11 +247,11 @@
     </section>
 
     <!-- Design Solution -->
-    <section class="project-section fade-up" style="margin-top: var(--space-8);">
+    <section class="project-section frenlit-ds fade-up">
       <p class="section__label">Design Solution</p>
 
       <!-- Why Frenlit? -->
-      <div class="frenlit-subsection" style="margin-top: 0; margin-bottom: var(--space-10);">
+      <div class="frenlit-subsection frenlit-why-header" style="margin-top: 0; margin-bottom: var(--space-10);">
         <h2>Why Frenlit?</h2>
         <div class="project-section__cards frenlit-why-cards" style="margin-top: var(--space-3); align-items: stretch;">
           <div class="project-section__card">
@@ -410,8 +420,9 @@ function copyEmail(btn) {
     var wrap = document.createElement('div');
     wrap.className = 'img-wrap';
     wrap.style.borderRadius = window.getComputedStyle(img).borderRadius;
-    img.parentNode.insertBefore(wrap, img);
-    wrap.appendChild(img);
+    var target = img.parentNode.tagName === 'PICTURE' ? img.parentNode : img;
+    target.parentNode.insertBefore(wrap, target);
+    wrap.appendChild(target);
     function onLoad() { wrap.classList.add('loaded'); }
     if (img.complete && img.naturalWidth > 0) { onLoad(); }
     else { img.addEventListener('load', onLoad); }
