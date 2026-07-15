@@ -61,13 +61,13 @@
 }
 
 .hero-heading__accent {
-  color: var(--color-accent-2);
+  color: inherit;
 }
 
 .hero-tagline {
   font-size: var(--text-base);
   font-weight: var(--fw-normal);
-  color: var(--color-text-heading);
+  color: var(--color-text-muted);
   line-height: 2;
   max-width: 38ch;
 }
