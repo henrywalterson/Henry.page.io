@@ -10,6 +10,7 @@
      COLORS
   ===================== */
   --color-bg:             #ffffff;
+  --color-bg-page:        #f4f6f9;
   --color-surface:        #f8fafc;
   --color-surface-2:      #f1f5f9;
   --color-border:         #e2e8f0;
@@ -49,8 +50,8 @@
 
   /* Type scale (major third — 1.25×) */
   --text-xs:   0.875rem;   /* 14px */
-  --text-sm:   1rem;       /* 16px */
-  --text-base: 1rem;       /* 16px */
+  --text-sm:   0.875rem;   /* 14px */
+  --text-base: 0.875rem;   /* 14px */
   --text-lg:   1.125rem;   /* 18px */
   --text-xl:   1.25rem;    /* 20px */
   --text-2xl:  1.5rem;     /* 24px */

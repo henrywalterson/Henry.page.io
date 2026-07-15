@@ -3,6 +3,9 @@
    Used by all /project-name/index.html pages
    ===================================================== */
 
+/* ── Page bottom breathing room ── */
+main { padding-bottom: 80px; }
+
 /* ── Header ── */
 .project-header {
   padding-top: var(--space-6);

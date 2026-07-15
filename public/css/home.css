@@ -1,30 +1,203 @@
-/* ===== HERO REVEAL ===== */
-.hero-reveal {
-  background: #f4f6f9;
-  height: 400vh;
-}
-.hero-reveal__sticky {
-  position: sticky;
-  top: 64px; /* nav height — sticky activates immediately at scrollY=0 */
-  height: calc(100vh - 64px);
+/* ===== SPLIT LAYOUT ===== */
+.split-layout {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
-  align-items: center;
+  gap: 68px;
+  min-height: 100vh;
+  align-items: flex-start;
 }
-.hero-reveal__inner {
-  max-width: var(--container-max);
-  margin: -5.5rem auto 0;
-  padding: 0 var(--container-padding);
-  width: 100%;
+
+.split-left {
+  width: 464px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 44px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 72px;
+  -webkit-overflow-scrolling: touch;
+  /* hide scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-.hero-reveal__text {
+.split-left::-webkit-scrollbar { display: none; }
+
+.split-right {
+  flex: 1;
+  min-width: 0;
+  padding: 44px 80px;
+}
+
+/* ===== LOGO ===== */
+.split-logo {
   font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 5.5vw, 5rem);
-  font-weight: var(--fw-extrabold);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-size: var(--text-lg);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-heading);
+  letter-spacing: var(--tracking-tight);
+  text-decoration: none;
+  flex-shrink: 0;
 }
-.tg {
-  color: #ffffff;
+
+/* ===== HERO STATIC ===== */
+.hero-static {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.hero-heading {
+  font-family: var(--font-heading);
+  font-size: 2.5rem; /* 40px */
+  font-weight: var(--fw-extrabold);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--color-text-heading);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.hero-heading__accent {
+  color: var(--color-accent-2);
+}
+
+.hero-tagline {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+  max-width: 38ch;
+}
+
+/* ===== HERO CONTACT DROPDOWN ===== */
+.hero-contact {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-cta {
+  display: block;
+  background: var(--color-text-heading);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.hero-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-btn);
+  border-radius: inherit;
+  transform: translateX(-101%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+.hero-cta:hover::before {
+  transform: translateX(0);
+}
+.hero-cta:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.35);
+}
+
+.hero-dropdown {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 6px;
+  min-width: 190px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  opacity: 0;
+  transform: translateY(6px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 200;
+}
+
+.hero-dropdown.is-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* ===== LEFT SECTIONS ===== */
+.left-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.left-about .section__label,
+.left-works .section__label,
+.left-tools .section__label,
+.left-experience .section__label,
+.left-life .section__label {
+  font-size: 1rem; /* 16px */
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  -webkit-text-fill-color: var(--color-text-heading);
+  color: var(--color-text-heading);
+  margin-bottom: 0;
+}
+
+.left-about p:not(.section__label) {
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-muted);
+}
+
+/* ===== LEFT LIFE OUTSIDE ===== */
+.life-sub {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 0;
+}
+
+.life-gallery-2col {
+  display: flex;
+  gap: var(--space-2);
+}
+.life-gallery-2col__col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.life-gallery-2col__col img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+}
+
+/* ===== RIGHT PANEL WORKS ===== */
+.right-works {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.right-works .section__label {
+  margin-bottom: var(--space-1);
+}
+
+.right-works .cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
 }
 
 /* Scroll hint */
@@ -135,13 +308,13 @@
 /* Desktop proximity hover: chars near cursor turn blue */
 @media (hover: hover) {
   .tg-ch.is-hovered {
-    color: #3677E4 !important;
+    color: var(--color-accent-2) !important;
   }
 }
 
 
 @media (prefers-reduced-motion: reduce) {
-  .tg { color: #3677E4; }
+  .tg { color: var(--color-accent-2); }
 }
 /* Tablet-sized non-touch (small laptop): flex-start + viewport-relative padding */
 @media (max-width: 1024px) and (min-width: 769px) and (pointer: fine) {
@@ -337,7 +510,7 @@
   color: var(--color-text-muted);
   line-height: var(--leading-relaxed);
   max-width: calc(5 * (var(--container-max) - 2 * var(--container-padding) - 11 * var(--space-3)) / 12 + 4 * var(--space-3));
-  margin-bottom: var(--space-4);
+  margin-bottom: 0;
 }
 .life-gallery {
   display: flex;
@@ -389,7 +562,77 @@
 
 /* ===== PAGE ANIMATIONS ===== */
 
-/* Scroll reveal */
+@keyframes slide-from-left {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-from-right {
+  from { opacity: 0; transform: translateX(60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Initial hidden state */
+.hero-static,
+.left-section {
+  opacity: 0;
+}
+
+/* Playing */
+.hero-static.anim-in,
+.left-section.anim-in {
+  animation: slide-from-left 2.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Done */
+.hero-static.anim-done,
+.left-section.anim-done {
+  opacity: 1;
+  transform: none;
+}
+
+/* Cards — initial hidden, then slide from right */
+.right-works .card {
+  opacity: 0;
+}
+.right-works .card.anim-in {
+  animation: slide-from-right 2.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.right-works .card.anim-done {
+  opacity: 1;
+  transform: none;
+}
+
+.right-works .card.card--exit-left,
+.left-works .card.card--exit-left {
+  transform: translateX(-56px) !important;
+  opacity: 0 !important;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 1, 1), opacity 0.28s ease !important;
+  pointer-events: none !important;
+}
+.right-works .card.card--exit-right,
+.left-works .card.card--exit-right {
+  transform: translateX(56px) !important;
+  opacity: 0 !important;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 1, 1), opacity 0.28s ease !important;
+  pointer-events: none !important;
+}
+.right-works .card.card--exit-up,
+.left-works .card.card--exit-up {
+  transform: translateY(-40px) !important;
+  opacity: 0 !important;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 1, 1), opacity 0.28s ease !important;
+  pointer-events: none !important;
+}
+.right-works .card.card--exit-down,
+.left-works .card.card--exit-down {
+  transform: translateY(40px) !important;
+  opacity: 0 !important;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 1, 1), opacity 0.28s ease !important;
+  pointer-events: none !important;
+}
+
+/* Scroll reveal (kept for legacy) */
 .fade-up {
   opacity: 0;
   transform: translateY(24px);
@@ -415,4 +658,98 @@
 
 @media (prefers-reduced-motion: reduce) {
   .fade-up { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* ===================================================
+   RESPONSIVE — Stacked layout (≤ 1100px)
+   Order: hero → works carousel → exp → tools → life
+   =================================================== */
+
+/* Mobile works section: hidden on desktop */
+.left-works { display: none; }
+
+/* Works carousel base (used when .left-works is shown) */
+.works-carousel {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline-start: 0px;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: var(--space-1);
+}
+.works-carousel::-webkit-scrollbar { display: none; }
+/* Tablet: cards ~45% — two visible + peek of third to hint scrollability */
+.works-carousel .card {
+  flex: 0 0 calc(45% - 8px);
+  scroll-snap-align: start;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+@media (max-width: 1100px) {
+  /* Stacked single-column layout */
+  .split-layout {
+    flex-direction: column;
+    max-width: 760px;
+    padding: 0 var(--space-3);
+    gap: 0;
+    padding-bottom: var(--space-10); /* 80px bottom breathing room */
+  }
+
+  .split-left {
+    width: 100%;
+    position: static;
+    height: auto;
+    overflow: visible; /* reset desktop overflow-x:hidden so carousel can scroll */
+    padding: var(--space-6) 0 0;
+    gap: var(--space-8); /* 64px between sections */
+  }
+
+  /* Works in right panel hidden — carousel takes its place */
+  .split-right { display: none; }
+
+  /* Show mobile works carousel */
+  .left-works { display: flex; }
+
+  /* Hero tagline: remove char limit */
+  .hero-tagline { max-width: none; }
+
+  /* Swap slide animations to fade-up for stacked context */
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .hero-static.anim-in,
+  .left-section.anim-in {
+    animation: fade-in-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+
+/* Mobile (≤ 640px): one card + peek */
+@media (max-width: 640px) {
+  .split-layout {
+    padding: 0 var(--space-2);
+    padding-bottom: var(--space-10);
+    max-width: 100%;
+  }
+
+  .split-left {
+    padding-top: var(--space-5);
+    gap: var(--space-7); /* 56px */
+  }
+
+  .works-carousel .card {
+    flex: 0 0 calc(100% - 40px);
+  }
+
+  /* Hero heading slightly smaller on small screens */
+  .hero-heading { font-size: 2rem; }
+
+  .works-carousel .pill { font-size: 0.75rem; /* 12px */ }
 }

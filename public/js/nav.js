@@ -69,6 +69,20 @@ if (burger && links) {
   });
 })();
 
+// Nav exit: slide up when navigating back to homepage
+(function() {
+  var nav = document.querySelector('.nav');
+  if (!nav) return;
+  document.querySelectorAll('a.project-back, a[href="/"], a[href="/#works"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var href = link.getAttribute('href');
+      nav.classList.add('nav--exit');
+      setTimeout(function() { window.location.href = href; }, 350);
+    });
+  });
+})();
+
 // Mobile burger: email copy button
 document.querySelectorAll('.nav__mobile-copy-btn').forEach(function (btn) {
   btn.addEventListener('click', function (e) {

@@ -23,77 +23,61 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="icon" type="image/x-icon" href="/Images/favicon_io/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href="/Images/favicon_io/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/Images/favicon_io/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/Images/favicon_io/favicon-16x16.png" />
   <link rel="stylesheet" href="/public/css/variables.css" />
   <link rel="stylesheet" href="/public/css/base.css" />
   <link rel="stylesheet" href="/public/css/components.css" />
   <link rel="stylesheet" href="/public/css/home.css" />
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 </head>
 <body>
 
-<nav class="nav nav--hero">
-  <div class="nav__inner container">
-    <a href="/" class="nav__logo">hdhuy</a>
-    <ul class="nav__links">
-      <li><a href="#works">My Works</a></li>
-      <li><a href="https://drive.google.com/drive/folders/1brXefMJL13ol6JJIFrJA_yLXjcCfDDSp?usp=drive_link" class="nav__resume" target="_blank" rel="noopener noreferrer">Resume</a></li>
-      <li class="nav__mobile-contact-item nav__mobile-contact-item--first">
-        <a href="https://www.linkedin.com/in/huyhuynhcreative/" target="_blank" rel="noopener noreferrer">My LinkedIn<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
-      </li>
-      <li class="nav__mobile-contact-item">
-        <button class="nav__mobile-copy-btn"><span>Email</span><span class="nav__mobile-copy-icon"><svg class="icon-copy" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span></button>
-      </li>
-    </ul>
-    <div class="nav__contact">
-      <button class="btn btn--sm nav__contact-btn" aria-expanded="false">Contact me</button>
-      <div class="nav__dropdown">
-        <a href="https://www.linkedin.com/in/huyhuynhcreative/" target="_blank" rel="noopener noreferrer" class="nav__dropdown-item">
-          <span>My LinkedIn</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-        </a>
-        <button class="nav__dropdown-item nav__dropdown-item--copy">
-          <span>Email</span>
-          <span class="nav__dropdown-icon">
-            <svg class="icon-copy" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <svg class="icon-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-          </span>
-        </button>
+<div class="split-layout">
+
+  <!-- LEFT PANEL: Info -->
+  <div class="split-left" id="split-left">
+
+    <!-- Hero -->
+    <div class="hero-static">
+      <a href="/" class="split-logo">hdhuy</a>
+      <h1 class="hero-heading">
+        <span>Design for</span>
+        <span class="hero-heading__accent">Decisions,</span>
+        <span>Not Aesthetics</span>
+      </h1>
+      <p class="hero-tagline">Hi, it's Huy here. With roots in Literature and Graphic Design, I am now a Product Designer driven by systems thinking and human-centric problem solving.</p>
+      <p class="hero-tagline">I define problems and validate solutions to craft digital experiences that drive meaningful impact for both users and businesses.</p>
+
+      <!-- Contact me button with dropdown -->
+      <div class="hero-contact">
+        <button class="btn btn--sm hero-cta" aria-expanded="false" id="heroContactBtn">Contact me</button>
+        <div class="hero-dropdown" id="heroDropdown">
+          <a href="https://www.linkedin.com/in/huyhuynhcreative/" target="_blank" rel="noopener noreferrer" class="nav__dropdown-item">
+            <span>My LinkedIn</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+          <a href="https://drive.google.com/drive/u/1/folders/1brXefMJL13ol6JJIFrJA_yLXjcCfDDSp?usp=drive_link" target="_blank" rel="noopener noreferrer" class="nav__dropdown-item">
+            <span>View resume</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+          <button class="nav__dropdown-item nav__dropdown-item--copy" id="heroEmailBtn">
+            <span>Email</span>
+            <span class="nav__dropdown-icon">
+              <svg class="icon-copy" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+          </button>
+        </div>
       </div>
     </div>
-    <button class="nav__burger" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
 
-<main>
+    <!-- Works carousel: visible only on ≤ 1100px stacked layout -->
+    <div class="left-section left-works">
+      <p class="section__label">My Works</p>
+      <div class="works-carousel">
 
-  <!-- HERO REVEAL -->
-  <section class="hero-reveal">
-    <div class="hero-reveal__sticky">
-      <img class="hero-gif" src="/Images/Hero_animation.gif" alt="" aria-hidden="true">
-      <div class="hero-reveal__inner">
-        <p class="hero-reveal__text"><span class="tg">As a designer, I </span><span class="tg">define problems</span><span class="tg">, </span><span class="tg">validate solutions</span><span class="tg">, and drive </span><span class="tg">impact for users and businesses</span><span class="tg">.</span></p>
-      </div>
-    </div>
-  </section>
-  <button class="hero-scroll-hint" aria-label="Scroll to continue">
-    <span class="hint-label hint-label--scroll">scroll to continue<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-left:6px;vertical-align:middle;flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg></span>
-    <span class="hint-label hint-label--keep" aria-hidden="true">keep scrolling</span>
-    <span class="hint-s2" aria-hidden="true">keep scrolling</span>
-  </button>
-
-  <!-- MY WORKS -->
-  <section class="section case-studies" id="works">
-    <div class="container">
-      <p class="section__label fade-up">My Works</p>
-      <div class="cards-grid">
-
-        <a href="/frenlit/" class="card fade-up" style="transition-delay:0.12s">
+        <a href="/frenlit/" class="card">
           <div class="card__image">
             <img src="/Images/thumbnails_frenlit.jpg" alt="Frenlit" loading="lazy" decoding="async" />
           </div>
@@ -101,17 +85,14 @@
             <div class="card__pills">
               <span class="pill">UX Research</span>
               <span class="pill">UI Design</span>
-              <span class="pill">Branding</span>
             </div>
-            <h3 class="card__title">Frenlit — AI Group Outing Planner</h3>
-            <p class="card__desc">FRENLIT helps friend groups turn "where should we go?" chats into a confirmed plan. AI collects everyone's preferences and matches the whole group to the perfect venue.</p>
-            <div class="card__footer">
-              <span class="link-arrow">View →</span>
-            </div>
+            <h3 class="card__title">Frenlit — AI-Powered Outing Planner</h3>
+            <p class="card__desc">Conducted UX research and designed UI for an AI-powered group outing planner, making hangouts easy to organize.</p>
+            <div class="card__footer"><span class="link-arrow">View →</span></div>
           </div>
         </a>
 
-        <a href="/vietcharm/" class="card fade-up" style="transition-delay:0.12s">
+        <a href="/vietcharm/" class="card">
           <div class="card__image">
             <img src="/Images/thumbnails_vietcharm.jpg" alt="VietCharm" loading="lazy" decoding="async" />
           </div>
@@ -121,14 +102,12 @@
               <span class="pill">Self-Initiated</span>
             </div>
             <h3 class="card__title">VietCharm — Homepage &amp; Booking Flow</h3>
-            <p class="card__desc">Self-initiated UX/UI redesign of a cultural dining show's website (homepage + booking flow), desktop and mobile, to match premium tone and reduce conversion friction.</p>
-            <div class="card__footer">
-              <span class="link-arrow">View →</span>
-            </div>
+            <p class="card__desc">Redesigned the homepage and booking flow for a Vietnamese premium cultural dining show to increase reservations.</p>
+            <div class="card__footer"><span class="link-arrow">View →</span></div>
           </div>
         </a>
 
-        <a href="/graphics/" class="card fade-up" style="transition-delay:0.12s">
+        <a href="/graphics/" class="card">
           <div class="card__image">
             <img src="/Images/thumbnails_graphics.jpg" alt="My Graphics Works" loading="lazy" decoding="async" />
           </div>
@@ -139,7 +118,137 @@
               <span class="pill">E-com</span>
             </div>
             <h3 class="card__title">My Graphics Works</h3>
-            <p class="card__desc">A curated collection of my graphic design works, featuring posters, banners, e-commerce store layouts, and brand identity work.</p>
+            <p class="card__desc">A collection of my graphic design works, featuring posters, banners, store layouts, and brand identity.</p>
+            <div class="card__footer"><span class="link-arrow">View →</span></div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <div class="left-section left-experience">
+      <p class="section__label">Experience</p>
+      <div class="exp-cards">
+
+        <div class="exp-card">
+          <div class="exp-card__body">
+            <h3 class="exp-card__role">UI/UX Designer</h3>
+            <p class="exp-card__meta">Kompa.ai · Contract <span class="exp-card__sep">|</span> Nov 2025 – Present</p>
+          </div>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-card__body">
+            <h3 class="exp-card__role">Creative Designer</h3>
+            <p class="exp-card__meta">Tevel Labs · Full-time <span class="exp-card__sep">|</span> Feb 2024 – Jun 2025</p>
+          </div>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-card__body">
+            <h3 class="exp-card__role">Graphic Designer</h3>
+            <p class="exp-card__meta">TELOS · Freelance <span class="exp-card__sep">|</span> Dec 2023 – Apr 2025</p>
+          </div>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-card__body">
+            <h3 class="exp-card__role">Lead Graphic Designer</h3>
+            <p class="exp-card__meta">DIZITECH · Full-time <span class="exp-card__sep">|</span> Mar 2020 – Dec 2023</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Tools -->
+    <div class="left-section left-tools">
+      <p class="section__label">Tools I use as a designer</p>
+      <div class="tools-icons">
+        <div class="tool-icon" title="Figma"><img src="/Images/icon_figma.png" alt="Figma" loading="lazy" decoding="async" /></div>
+        <div class="tool-icon" title="Photoshop"><img src="/Images/Icon_pts.png" alt="Photoshop" loading="lazy" decoding="async" /></div>
+        <div class="tool-icon" title="Illustrator"><img src="/Images/icon_illus.png" alt="Illustrator" loading="lazy" decoding="async" /></div>
+        <div class="tool-icon" title="Affinity"><img src="/Images/icon_affinity.png" alt="Affinity" loading="lazy" decoding="async" /></div>
+        <div class="tool-icon" title="Notion"><img src="/Images/icon_notion.png" alt="Notion" loading="lazy" decoding="async" /></div>
+        <div class="tool-icon" title="CapCut"><img src="/Images/icon_CC.png" alt="CapCut" loading="lazy" decoding="async" /></div>
+      </div>
+    </div>
+
+    <!-- Life outside -->
+    <div class="left-section left-life">
+      <p class="section__label">Life outside Work</p>
+      <p class="life-sub">Understanding users means understanding people. And there's no better way to do that than by building connections, with others and with myself.</p>
+      <div class="life-gallery-2col">
+        <div class="life-gallery-2col__col">
+          <img src="/Images/life_outside/01.jpg" alt="" loading="lazy" decoding="async" />
+          <img src="/Images/life_outside/03.jpg" alt="" loading="lazy" decoding="async" />
+          <img src="/Images/life_outside/05.jpg" alt="" loading="lazy" decoding="async" />
+          <img src="/Images/life_outside/07.jpg" alt="" loading="lazy" decoding="async" />
+        </div>
+        <div class="life-gallery-2col__col">
+          <img src="/Images/life_outside/02.jpg" alt="" loading="lazy" decoding="async" />
+          <img src="/Images/life_outside/04.jpg" alt="" loading="lazy" decoding="async" />
+          <img src="/Images/life_outside/06.jpg" alt="" loading="lazy" decoding="async" />
+          <img src="/Images/life_outside/08.jpg" alt="" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /split-left -->
+
+  <!-- RIGHT PANEL: Works -->
+  <div class="split-right" id="works">
+
+    <div class="right-works">
+      <div class="cards-grid">
+
+        <a href="/frenlit/" class="card">
+          <div class="card__image">
+            <img src="/Images/thumbnails_frenlit.jpg" alt="Frenlit" loading="lazy" decoding="async" />
+          </div>
+          <div class="card__body">
+            <div class="card__pills">
+              <span class="pill">UX Research</span>
+              <span class="pill">UI Design</span>
+            </div>
+            <h3 class="card__title">Frenlit — AI-Powered Outing Planner</h3>
+            <p class="card__desc">Conducted UX research and designed UI for an AI-powered group outing planner, making hangouts easy to organize.</p>
+            <div class="card__footer">
+              <span class="link-arrow">View →</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="/vietcharm/" class="card">
+          <div class="card__image">
+            <img src="/Images/thumbnails_vietcharm.jpg" alt="VietCharm" loading="lazy" decoding="async" />
+          </div>
+          <div class="card__body">
+            <div class="card__pills">
+              <span class="pill">UX/UI Redesign</span>
+              <span class="pill">Self-Initiated</span>
+            </div>
+            <h3 class="card__title">VietCharm — Homepage &amp; Booking Flow</h3>
+            <p class="card__desc">Redesigned the homepage and booking flow for a Vietnamese premium cultural dining show to increase reservations.</p>
+            <div class="card__footer">
+              <span class="link-arrow">View →</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="/graphics/" class="card">
+          <div class="card__image">
+            <img src="/Images/thumbnails_graphics.jpg" alt="My Graphics Works" loading="lazy" decoding="async" />
+          </div>
+          <div class="card__body">
+            <div class="card__pills">
+              <span class="pill">Graphic Design</span>
+              <span class="pill">Branding</span>
+              <span class="pill">E-com</span>
+            </div>
+            <h3 class="card__title">My Graphics Works</h3>
+            <p class="card__desc">A collection of my graphic design works, featuring posters, banners, store layouts, and brand identity.</p>
             <div class="card__footer">
               <span class="link-arrow">View →</span>
             </div>
@@ -148,398 +257,130 @@
 
       </div>
     </div>
-  </section>
 
-  <!-- ABOUT + EXPERIENCE -->
-  <section class="section about-experience" id="about">
-    <div class="container about-experience__inner">
+  </div><!-- /split-right -->
 
-      <div class="about-col fade-up">
-        <p class="section__label">About</p>
-        <p>Hi, it's Huy here. After graduating with a Bachelor's degree in Literature, the interest of language and visual communication led me into Graphic Design. Over time, I'm fascinated by how people interact with design beyond aesthetics, that's when i chose to be a Product Designer, where I apply a systems-thinking approach to create meaningful and sustainable digital experiences.</p>
+</div><!-- /split-layout -->
 
-        <div class="tools-section">
-          <h4 class="tools-section__title">Tools I use as a Designer</h4>
-          <div class="tools-icons">
-            <div class="tool-icon" title="Figma"><img src="/Images/icon_figma.png" alt="Figma" loading="lazy" decoding="async" /></div>
-            <div class="tool-icon" title="Photoshop"><img src="/Images/Icon_pts.png" alt="Photoshop" loading="lazy" decoding="async" /></div>
-            <div class="tool-icon" title="Illustrator"><img src="/Images/icon_illus.png" alt="Illustrator" loading="lazy" decoding="async" /></div>
-            <div class="tool-icon" title="Affinity"><img src="/Images/icon_affinity.png" alt="Affinity" loading="lazy" decoding="async" /></div>
-            <div class="tool-icon" title="Notion"><img src="/Images/icon_notion.png" alt="Notion" loading="lazy" decoding="async" /></div>
-            <div class="tool-icon" title="CapCut"><img src="/Images/icon_CC.png" alt="CapCut" loading="lazy" decoding="async" /></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="experience-col">
-        <p class="section__label fade-up">Experience</p>
-        <div class="exp-cards">
-
-          <div class="exp-card fade-up" style="transition-delay:0.1s">
-            <div class="exp-card__body">
-              <h3 class="exp-card__role">UI/UX Designer</h3>
-              <p class="exp-card__meta">Kompa.ai · Contract <span class="exp-card__sep">|</span> Nov 2025 – Present</p>
-            </div>
-          </div>
-
-          <div class="exp-card fade-up" style="transition-delay:0.2s">
-            <div class="exp-card__body">
-              <h3 class="exp-card__role">Creative Designer</h3>
-              <p class="exp-card__meta">Tevel Labs · Full-time <span class="exp-card__sep">|</span> Feb 2024 – Jun 2025</p>
-            </div>
-          </div>
-
-          <div class="exp-card fade-up" style="transition-delay:0.3s">
-            <div class="exp-card__body">
-              <h3 class="exp-card__role">Graphic Designer</h3>
-              <p class="exp-card__meta">TELOS Agency · Freelance <span class="exp-card__sep">|</span> Dec 2023 – Apr 2025</p>
-            </div>
-          </div>
-
-          <div class="exp-card fade-up" style="transition-delay:0.4s">
-            <div class="exp-card__body">
-              <h3 class="exp-card__role">Lead Graphic Designer</h3>
-              <p class="exp-card__meta">DIZITECH · Full-time <span class="exp-card__sep">|</span> Mar 2020 – Dec 2023</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- LIFE OUTSIDE WORK -->
-  <section class="section life-outside">
-    <div class="container">
-      <p class="section__label fade-up">Life outside Work</p>
-      <p class="life-sub fade-up" style="transition-delay:0.1s">Understanding users means understanding people. And there's no better way to do that than by building connections, with others and with myself.</p>
-      <div class="life-gallery">
-        <div class="life-gallery__half">
-          <div class="life-gallery__col fade-up" style="transition-delay:0.0s">
-            <img src="/Images/life_outside/01.jpg" alt="" loading="lazy" decoding="async" />
-            <img src="/Images/life_outside/02.jpg" alt="" loading="lazy" decoding="async" />
-          </div>
-          <div class="life-gallery__col fade-up" style="transition-delay:0.08s">
-            <img src="/Images/life_outside/03.jpg" alt="" loading="lazy" decoding="async" />
-            <img src="/Images/life_outside/04.jpg" alt="" loading="lazy" decoding="async" />
-          </div>
-        </div>
-        <div class="life-gallery__half">
-          <div class="life-gallery__col fade-up" style="transition-delay:0.16s">
-            <img src="/Images/life_outside/05.jpg" alt="" loading="lazy" decoding="async" />
-            <img src="/Images/life_outside/06.jpg" alt="" loading="lazy" decoding="async" />
-          </div>
-          <div class="life-gallery__col fade-up" style="transition-delay:0.24s">
-            <img src="/Images/life_outside/07.jpg" alt="" loading="lazy" decoding="async" />
-            <img src="/Images/life_outside/08.jpg" alt="" loading="lazy" decoding="async" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GET IN TOUCH -->
-  <section class="section contact" id="contact">
-    <div class="contact__inner fade-up">
-      <p class="section__label">Let's solve a problem</p>
-      <div class="contact__actions">
-        <a href="https://www.linkedin.com/in/huyhuynhcreative/" class="btn btn--lg" target="_blank" rel="noopener noreferrer">
-          <span class="btn__label"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57A1.62 1.62 0 0 1 14.54 11.95A1.62 1.62 0 0 1 16.16 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/></svg>LinkedIn</span>
-          <span class="btn__arrow-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></span>
-        </a>
-        <div class="contact__email-row contact__email-row--lg">
-          <span class="contact__email-addr">huyisdesigning@gmail.com</span>
-          <button class="btn btn--ghost contact__copy-btn" id="copyBtn" onclick="copyEmail(this)" aria-label="Copy email">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<script src="/public/js/nav.js"></script>
 <script>
-var COPY_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-var CHECK_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-function copyEmail(btn) {
-  navigator.clipboard.writeText('huyisdesigning@gmail.com').then(function() {
-    btn.innerHTML = CHECK_ICON;
-    btn.classList.add('contact__copy-btn--copied');
-    setTimeout(function() {
-      btn.innerHTML = COPY_ICON;
-      btn.classList.remove('contact__copy-btn--copied');
-    }, 2000);
-  });
-}
-
+// ── Hero contact dropdown ──────────────────────────────────────────────────────
 (function() {
-  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var hint  = document.querySelector('.hero-scroll-hint');
-  var navEl = document.querySelector('.nav');
+  var btn      = document.getElementById('heroContactBtn');
+  var dropdown = document.getElementById('heroDropdown');
+  var emailBtn = document.getElementById('heroEmailBtn');
+  var COPY_SVG  = '<svg class="icon-copy" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  var CHECK_SVG = '<svg class="icon-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
 
-  // Dark (#3677E4): "define problems" (17-31), "validate solutions" (34-51), "impact for users and businesses" (64-94)
-  // Light (#D8DDEF): "As a designer, I " (0-16), ", " (32-33), ", and drive " (52-63), "." (95)
-  function finalColor(i) {
-    if ((i >= 17 && i <= 31) || (i >= 34 && i <= 51) || (i >= 64 && i <= 94)) return '#3677E4';
-    return '#D8DDEF';
+  function openDropdown() {
+    dropdown.classList.add('is-open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+  function closeDropdown() {
+    dropdown.classList.remove('is-open');
+    btn.setAttribute('aria-expanded', 'false');
   }
 
-  function splitChars() {
-    document.querySelectorAll('.tg').forEach(function(group) {
-      group.innerHTML = Array.from(group.textContent).map(function(c) {
-        return '<span class="tg-ch">' + (c === '&' ? '&amp;' : c === '<' ? '&lt;' : c) + '</span>';
-      }).join('');
-    });
-    return Array.from(document.querySelectorAll('.tg-ch'));
-  }
-
-  var suppressLeave = false;
-  document.querySelectorAll('a[href^="#"], a[href*="/#"]').forEach(function(a) {
-    a.addEventListener('click', function() {
-      suppressLeave = true;
-      leaveTriggered = true;
-      if (navEl) navEl.classList.remove('nav--hero');
-      setTimeout(function() { suppressLeave = false; }, 2000);
-    });
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    dropdown.classList.contains('is-open') ? closeDropdown() : openDropdown();
   });
 
-  // ── MOBILE ────────────────────────────────────────────────────────────────
-  if (window.matchMedia('(pointer: coarse)').matches) {
-    if (window.location.hash.length > 0) {
-      if (hint) hint.classList.add('is-hidden');
-      if (navEl) navEl.classList.remove('nav--hero');
-      var hChars = splitChars();
-      hChars.forEach(function(ch, i) { ch.style.color = finalColor(i); });
-      var hGif = document.querySelector('.hero-gif');
-      if (hGif) hGif.style.display = 'none';
-      return;
-    }
-
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.width    = '100%';
-
-    if (reducedMotion) {
-      // ── MOBILE + reduce motion: auto-play ~2s, no swipe needed ──────────────
-      gsap.registerPlugin(ScrollTrigger);
-      var rmChars  = splitChars();
-      var rmN      = rmChars.length;
-      var rmEach   = 0.95 / Math.max(rmN - 1, 1);
-      var rmFadeOut = 0.12;
-
-      if (hint) hint.classList.add('is-hidden');
-      gsap.set(rmChars, { color: '#ffffff' });
-
-      var rmTl = gsap.timeline({
-        paused: true,
-        onComplete: function() {
-          document.body.style.overflow = '';
-          document.body.style.position = '';
-          document.body.style.width    = '';
-          if (navEl) navEl.classList.remove('nav--hero');
-          var works = document.getElementById('works');
-          if (works) {
-            var navH    = (document.querySelector('.nav') || {}).offsetHeight || 64;
-            var startY  = window.scrollY;
-            var targetY = works.offsetTop - navH;
-            var dur = 900, t0 = null;
-            requestAnimationFrame(function step(ts) {
-              if (!t0) t0 = ts;
-              var p = Math.min((ts - t0) / dur, 1);
-              var ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
-              window.scrollTo(0, startY + (targetY - startY) * ease);
-              if (p < 1) requestAnimationFrame(step);
-            });
-          }
-        }
-      });
-      rmTl.to(rmChars, { color: '#3677E4', duration: 0.05, stagger: { each: rmEach, ease: 'none' } }, 0);
-      rmTl.to(rmChars, { color: function(i) { return finalColor(i); }, duration: 0.05, stagger: { each: rmEach, ease: 'none' } }, rmFadeOut);
-      rmTl.timeScale(rmTl.duration() / 2);
-      rmTl.play();
-      return;
-    }
-
-    // ── MOBILE + no reduce motion: swipe-driven ──────────────────────────────
-    gsap.registerPlugin(ScrollTrigger);
-    var allChars = splitChars();
-    var n        = allChars.length;
-    var each     = 0.95 / Math.max(n - 1, 1);
-    var fadeOut  = 0.12;
-
-    var mHeroGif = document.querySelector('.hero-gif');
-    if (mHeroGif) mHeroGif.classList.add('hero-gif--mobile-swipe');
-
-    function mComplete() {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width    = '';
-      if (hint) hint.classList.add('is-hidden');
-      if (navEl) navEl.classList.remove('nav--hero');
+  emailBtn.addEventListener('click', function() {
+    var label = emailBtn.querySelector('span');
+    function showCopied() {
+      emailBtn.classList.add('is-copied');
+      label.textContent = 'Copied!';
       setTimeout(function() {
-        var works = document.getElementById('works');
-        if (works) works.scrollIntoView({ behavior: 'smooth' });
-      }, 350);
+        emailBtn.classList.remove('is-copied');
+        label.textContent = 'Email';
+        closeDropdown();
+      }, 1500);
     }
+    navigator.clipboard.writeText('huyisdesigning@gmail.com').then(showCopied).catch(showCopied);
+  });
 
-    var mTl = gsap.timeline({ paused: true });
-    mTl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
-    mTl.to(allChars, { color: function(i) { return finalColor(i); }, duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
-
-    var mDone = false, accumulated = 0, lastY = null, SWIPE_DIST = 220, mHintDone = false;
-
-    function setMProgress(p) {
-      p = Math.max(0, Math.min(1, p));
-      mTl.progress(p);
-      if (mHeroGif) mHeroGif.style.opacity = Math.max(0, 1 - p * 2).toFixed(3);
-      if (p > 0.01 && !mHintDone && hint) { mHintDone = true; hint.classList.add('is-keep'); }
-      if (mHintDone && hint) hint.style.setProperty('--fill', (p * 100).toFixed(1) + '%');
-      if (!mDone && p >= 1) { mDone = true; document.removeEventListener('touchmove', onMove); mComplete(); }
-    }
-
-    function onStart(e) { lastY = e.touches[0].clientY; }
-    function onMove(e) {
-      e.preventDefault();
-      if (lastY === null) { lastY = e.touches[0].clientY; return; }
-      var dy = lastY - e.touches[0].clientY;
-      lastY  = e.touches[0].clientY;
-      accumulated = Math.max(0, accumulated + dy);
-      setMProgress(accumulated / SWIPE_DIST);
-    }
-
-    document.addEventListener('touchstart', onStart, { passive: true });
-    document.addEventListener('touchmove',  onMove,  { passive: false });
-    return;
-  }
-
-  // ── DESKTOP + reduce motion: reveal on first scroll ────────────────────────
-  if (reducedMotion) {
-    var leaveTriggered = window.location.hash.length > 0;
-    if (leaveTriggered) {
-      if (hint) hint.classList.add('is-hidden');
-      if (navEl) navEl.classList.remove('nav--hero');
-    } else {
-      window.addEventListener('scroll', function() {
-        if (hint) hint.classList.add('is-hidden');
-        if (navEl) navEl.classList.remove('nav--hero');
-      }, { once: true, passive: true });
-    }
-    return;
-  }
-
-  // ── DESKTOP: rAF scroll-driven ─────────────────────────────────────────────
-  gsap.registerPlugin(ScrollTrigger);
-  var allChars = splitChars();
-  var n        = allChars.length;
-  var each     = 0.95 / Math.max(n - 1, 1);
-  var fadeOut  = 0.12;
-
-  var hero = document.querySelector('.hero-reveal');
-  var navH = document.querySelector('.nav').offsetHeight;
-
-  var heroScrollable = hero.offsetHeight - window.innerHeight;
-  window.addEventListener('resize', function() {
-    heroScrollable = hero.offsetHeight - window.innerHeight;
-  }, { passive: true });
-
-  var tl = gsap.timeline({ paused: true });
-  tl.to(allChars, { color: '#3677E4', duration: 0.05, stagger: { each: each, ease: 'none' } }, 0);
-  tl.to(allChars, { color: function(i) { return finalColor(i); }, duration: 0.05, stagger: { each: each, ease: 'none' } }, fadeOut);
-
-  var hasScrolled = false;
-  /* text proximity hover — temporarily disabled
-  if (window.matchMedia('(hover: hover)').matches) {
-    var heroText = document.querySelector('.hero-reveal__text');
-    var RADIUS = 120;
-    heroText.addEventListener('mousemove', function(e) {
-      if (hasScrolled) return;
-      allChars.forEach(function(ch) {
-        var r = ch.getBoundingClientRect();
-        var cx = r.left + r.width / 2;
-        var cy = r.top + r.height / 2;
-        var d = (e.clientX - cx) * (e.clientX - cx) + (e.clientY - cy) * (e.clientY - cy);
-        ch.classList.toggle('is-hovered', d < RADIUS * RADIUS);
-      });
-    });
-    heroText.addEventListener('mouseleave', function() {
-      allChars.forEach(function(ch) { ch.classList.remove('is-hovered'); });
-    });
-  }
-  */
-
-  // GIF cursor follow — desktop only
-  var heroGif = document.querySelector('.hero-gif');
-  if (heroGif) {
-    var heroSticky = document.querySelector('.hero-reveal__sticky');
-    gsap.set(heroGif, { xPercent: -50, yPercent: -50 });
-    hero.addEventListener('mousemove', function(e) {
-      var r = heroSticky.getBoundingClientRect();
-      gsap.to(heroGif, {
-        x: e.clientX - (r.left + r.width  / 2),
-        y: e.clientY - (r.top  + r.height / 2),
-        duration: 0.5, ease: 'power2.out', overwrite: 'auto'
-      });
-    });
-    hero.addEventListener('mouseleave', function() {
-      gsap.to(heroGif, { x: 0, y: 0, duration: 0.8, ease: 'power2.out', overwrite: 'auto' });
-    });
-  }
-
-  var hintChanged = false;
-  var leaveTriggered = window.location.hash.length > 0;
-  if (leaveTriggered && hint) hint.classList.add('is-hidden');
-  if (leaveTriggered && navEl) navEl.classList.remove('nav--hero');
-
-  (function tick() {
-    if (heroScrollable > 0) {
-      var progress = Math.max(0, Math.min(1, (navH - hero.getBoundingClientRect().top) / heroScrollable));
-      tl.progress(progress);
-
-      if (progress > 0.01 && !hasScrolled) {
-        hasScrolled = true;
-        allChars.forEach(function(ch) { ch.classList.remove('is-hovered'); });
-      }
-
-      if (hasScrolled && !hintChanged && hint) { hintChanged = true; hint.classList.add('is-keep'); }
-      if (hintChanged && hint) hint.style.setProperty('--fill', (progress * 100).toFixed(1) + '%');
-
-      if (!suppressLeave && !leaveTriggered && progress >= 0.99) {
-        leaveTriggered = true;
-        if (hint) hint.classList.add('is-hidden');
-        if (navEl) navEl.classList.remove('nav--hero');
-        var works = document.getElementById('works');
-        if (works) works.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-    requestAnimationFrame(tick);
-  })();
-
+  document.addEventListener('click', function(e) {
+    if (!dropdown.contains(e.target) && e.target !== btn) closeDropdown();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeDropdown();
+  });
 })();
 
-// Scroll fade-up
+// ── Load animations ────────────────────────────────────────────────────────────
 (function() {
-  var els = document.querySelectorAll('.fade-up');
-  if (!els.length) return;
-  var isMobile = window.matchMedia('(max-width: 768px)').matches;
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) {
-        e.target.classList.add('is-visible');
-        // Tool icons fan-out fires after about-col fades in
-        if (e.target.classList.contains('about-col')) {
+  var leftItems = [
+    document.querySelector('.hero-static'),
+    document.querySelector('.left-works'),
+    document.querySelector('.left-experience'),
+    document.querySelector('.left-tools'),
+    document.querySelector('.left-life')
+  ].filter(Boolean);
+
+  var cards = Array.from(document.querySelectorAll('.right-works .card'));
+
+  function animateIn(el, delay) {
+    setTimeout(function() {
+      el.classList.add('anim-in');
+      el.addEventListener('animationend', function() {
+        el.classList.remove('anim-in');
+        el.classList.add('anim-done');
+        if (el.classList.contains('left-tools')) {
           setTimeout(function() {
-            var icons = e.target.querySelector('.tools-icons');
+            var icons = el.querySelector('.tools-icons');
             if (icons) icons.classList.add('is-visible');
-          }, 650);
+          }, 100);
         }
-        io.unobserve(e.target);
-      }
+      }, { once: true });
+    }, delay);
+  }
+
+  leftItems.forEach(function(el, i) { animateIn(el, i * 120); });
+  cards.forEach(function(el, i) { animateIn(el, 100 + i * 150); });
+
+})();
+</script>
+
+<script>
+// ── Card exit animation ────────────────────────────────────────────────────────
+(function() {
+  var allCards = Array.from(document.querySelectorAll('.card[href]'));
+
+  allCards.forEach(function(card) {
+    card.addEventListener('click', function(e) {
+      e.preventDefault();
+      var href = card.getAttribute('href');
+      var cr = card.getBoundingClientRect();
+      var clickedCX = cr.left + cr.width / 2;
+      var clickedCY = cr.top + cr.height / 2;
+
+      allCards.forEach(function(c) {
+        if (c === card) return;
+        var r = c.getBoundingClientRect();
+        var cx = r.left + r.width / 2;
+        var cy = r.top + r.height / 2;
+        var dx = Math.abs(cx - clickedCX);
+        var dy = Math.abs(cy - clickedCY);
+        var tx = dy > dx
+          ? '0px'
+          : (cx < clickedCX ? '-56px' : '56px');
+        var ty = dy > dx
+          ? (cy < clickedCY ? '-40px' : '40px')
+          : '0px';
+
+        // Cancel any running entrance animation so inline styles take effect
+        if (c.getAnimations) c.getAnimations().forEach(function(a) { a.cancel(); });
+        c.style.transition = 'transform 0.35s cubic-bezier(0.4,0,1,1), opacity 0.28s ease';
+        c.style.pointerEvents = 'none';
+        // Force reflow so transition fires
+        void c.offsetWidth;
+        c.style.transform = 'translate(' + tx + ',' + ty + ')';
+        c.style.opacity = '0';
+      });
+
+      setTimeout(function() { window.location.href = href; }, 380);
     });
-  }, { threshold: 0.05, rootMargin: isMobile ? '0px' : '0px 0px -32px 0px' });
-  els.forEach(function(el) { io.observe(el); });
+  });
 })();
 </script>
 </body>
