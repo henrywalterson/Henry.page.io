@@ -79,7 +79,7 @@ body { animation: page-enter 0.3s ease both; }
 
 /* Spacing between sections — keeps first section flush with header */
 .project-section + .project-section {
-  margin-top: 88px;
+  margin-top: 80px;
 }
 
 .project-section .section__label {
