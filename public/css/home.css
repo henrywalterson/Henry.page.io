@@ -227,7 +227,7 @@
   font-family: var(--font-body);
   font-size: var(--text-base);
   font-weight: var(--fw-medium);
-  color: #111111;
+  color: #121212;
   pointer-events: none;
   animation: scroll-hint-bounce 1.8s ease-in-out infinite;
   transition: opacity 0.5s ease;
