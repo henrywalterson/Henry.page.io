@@ -341,7 +341,13 @@
   }
 
   if (isMobile && cameFromDetail) {
-    leftItems.forEach(function(el) { el.classList.add('anim-done'); });
+    leftItems.forEach(function(el) {
+      el.classList.add('anim-done');
+      if (el.classList.contains('left-tools')) {
+        var icons = el.querySelector('.tools-icons');
+        if (icons) icons.classList.add('is-visible');
+      }
+    });
     return;
   }
 
@@ -516,5 +522,6 @@ window.addEventListener('pageshow', function(e) {
   });
 });
 </script>
+<footer class="site-footer">You've reached the footer — thanks for scrolling this far!</footer>
 </body>
 </html>
