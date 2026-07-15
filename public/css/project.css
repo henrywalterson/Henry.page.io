@@ -6,6 +6,13 @@
 /* ── Page bottom breathing room ── */
 main { padding-bottom: 40px; }
 
+/* ── Page entry: fade in so there's no white flash on navigation ── */
+@keyframes page-enter {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+body { animation: page-enter 0.3s ease both; }
+
 /* ── Header ── */
 .project-header {
   padding-top: var(--space-6);

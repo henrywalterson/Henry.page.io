@@ -481,21 +481,28 @@
 
         fadeEls.forEach(function(el) {
           if (!el) return;
-          el.style.transition = 'opacity 0.6s ease';
+          el.style.transition = 'opacity 0.7s ease';
           el.style.pointerEvents = 'none';
           void el.offsetWidth;
           el.style.opacity = '0';
         });
 
-        // Selected card fades after a short delay, creating a transition into the detail page
-        setTimeout(function() {
-          card.style.transition = 'opacity 0.45s ease';
+        // Prefetch detail page while others are fading so it's ready when card fades
+        var prefetchDone = fetch(href).then(function() {}).catch(function() {});
+        var minWait = new Promise(function(resolve) { setTimeout(resolve, 750); });
+        var maxWait = new Promise(function(resolve) { setTimeout(resolve, 1500); });
+
+        // After others fade AND page prefetched (max 1.5s), fade selected card then navigate
+        Promise.all([minWait, Promise.race([prefetchDone, maxWait])]).then(function() {
+          card.style.transition = 'opacity 0.35s ease';
           card.style.pointerEvents = 'none';
           void card.offsetWidth;
           card.style.opacity = '0';
-        }, 250);
-
-        setTimeout(function() { sessionStorage.setItem('cameFromDetail', '1'); window.location.href = href; }, 750);
+          setTimeout(function() {
+            sessionStorage.setItem('cameFromDetail', '1');
+            window.location.href = href;
+          }, 350);
+        });
       }
     });
   });
