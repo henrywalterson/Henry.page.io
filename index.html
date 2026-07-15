@@ -323,6 +323,7 @@
 
   var cards = Array.from(document.querySelectorAll('.right-works .card'));
 
+  // Desktop: CSS animation via anim-in class + animationend
   function animateIn(el, delay) {
     setTimeout(function() {
       el.classList.add('anim-in');
@@ -339,13 +340,39 @@
     }, delay);
   }
 
+  // Mobile: JS transitions — no reliance on animationend (unreliable on iOS Safari)
+  function mobileAnimateIn(el, delay) {
+    setTimeout(function() {
+      el.style.transform = 'translateY(20px)'; // CSS opacity:0 is already the starting state
+      void el.offsetWidth;
+      el.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      setTimeout(function() {
+        el.style.opacity = '';
+        el.style.transform = '';
+        el.style.transition = '';
+        el.classList.add('anim-done');
+        if (el.classList.contains('left-tools')) {
+          var icons = el.querySelector('.tools-icons');
+          if (icons) icons.classList.add('is-visible');
+        }
+      }, 750);
+    }, delay);
+  }
+
   if (isMobile && cameFromDetail) {
-    // Return from detail on mobile: skip entrance animation, sections appear immediately
+    // Return from detail: reveal all sections immediately (no animation)
+    leftItems.forEach(function(el) { el.classList.add('anim-done'); });
     return;
   }
 
-  leftItems.forEach(function(el, i) { animateIn(el, i * 120); });
-  cards.forEach(function(el, i) { animateIn(el, 100 + i * 150); });
+  if (isMobile) {
+    leftItems.forEach(function(el, i) { mobileAnimateIn(el, i * 120); });
+  } else {
+    leftItems.forEach(function(el, i) { animateIn(el, i * 120); });
+    cards.forEach(function(el, i) { animateIn(el, 100 + i * 150); });
+  }
 
 })();
 </script>
