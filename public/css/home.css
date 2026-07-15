@@ -67,7 +67,7 @@
 .hero-tagline {
   font-size: var(--text-base);
   font-weight: var(--fw-normal);
-  color: var(--color-text-muted);
+  color: var(--color-text-heading);
   line-height: 2;
   max-width: 38ch;
 }
@@ -86,11 +86,7 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-.hero-cta[aria-expanded="true"] { color: #fff; }
-@media (hover: hover) {
-  .hero-cta:hover { color: #fff; }
+  transition: color 0.3s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 .hero-cta::before {
   content: '';
@@ -98,18 +94,23 @@
   inset: 0;
   background: var(--gradient-btn);
   border-radius: inherit;
-  transform: translateX(-101%);
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transition: opacity 0.3s ease;
   z-index: -1;
 }
-/* Open state via aria-expanded — works on all devices without :hover sticking on iOS */
-.hero-cta[aria-expanded="true"]::before {
-  transform: translateX(0);
-}
-/* Desktop hover */
+/* Open state via aria-expanded */
+.hero-cta[aria-expanded="true"] { color: #fff; }
+.hero-cta[aria-expanded="true"]::before { opacity: 1; }
+/* Desktop hover — wipe effect */
 @media (hover: hover) {
+  .hero-cta::before {
+    opacity: 1;
+    transform: translateX(-101%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
   .hero-cta:hover::before { transform: translateX(0); }
   .hero-cta:hover {
+    color: #fff;
     opacity: 1;
     transform: translateY(-1px);
     box-shadow: 0 4px 20px rgba(59, 130, 246, 0.35);
