@@ -56,8 +56,9 @@
 }
 /* Nav contact button: black default, gradient wipe on hover */
 .nav__contact-btn {
-  background: #d9d9d9;
+  background: #e6e6e6;
   color: var(--color-text-heading);
+  font-weight: var(--fw-normal);
   position: relative;
   overflow: hidden;
   isolation: isolate;
@@ -551,5 +552,11 @@
   padding: var(--space-4) var(--space-3);
   font-size: var(--text-sm);
   color: var(--color-text-muted);
-  border-top: 1px solid var(--color-border);
+  line-height: var(--leading-relaxed);
+}
+
+/* Hide footer on homepage desktop; show on mobile via media query below */
+.page--home .site-footer { display: none; }
+@media (max-width: 768px) {
+  .page--home .site-footer { display: block; }
 }
