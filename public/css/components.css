@@ -543,4 +543,9 @@
   }
 
   .contact__email-row--lg .contact__email-addr { font-size: 1rem; }
+
+  .card__title { font-size: var(--text-sm); }
+  .card__desc { font-size: var(--text-sm); font-weight: var(--fw-normal); }
+  .pill { font-size: 0.75rem; }
+  .card__coming-soon { font-size: 0.75rem; }
 }

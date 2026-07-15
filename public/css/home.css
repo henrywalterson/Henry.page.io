@@ -504,8 +504,8 @@
   opacity: 0.4;
 }
 @media (max-width: 768px) {
-  .exp-card__role { font-size: 20px; }
-  .exp-card__meta { font-size: 1rem; }
+  .exp-card__role { font-size: var(--text-sm); }
+  .exp-card__meta { font-size: var(--text-sm); }
 }
 
 /* ===== LIFE OUTSIDE WORK ===== */
@@ -755,5 +755,4 @@
   /* Hero heading slightly smaller on small screens */
   .hero-heading { font-size: 2rem; }
 
-  .works-carousel .pill { font-size: 0.75rem; /* 12px */ }
 }
