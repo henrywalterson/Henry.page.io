@@ -98,13 +98,18 @@
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: -1;
 }
-.hero-cta:hover::before {
+/* Open state via aria-expanded — works on all devices without :hover sticking on iOS */
+.hero-cta[aria-expanded="true"]::before {
   transform: translateX(0);
 }
-.hero-cta:hover {
-  opacity: 1;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.35);
+/* Desktop hover */
+@media (hover: hover) {
+  .hero-cta:hover::before { transform: translateX(0); }
+  .hero-cta:hover {
+    opacity: 1;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.35);
+  }
 }
 
 .hero-dropdown {
@@ -675,7 +680,7 @@
   scroll-snap-type: x mandatory;
   scroll-padding-inline-start: 0px;
   overscroll-behavior-x: contain;
-  touch-action: pan-x;
+  touch-action: pan-x pan-y;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   -ms-overflow-style: none;
