@@ -481,11 +481,19 @@
 
         fadeEls.forEach(function(el) {
           if (!el) return;
-          el.style.transition = 'opacity 0.7s ease';
+          el.style.transition = 'opacity 0.6s ease';
           el.style.pointerEvents = 'none';
           void el.offsetWidth;
           el.style.opacity = '0';
         });
+
+        // Selected card fades after a short delay, creating a transition into the detail page
+        setTimeout(function() {
+          card.style.transition = 'opacity 0.45s ease';
+          card.style.pointerEvents = 'none';
+          void card.offsetWidth;
+          card.style.opacity = '0';
+        }, 250);
 
         setTimeout(function() { sessionStorage.setItem('cameFromDetail', '1'); window.location.href = href; }, 750);
       }

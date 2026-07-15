@@ -706,7 +706,7 @@
     max-width: 760px;
     padding: 0 var(--space-3);
     gap: 0;
-    padding-bottom: var(--space-10); /* 80px bottom breathing room */
+    padding-bottom: var(--space-5); /* 40px bottom breathing room */
   }
 
   .split-left {
@@ -743,7 +743,7 @@
 @media (max-width: 640px) {
   .split-layout {
     padding: 0 var(--space-2);
-    padding-bottom: var(--space-10);
+    padding-bottom: var(--space-5);
     max-width: 100%;
   }
 
