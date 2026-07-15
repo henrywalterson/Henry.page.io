@@ -275,14 +275,15 @@
     dropdown.classList.add('is-open');
     btn.setAttribute('aria-expanded', 'true');
   }
-  function closeDropdown() {
+  function closeDropdown(fromBtn) {
     dropdown.classList.remove('is-open');
     btn.setAttribute('aria-expanded', 'false');
+    if (fromBtn) btn.blur(); // release iOS :hover state when user taps button to close
   }
 
   btn.addEventListener('click', function(e) {
     e.stopPropagation();
-    dropdown.classList.contains('is-open') ? closeDropdown() : openDropdown();
+    dropdown.classList.contains('is-open') ? closeDropdown(true) : openDropdown();
   });
 
   emailBtn.addEventListener('click', function() {
