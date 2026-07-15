@@ -344,41 +344,65 @@
 <script>
 // ── Card exit animation ────────────────────────────────────────────────────────
 (function() {
+  var EASE_OUT = 'cubic-bezier(0.55, 0, 1, 0.45)';
+  var DURATION = 500; // ms
+
+  function exitEl(el, tx, ty, duration) {
+    if (!el) return;
+    if (el.getAnimations) el.getAnimations().forEach(function(a) { a.cancel(); });
+    // Block CSS animation rule from restarting, then snap to fully-visible state
+    // so the transition always starts from the right place regardless of entrance progress
+    el.style.animation = 'none';
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+    el.style.transition = 'transform ' + duration + 'ms ' + EASE_OUT + ', opacity ' + (duration * 0.8) + 'ms ease-in';
+    el.style.pointerEvents = 'none';
+    void el.offsetWidth;
+    el.style.transform = 'translate(' + tx + ',' + ty + ')';
+    el.style.opacity = '0';
+  }
+
   var allCards = Array.from(document.querySelectorAll('.card[href]'));
 
   allCards.forEach(function(card) {
     card.addEventListener('click', function(e) {
       e.preventDefault();
       var href = card.getAttribute('href');
-      var cr = card.getBoundingClientRect();
-      var clickedCX = cr.left + cr.width / 2;
-      var clickedCY = cr.top + cr.height / 2;
+      var isMobile = window.innerWidth <= 1100;
 
-      allCards.forEach(function(c) {
-        if (c === card) return;
-        var r = c.getBoundingClientRect();
-        var cx = r.left + r.width / 2;
-        var cy = r.top + r.height / 2;
-        var dx = Math.abs(cx - clickedCX);
-        var dy = Math.abs(cy - clickedCY);
-        var tx = dy > dx
-          ? '0px'
-          : (cx < clickedCX ? '-56px' : '56px');
-        var ty = dy > dx
-          ? (cy < clickedCY ? '-40px' : '40px')
-          : '0px';
+      if (!isMobile) {
+        // Desktop: split-left exits left, other right-panel cards exit right
+        var splitLeft = document.querySelector('.split-left');
+        var otherCards = Array.from(document.querySelectorAll('.right-works .card[href]')).filter(function(c) { return c !== card; });
 
-        // Cancel any running entrance animation so inline styles take effect
-        if (c.getAnimations) c.getAnimations().forEach(function(a) { a.cancel(); });
-        c.style.transition = 'transform 0.35s cubic-bezier(0.4,0,1,1), opacity 0.28s ease';
-        c.style.pointerEvents = 'none';
-        // Force reflow so transition fires
-        void c.offsetWidth;
-        c.style.transform = 'translate(' + tx + ',' + ty + ')';
-        c.style.opacity = '0';
-      });
+        exitEl(splitLeft, '-40px', '0', DURATION);
+        otherCards.forEach(function(c) { exitEl(c, '60px', '0', DURATION); });
 
-      setTimeout(function() { window.location.href = href; }, 380);
+        setTimeout(function() { window.location.href = href; }, DURATION + 50);
+
+      } else {
+        // Mobile: everything except clicked card fades out over 1s
+        var fadeEls = [
+          document.querySelector('.hero-static'),
+          document.querySelector('.left-works .section__label'),
+          document.querySelector('.left-experience'),
+          document.querySelector('.left-tools'),
+          document.querySelector('.left-life')
+        ];
+        Array.from(document.querySelectorAll('.left-works .card[href]')).forEach(function(c) {
+          if (c !== card) fadeEls.push(c);
+        });
+
+        fadeEls.forEach(function(el) {
+          if (!el) return;
+          el.style.transition = 'opacity 1s ease';
+          el.style.pointerEvents = 'none';
+          void el.offsetWidth;
+          el.style.opacity = '0';
+        });
+
+        setTimeout(function() { window.location.href = href; }, 1050);
+      }
     });
   });
 })();
