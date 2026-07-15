@@ -358,6 +358,8 @@
     var taglines  = Array.from(document.querySelectorAll('.hero-static .hero-tagline'));
     var contact   = document.querySelector('.hero-contact');
 
+    var EASE_SMOOTH = 'cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+
     // Helper: set initial state + animate after delay
     function animEl(el, delay, duration, startTY) {
       if (!el) return;
@@ -366,8 +368,8 @@
       setTimeout(function() {
         requestAnimationFrame(function() {
           requestAnimationFrame(function() {
-            var tr = 'opacity ' + duration + 'ms ease';
-            if (startTY) tr += ', transform ' + duration + 'ms cubic-bezier(0.16, 1, 0.3, 1)';
+            var tr = 'opacity ' + duration + 'ms ' + EASE_SMOOTH;
+            if (startTY) tr += ', transform ' + duration + 'ms ' + EASE_SMOOTH;
             el.style.transition = tr;
             el.style.opacity = '1';
             if (startTY) el.style.transform = 'none';
@@ -382,20 +384,20 @@
     }
 
     // 1. Logo: slide down + fade
-    animEl(logo, 0, 350, '-8px');
-    // 2. Heading: each span fades in with 80ms stagger
-    hSpans.forEach(function(s, i) { animEl(s, 200 + i * 80, 400, null); });
+    animEl(logo, 0, 500, '-8px');
+    // 2. Heading: each span fades in with 120ms stagger
+    hSpans.forEach(function(s, i) { animEl(s, 280 + i * 120, 550, null); });
     // 3. Paragraphs: slide down + fade, slight stagger
-    animEl(taglines[0], 560, 450, '-6px');
-    animEl(taglines[1], 630, 450, '-6px');
+    animEl(taglines[0], 780, 600, '-6px');
+    animEl(taglines[1], 880, 600, '-6px');
     // 4. Button: fade in
-    animEl(contact, 800, 350, null);
+    animEl(contact, 1080, 500, null);
     // 5. Below sections: all fade in together
     belowSections.forEach(function(el) {
       setTimeout(function() {
         requestAnimationFrame(function() {
           requestAnimationFrame(function() {
-            el.style.transition = 'opacity 600ms ease';
+            el.style.transition = 'opacity 700ms ' + EASE_SMOOTH;
             el.style.opacity = '1';
             setTimeout(function() {
               el.style.opacity = '';
@@ -405,10 +407,10 @@
                 var icons = el.querySelector('.tools-icons');
                 if (icons) icons.classList.add('is-visible');
               }
-            }, 700);
+            }, 800);
           });
         });
-      }, 950);
+      }, 1300);
     });
 
   } else {
@@ -491,11 +493,16 @@ window.addEventListener('pageshow', function(e) {
   var resetEls = [
     document.querySelector('.split-left'),
     document.querySelector('.hero-static'),
+    document.querySelector('.split-logo'),
+    document.querySelector('.hero-contact'),
     document.querySelector('.left-works .section__label'),
     document.querySelector('.left-experience'),
     document.querySelector('.left-tools'),
     document.querySelector('.left-life')
   ];
+  document.querySelectorAll('.hero-heading > span, .hero-static .hero-tagline').forEach(function(el) {
+    resetEls.push(el);
+  });
   document.querySelectorAll('.right-works .card[href], .left-works .card[href]').forEach(function(c) {
     resetEls.push(c);
   });
