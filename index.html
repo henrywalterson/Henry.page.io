@@ -340,24 +340,20 @@
     }, delay);
   }
 
-  // Mobile: JS transitions — no reliance on animationend (unreliable on iOS Safari)
+  // Mobile: staggered pure fade-in, no movement (matches reference style)
   function mobileAnimateIn(el, delay) {
     setTimeout(function() {
-      el.style.transform = 'translateY(20px)'; // CSS opacity:0 is already the starting state
-      void el.offsetWidth;
-      el.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+      el.style.transition = 'opacity 0.6s ease';
       el.style.opacity = '1';
-      el.style.transform = 'none';
       setTimeout(function() {
         el.style.opacity = '';
-        el.style.transform = '';
         el.style.transition = '';
         el.classList.add('anim-done');
         if (el.classList.contains('left-tools')) {
           var icons = el.querySelector('.tools-icons');
           if (icons) icons.classList.add('is-visible');
         }
-      }, 750);
+      }, 650);
     }, delay);
   }
 
