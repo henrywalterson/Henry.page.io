@@ -309,6 +309,10 @@
 
 // ── Load animations ────────────────────────────────────────────────────────────
 (function() {
+  var isMobile = window.innerWidth <= 1100;
+  var cameFromDetail = sessionStorage.getItem('cameFromDetail') === '1';
+  if (cameFromDetail) sessionStorage.removeItem('cameFromDetail');
+
   var leftItems = [
     document.querySelector('.hero-static'),
     document.querySelector('.left-works'),
@@ -333,6 +337,11 @@
         }
       }, { once: true });
     }, delay);
+  }
+
+  if (isMobile && cameFromDetail) {
+    // Return from detail on mobile: skip entrance animation, sections appear immediately
+    return;
   }
 
   leftItems.forEach(function(el, i) { animateIn(el, i * 120); });
@@ -378,7 +387,7 @@
         exitEl(splitLeft, '-40px', '0', DURATION);
         otherCards.forEach(function(c) { exitEl(c, '60px', '0', DURATION); });
 
-        setTimeout(function() { window.location.href = href; }, DURATION + 50);
+        setTimeout(function() { sessionStorage.setItem('cameFromDetail', '1'); window.location.href = href; }, DURATION + 50);
 
       } else {
         // Mobile: everything except clicked card fades out over 1s
@@ -395,17 +404,41 @@
 
         fadeEls.forEach(function(el) {
           if (!el) return;
-          el.style.transition = 'opacity 1s ease';
+          el.style.transition = 'opacity 0.7s ease';
           el.style.pointerEvents = 'none';
           void el.offsetWidth;
           el.style.opacity = '0';
         });
 
-        setTimeout(function() { window.location.href = href; }, 1050);
+        setTimeout(function() { sessionStorage.setItem('cameFromDetail', '1'); window.location.href = href; }, 750);
       }
     });
   });
 })();
+
+// ── bfcache restore: reset exit-animation inline styles ───────────────────────
+window.addEventListener('pageshow', function(e) {
+  if (!e.persisted) return;
+  var resetEls = [
+    document.querySelector('.split-left'),
+    document.querySelector('.hero-static'),
+    document.querySelector('.left-works .section__label'),
+    document.querySelector('.left-experience'),
+    document.querySelector('.left-tools'),
+    document.querySelector('.left-life')
+  ];
+  document.querySelectorAll('.right-works .card[href], .left-works .card[href]').forEach(function(c) {
+    resetEls.push(c);
+  });
+  resetEls.forEach(function(el) {
+    if (!el) return;
+    el.style.animation = '';
+    el.style.opacity = '';
+    el.style.transform = '';
+    el.style.transition = '';
+    el.style.pointerEvents = '';
+  });
+});
 </script>
 </body>
 </html>
