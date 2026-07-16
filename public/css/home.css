@@ -60,8 +60,8 @@
   color: var(--color-text-heading);
 }
 
-.hero-heading__accent {
-  color: inherit;
+.hero-heading__line {
+  display: block;
 }
 
 .hero-tagline {
@@ -209,97 +209,7 @@
   gap: var(--space-6);
 }
 
-/* Hero GIF */
-.hero-gif {
-  display: none;
-}
-
-/* Touch devices: static in the gap between text and scroll pill */
-@media (pointer: coarse) {
-  .hero-gif {
-    display: block;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 100px; /* clear of pill (fixed bottom:28px, ~40px tall) + gap */
-    width: 120px;
-    height: 120px;
-    pointer-events: none;
-    z-index: 2;
-  }
-}
-
-/* Mobile swipe mode (reduce motion OFF): GIF centered in sticky container, fades on swipe.
-   Class added by JS — no media query needed since JS already guards the mobile path. */
-.hero-gif--mobile-swipe {
-  display: block;
-  position: absolute;
-  left: 50%;
-  bottom: auto;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 180px;
-  height: 180px;
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* Desktop (mouse): centered, cursor-following via GSAP */
-@media (pointer: fine) {
-  .hero-gif {
-    display: block;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 160px;
-    height: 160px;
-    pointer-events: none;
-    z-index: 2;
-    will-change: transform;
-  }
-}
-
-/* Desktop proximity hover: chars near cursor turn blue */
-@media (hover: hover) {
-  .tg-ch.is-hovered {
-    color: var(--color-accent-2) !important;
-  }
-}
-
-
-@media (prefers-reduced-motion: reduce) {
-  .tg { color: var(--color-accent-2); }
-}
-/* Tablet-sized non-touch (small laptop): flex-start + viewport-relative padding */
-@media (max-width: 1024px) and (min-width: 769px) and (pointer: fine) {
-  .hero-reveal__sticky {
-    align-items: flex-start;
-    padding-top: 15vh;
-  }
-  .hero-reveal__inner { margin: 0 auto; }
-}
-
-/* Touch tablets ≥769px: hero layout must match swipe-driven JS path */
-@media (pointer: coarse) and (min-width: 769px) {
-  .hero-reveal { height: 100svh; }
-  .hero-reveal__sticky {
-    height: calc(100svh - 64px);
-    align-items: flex-start;
-    padding-top: var(--space-4);
-  }
-  .hero-reveal__inner { margin: 0 auto; }
-}
-
 @media (max-width: 768px) {
-  .hero-reveal { height: 100svh; }
-  .hero-reveal__sticky {
-    height: calc(100svh - 64px);
-    align-items: flex-start;
-    padding-top: var(--space-4);
-  }
-  .hero-reveal__inner { margin: 0 auto; }
-  .hero-reveal__text { font-size: 40px; }
-
   /* About + Experience */
   .about-col { border-bottom: none; }
 

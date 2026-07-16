@@ -42,9 +42,8 @@
     <div class="hero-static">
       <a href="/" class="split-logo">hdhuy</a>
       <h1 class="hero-heading">
-        <span>Design for</span>
-        <span class="hero-heading__accent">Decisions,</span>
-        <span>Not Aesthetics</span>
+        <span class="hero-heading__line">Design for Decisions,</span>
+        <span class="hero-heading__line">Not Aesthetics</span>
       </h1>
       <p class="hero-tagline">Hi, it's Huy here. With roots in Literature and Graphic Design, I am now a Product Designer driven by systems thinking and human-centric problem solving.</p>
       <p class="hero-tagline">I define problems and validate solutions to craft digital experiences that drive meaningful impact for both users and businesses.</p>
@@ -262,6 +261,8 @@
 
 </div><!-- /split-layout -->
 
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
 <script>
 // ── Hero contact dropdown ──────────────────────────────────────────────────────
 (function() {
@@ -352,72 +353,113 @@
   }
 
   if (isMobile) {
-    // Mobile fresh entry: animate hero children individually, then fade below sections
     var heroStatic = document.querySelector('.hero-static');
     var belowSections = leftItems.filter(function(el) { return !el.classList.contains('hero-static'); });
-
-    // Make hero container visible immediately, animate its children instead
     if (heroStatic) heroStatic.classList.add('anim-done');
 
-    var logo      = document.querySelector('.split-logo');
-    var hSpans    = Array.from(document.querySelectorAll('.hero-heading > span'));
-    var taglines  = Array.from(document.querySelectorAll('.hero-static .hero-tagline'));
-    var contact   = document.querySelector('.hero-contact');
+    var logo     = document.querySelector('.split-logo');
+    var line1    = document.querySelector('.hero-heading__line:first-child');
+    var line2    = document.querySelector('.hero-heading__line:last-child');
+    var taglines = Array.from(document.querySelectorAll('.hero-static .hero-tagline'));
+    var contact  = document.querySelector('.hero-contact');
 
-    var EASE_SMOOTH = 'cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-
-    // Helper: set initial state + animate after delay
-    function animEl(el, delay, duration, startTY) {
-      if (!el) return;
-      el.style.opacity = '0';
-      if (startTY) el.style.transform = 'translateY(' + startTY + ')';
-      setTimeout(function() {
-        requestAnimationFrame(function() {
-          requestAnimationFrame(function() {
-            var tr = 'opacity ' + duration + 'ms ' + EASE_SMOOTH;
-            if (startTY) tr += ', transform ' + duration + 'ms ' + EASE_SMOOTH;
-            el.style.transition = tr;
-            el.style.opacity = '1';
-            if (startTY) el.style.transform = 'none';
-            setTimeout(function() {
-              el.style.opacity = '';
-              el.style.transform = '';
-              el.style.transition = '';
-            }, duration + 100);
-          });
-        });
-      }, delay);
+    // Random chars at ~20fps until .resolve() is called, then reveals over 400ms
+    var CHARS = '!<>-_\\/[]{}=+*?#abcdefghijklmnopqrstuvwxyz';
+    function createScramble(el, finalText) {
+      var done = false, resolveStartTs = null, lastTs = null;
+      var REVEAL_DURATION = 400, INTERVAL = 50;
+      function tick(ts) {
+        if (done) return;
+        if (lastTs === null || ts - lastTs >= INTERVAL) {
+          lastTs = ts;
+          var out = '';
+          if (resolveStartTs !== null) {
+            var progress = Math.min(1, (ts - resolveStartTs) / REVEAL_DURATION);
+            var revealed = Math.floor(progress * finalText.length);
+            for (var i = 0; i < finalText.length; i++) {
+              out += (i < revealed || finalText[i] === ' ') ? finalText[i] : CHARS[Math.floor(Math.random() * CHARS.length)];
+            }
+            if (progress >= 1) { el.textContent = finalText; done = true; return; }
+          } else {
+            for (var i = 0; i < finalText.length; i++) {
+              out += finalText[i] === ' ' ? ' ' : CHARS[Math.floor(Math.random() * CHARS.length)];
+            }
+          }
+          el.textContent = out;
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      return {
+        resolve: function() { if (!resolveStartTs) resolveStartTs = performance.now(); },
+        stop:    function() { done = true; }
+      };
     }
 
-    // 1. Logo: slide down + fade
-    animEl(logo, 0, 500, '-8px');
-    // 2. Heading: each span fades in with 120ms stagger
-    hSpans.forEach(function(s, i) { animEl(s, 280 + i * 120, 550, null); });
-    // 3. Paragraphs: slide down + fade, slight stagger
-    animEl(taglines[0], 780, 600, '-6px');
-    animEl(taglines[1], 880, 600, '-6px');
-    // 4. Button: fade in
-    animEl(contact, 1080, 500, null);
-    // 5. Below sections: all fade in together
-    belowSections.forEach(function(el) {
-      setTimeout(function() {
-        requestAnimationFrame(function() {
-          requestAnimationFrame(function() {
-            el.style.transition = 'opacity 700ms ' + EASE_SMOOTH;
-            el.style.opacity = '1';
-            setTimeout(function() {
-              el.style.opacity = '';
-              el.style.transition = '';
+    // Hide everything except logo
+    gsap.set([line1, line2, contact].filter(Boolean), { opacity: 0 });
+    gsap.set(taglines, { opacity: 0, y: 20 });
+    belowSections.forEach(function(el) { gsap.set(el, { opacity: 0 }); });
+
+    // 1. Logo: each char rises from baseline with stagger
+    if (logo) {
+      var logoText = logo.textContent;
+      logo.style.opacity = '0';
+      logo.innerHTML = logoText.split('').map(function(ch) {
+        return '<span style="display:inline-block;overflow:hidden;vertical-align:bottom;">' +
+               '<span style="display:inline-block;">' + ch + '</span></span>';
+      }).join('');
+      var logoChars = Array.from(logo.querySelectorAll('span > span'));
+      logo.style.opacity = '';
+      gsap.from(logoChars, {
+        y: '115%',
+        duration: 0.55,
+        ease: 'power3.out',
+        stagger: 0.055,
+        onComplete: function() { logo.textContent = logoText; }
+      });
+    }
+
+    var _p = { v: 0 };
+    var scramblers = [];
+    var tl = gsap.timeline({ delay: 0.38 });
+
+    // 2. Both lines appear at once, scramble for 0.5s
+    tl.set([line1, line2], { opacity: 1 })
+      .call(function() {
+        scramblers.push(createScramble(line1, 'Design for Decisions,'));
+        scramblers.push(createScramble(line2, 'Not Aesthetics'));
+      })
+      .to(_p, { v: 1, duration: 0.5 })
+
+    // 3. Resolve scramble, wait for it to settle (0.4s)
+      .call(function() { scramblers.forEach(function(s) { s.resolve(); }); })
+      .to(_p, { v: 2, duration: 0.4 })
+
+    // 4. Taglines slide up
+      .to(taglines, { opacity: 1, y: 0, duration: 0.5, stagger: 0.15, ease: 'power2.out' })
+
+    // 5. Contact button
+      .to(contact, { opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.1')
+
+    // 6. Below sections
+      .add(function() {
+        belowSections.forEach(function(el) {
+          gsap.to(el, {
+            opacity: 1, duration: 0.7, ease: 'power2.out',
+            onComplete: function() {
+              gsap.set(el, { clearProps: 'opacity' });
               el.classList.add('anim-done');
               if (el.classList.contains('left-tools')) {
                 var icons = el.querySelector('.tools-icons');
                 if (icons) icons.classList.add('is-visible');
               }
-            }, 800);
+            }
           });
         });
-      }, 1300);
-    });
+      }, '+=0.2');
+
+    window._scramblers = scramblers;
 
   } else {
     leftItems.forEach(function(el, i) { animateIn(el, i * 120); });
@@ -511,17 +553,33 @@
 // ── bfcache restore: reset exit-animation inline styles ───────────────────────
 window.addEventListener('pageshow', function(e) {
   if (!e.persisted) return;
+  // Stop any active scramblers so rAF doesn't overwrite restored text
+  if (window._scramblers) {
+    window._scramblers.forEach(function(s) { if (s) s.stop(); });
+    window._scramblers = null;
+  }
+  // Restore logo if mid-animation (char spans still in DOM)
+  var logoEl = document.querySelector('.split-logo');
+  if (logoEl && logoEl.querySelector('span')) logoEl.textContent = 'hdhuy';
+
+  // Restore heading lines if ScrambleText interrupted
+  var l1 = document.querySelector('.hero-heading__line:first-child');
+  var l2 = document.querySelector('.hero-heading__line:last-child');
+  if (l1) l1.textContent = 'Design for Decisions,';
+  if (l2) l2.textContent = 'Not Aesthetics';
+
   var resetEls = [
     document.querySelector('.split-left'),
     document.querySelector('.hero-static'),
-    document.querySelector('.split-logo'),
+    logoEl,
+    l1, l2,
     document.querySelector('.hero-contact'),
     document.querySelector('.left-works .section__label'),
     document.querySelector('.left-experience'),
     document.querySelector('.left-tools'),
     document.querySelector('.left-life')
   ];
-  document.querySelectorAll('.hero-heading > span, .hero-static .hero-tagline').forEach(function(el) {
+  document.querySelectorAll('.hero-static .hero-tagline').forEach(function(el) {
     resetEls.push(el);
   });
   document.querySelectorAll('.right-works .card[href], .left-works .card[href]').forEach(function(c) {
