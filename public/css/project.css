@@ -13,8 +13,8 @@ main { padding-bottom: 40px; }
 }
 body { animation: page-enter 0.3s ease both; }
 
-/* ── Page exit animation (triggered by project.js) ── */
-@keyframes exit-fade { from { opacity: 1; } to { opacity: 0; } }
+/* ── Page exit animation — desktop only (triggered by project.js) ── */
+@keyframes exit-down { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(20px); } }
 
 /* ── Header ── */
 .project-header {
