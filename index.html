@@ -341,7 +341,7 @@
     }, delay);
   }
 
-  if (isMobile && cameFromDetail) {
+  if (cameFromDetail) {
     leftItems.forEach(function(el) {
       el.classList.add('anim-done');
       if (el.classList.contains('left-tools')) {
@@ -349,6 +349,7 @@
         if (icons) icons.classList.add('is-visible');
       }
     });
+    cards.forEach(function(el) { el.classList.add('anim-done'); });
     return;
   }
 
