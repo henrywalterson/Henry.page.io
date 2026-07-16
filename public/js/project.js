@@ -7,21 +7,9 @@
     }
     sessionStorage.setItem('cameFromDetail', '1');
     document.body.style.pointerEvents = 'none';
-    var isMobile = window.innerWidth <= 1100;
-
-    // Wrap all visual children in a div and animate that instead of <body>.
-    // Transforming <body> on iOS Safari is unreliable: it is the scroll root,
-    // and position:sticky children can detach from the animation.
-    var wrap = document.createElement('div');
-    Array.from(document.body.children).forEach(function (el) {
-      if (el.tagName !== 'SCRIPT') wrap.appendChild(el);
-    });
-    document.body.insertBefore(wrap, document.body.firstChild);
-
-    wrap.style.animation = isMobile
-      ? 'exit-right 0.35s ease forwards'
-      : 'exit-down 0.35s ease forwards';
-
+    // Fade out via keyframe — overrides the page-enter fill-mode that would
+    // otherwise hold opacity:1 and block an inline style change
+    document.body.style.animation = 'exit-fade 0.35s ease forwards';
     setTimeout(function () { window.location.href = href; }, 370);
   }
 
@@ -38,16 +26,10 @@
   interceptHomeLink('a.project-back[href="/#works"]');
   interceptHomeLink('a.nav__logo[href="/"]');
 
-  // bfcache: if iOS Safari restores this page, unwrap if needed and reset styles
+  // bfcache: reset body if iOS Safari restores this page after exit animation
   window.addEventListener('pageshow', function (e) {
     if (!e.persisted) return;
+    document.body.style.animation = '';
     document.body.style.pointerEvents = '';
-    var wrap = document.body.querySelector(':scope > div:not([class]):not([id])');
-    if (wrap) {
-      Array.from(wrap.children).forEach(function (el) {
-        document.body.insertBefore(el, wrap);
-      });
-      document.body.removeChild(wrap);
-    }
   });
 })();
