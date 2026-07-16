@@ -11,146 +11,160 @@ Live URL: `portfoliohuyhuynh.vercel.app`
 index.html              Homepage
 vietcharm/index.html    VietCharm case study detail page
 graphics/index.html     Graphics works detail page
+frenlit/index.html      FRENlit case study detail page
+docs/                   Internal docs (design system, git guide, detail page template)
 public/
   css/
     variables.css       Design tokens (colors, spacing, fonts, radii)
     base.css            Reset + typography
     components.css      Nav, cards, contact section, footer
-    home.css            Hero animation, about/experience, life gallery
+    home.css            Hero, split layout, about/experience, animations
     project.css         Detail page layout (project-section, project-header)
   js/
     nav.js              Burger toggle, Contact me dropdown, email copy handler
+    project.js          Detail page exit animation + bfcache reset
 Images/                 All image assets
 ```
 
 ---
 
-## Hero animation system
+## Layout
 
-The hero is the most complex part of the page. It works differently on desktop vs mobile.
+The homepage uses a **split layout** (`.split-layout`):
 
-### Desktop (`> 768px`)
+- `.split-left` — sticky left panel (logo + hero + sections: works carousel, experience, tools, life)
+- `.split-right` — scrollable right panel (project cards)
 
-- The `.hero-reveal` section is `400vh` tall with a sticky inner container.
-- As the user scrolls through it, a `requestAnimationFrame` loop reads `hero.getBoundingClientRect().top` and drives a paused GSAP timeline via `.progress()`.
-- The timeline animates character colors: white → blue (#3677E4) → blue/muted pattern.
-- Uses `getBoundingClientRect()` (not `scrollY`) for iOS momentum scroll compatibility.
-- When progress ≥ 0.99, removes `nav--hero` class and smooth-scrolls to `#works`.
+At ≤ 1100px, layout collapses to single-column stacked order. `.split-right` is hidden; `.left-works` (carousel) becomes visible instead.
 
-### Mobile (`≤ 768px`)
+---
 
-- The `.hero-reveal` section is `100svh` (fits viewport exactly, no scroll).
-- Page is scroll-locked via `document.body.style.position = 'fixed'` + `overflow: hidden` + `width: 100%`.
-- User swipes down to drive the animation (touch delta accumulates, drives GSAP progress).
-- Swipe threshold: 220px net downward movement to complete.
-- On complete: unlock body, remove `nav--hero`, burger slides in, auto-scroll to `#works`.
+## Entry animations
 
-### `prefers-reduced-motion` handling
+### Desktop (> 1100px)
 
-There are 4 completely separate code paths. Each path calls `splitChars()` independently — **do not share allChars between paths**, it caused cross-contamination bugs.
+- Left items animate via CSS `slide-from-left` keyframe — JS adds `anim-in` class, removes on `animationend`, adds `anim-done`.
+- Right cards animate via CSS `slide-from-right` keyframe — same pattern.
+- Stagger: left items 0 / 120 / 240 / 360 / 480ms, right cards 100 / 250 / 400ms.
+- After `anim-done` on `.left-tools`, sets `is-visible` on `.tools-icons` (fan-out animation) after 100ms.
 
-| | reduce motion OFF | reduce motion ON |
-|---|---|---|
-| **Desktop** | rAF scroll-driven animation | Reveal nav on first scroll, no GSAP |
-| **Mobile** | Swipe-driven animation | Auto-play ~2s animation |
+### Mobile fresh entry (≤ 1100px)
 
-**Mobile + reduce motion ON** sequence:
-1. `splitChars()` called inside this branch only.
-2. Hint pill hidden immediately (`is-hidden`).
-3. `gsap.set(rmChars, { color: '#ffffff' })` — CSS reduce-motion rule sets `.tg { color: #3677E4 }` immediately, so chars inherit blue. Must reset to white before animating.
-4. Build timeline with `paused: true`, add tweens, `rmTl.timeScale(rmTl.duration() / 2)` to stretch to 2s, then `rmTl.play()`.
-5. `onComplete`: unlock body, remove `nav--hero`, 900ms easeInOut rAF scroll to `#works` using `works.offsetTop - navHeight`.
+Hero children animate individually with inline styles (no CSS class involved):
 
-**Critical:** always set `timeScale` BEFORE `.play()`. Creating a timeline without `paused: true` and then setting `timeScale` causes a race condition where `onComplete` never fires.
+1. Logo (`.split-logo`): slide down 8px + fade — 0ms / 500ms
+2. Heading spans (`.hero-heading > span`): pure fade, 120ms stagger — 280ms / 550ms
+3. Taglines (`.hero-tagline`): slide down 6px + fade — 780ms / 600ms, 880ms / 600ms
+4. Contact button (`.hero-contact`): pure fade — 1080ms / 500ms
+5. Below sections (works, experience, tools, life): all fade together — 1300ms / 700ms then `anim-done` + `is-visible` on tools
 
-### Scroll hint pill (`.hero-scroll-hint`)
+### Return from detail page
 
-- Fixed position, bottom: 52px desktop / 28px mobile.
-- Starts with bounce animation ("scroll to continue" label).
-- On first swipe gesture: `.is-keep` class swaps labels to "keep scrolling" + starts filling left-to-right via `clip-path: inset(0 calc(100% - var(--fill, 0%)) 0 0)`.
-- `--fill` CSS variable is set inline by JS as scroll progresses.
-- On complete: `.is-hidden` fades it out.
-- On reduce motion ON: hidden immediately, never shown.
+`sessionStorage.getItem('cameFromDetail') === '1'` is set by both the card click handler (homepage) and the exit handler in `project.js` (detail pages). Read on homepage load, cleared immediately. On **both mobile and desktop**: skip all animation — set `anim-done` on all leftItems and cards immediately, add `is-visible` on tools icons.
+
+### bfcache (iOS Safari back navigation)
+
+`pageshow` event with `e.persisted` resets all inline `opacity`, `transform`, `transition`, `animation`, `pointerEvents` styles on every animated element. Without this, back-navigation restores the frozen exit state.
+
+---
+
+## Card exit animation
+
+### Desktop
+
+`.split-left` exits left (`-40px`), other right-panel cards exit right (`+60px`). Navigate after 550ms.
+
+### Mobile
+
+1. All elements except the clicked card fade out over 0.7s.
+2. `fetch(href)` prefetch starts immediately (race with 1.5s max timeout).
+3. After ≥750ms AND prefetch done (or timeout), clicked card fades over 0.35s.
+4. Navigate after 350ms.
+
+This prefetch pattern prevents the white flash that occurs when the browser hasn't loaded the detail page yet.
+
+---
+
+## Hero contact dropdown (`.hero-dropdown`)
+
+- Lives inside `.hero-contact` in `.hero-static`.
+- Button `#heroContactBtn` toggles `.is-open` on `#heroDropdown`.
+- `aria-expanded` drives the button fill animation (CSS: `[aria-expanded="true"]` → gradient shows).
+- On mobile, `aria-expanded` is used instead of `:hover` to avoid iOS hover-state bug where `:hover` stays active after touch.
+- Email copy: writes `huyisdesigning@gmail.com` to clipboard, shows "Copied!" 1.5s, closes dropdown.
 
 ---
 
 ## Nav system
 
-### Hero state
+The nav (`<nav class="nav">`) has no special hero state. It is always visible on all pages.
 
-Nav starts with `nav--hero` class on `.nav`. CSS rules:
+### Contact me dropdown (desktop only, ≤ 640px hidden)
 
-```css
-.nav.nav--hero .nav__links,
-.nav.nav--hero .nav__contact { opacity: 0; transform: translateY(-5px); pointer-events: none; }
-```
-
-On mobile: burger is also hidden in hero state:
-```css
-@media (max-width: 640px) {
-  .nav.nav--hero .nav__burger { opacity: 0; transform: translateX(8px); pointer-events: none; }
-  .nav.nav--hero .nav__links { opacity: 1; transform: none; pointer-events: auto; }
-}
-```
-
-`nav--hero` is removed by JS when animation completes OR when user clicks a nav link.
-
-### Contact me dropdown
-
-- Desktop only (`.nav__inner > .nav__contact { display: none }` on mobile ≤ 640px).
-- Button `.nav__contact-btn` toggles `.is-open` on `.nav__contact` wrapper.
-- Dropdown has two items: My LinkedIn (arrow icon, opens new tab) + Email (copy icon).
-- On email copy: shows "Copied!" for 1.5s, then closes dropdown.
+- Button `.nav__contact-btn` toggles `.is-open` on `.nav__contact`.
+- Dropdown opens **below** the button: `top: calc(100% + 8px)`.
+- Items: My LinkedIn, View resume, Email (copy).
 - Close on outside click or Escape.
 
 ### Mobile burger menu
 
-- Shows `.nav__links` as a dropdown panel.
-- Includes two extra `li.nav__mobile-contact-item` items (My LinkedIn + Email copy) appended to the links list — visible only on mobile ≤ 640px.
+- Shows `.nav__links` as a dropdown panel, aligned left.
+- Includes `.nav__mobile-contact-item` items (LinkedIn, resume, email copy) — visible only ≤ 640px.
 
 ---
 
-## Detail pages (`vietcharm/`, `graphics/`)
+## Detail pages (`vietcharm/`, `graphics/`, `frenlit/`)
 
-- Use `<nav class="nav">` (no `nav--hero` class — nav always visible).
-- "Back to home" links use `href="/#works"` — this triggers the homepage hash detection which immediately removes `nav--hero` and jumps to My Works.
-- Same nav HTML structure as homepage (dropdown, burger, mobile contact items).
-- Lazy images use a `div.img-wrap` wrapper + `loaded` class for skeleton → reveal transition.
-- Post-load contact scroll: a `setInterval` correction loop (4 × 300ms) re-checks scroll target after lazy images load and can shift layout.
+- `<nav class="nav">` — no modifier class.
+- "Back to home" (`.project-back`, `href="/#works"`) and nav logo (`a.nav__logo`, `href="/"`) both trigger exit animation via `project.js`.
+- Lazy images wrapped in `div.img-wrap` by JS → skeleton shimmer → `loaded` class reveals image.
+- `@keyframes page-enter` in `project.css` fades body in on load (prevents white flash on navigation).
+- `@keyframes exit-down` / `exit-right` in `project.css` — used by `project.js` for exit animation.
+- Footer (`<footer class="site-footer">`) visible on all detail pages (desktop + mobile).
+
+### Exit animation (`public/js/project.js`)
+
+Intercepts clicks on `.project-back` and `.nav__logo`. Cmd/Ctrl/Shift+click passes through (opens new tab). `prefers-reduced-motion` users navigate instantly with no animation.
+
+- Desktop: `@keyframes exit-down` — `translateY(20px)` + `opacity: 0` over 350ms
+- Mobile: `@keyframes exit-right` — `translateX(40px)` + `opacity: 0` over 350ms
+- Sets `cameFromDetail` in sessionStorage before navigating so homepage skips entry animation.
+- bfcache: `pageshow` with `e.persisted` resets `body.style.animation` and `pointerEvents`.
+- Uses keyframe animation (not CSS transition) because `page-enter` fill-mode holds `opacity:1` and overrides inline opacity; keyframes have explicit `from { opacity:1 }` so they fire reliably in the same JS frame.
 
 ### VietCharm (`vietcharm/index.html`)
 
-Section order: Overview → Objective → Challenge → Problem analysis → **Design solution** → Contact.
+Section order: Overview → Objective → Challenge → Problem analysis → Design solution → What's next → Behance
 
-Design solution sub-sections in order:
-1. **Wireframe** — `VC_Solution_Wireframe.png`
-2. **Design References** — `VC_Solution_References.png`
-3. **Homepage** — `VC_Solution_01.png`, `VC_Solution_02.gif`
-4. **Booking** — `VC_Solution_03.png`
+Design solution sub-sections: Wireframe → Design References → Homepage (`VC_Solution_01.png`, `VC_Solution_02.gif`) → Booking (`VC_Solution_03.png`)
 
 ### Graphics (`graphics/index.html`)
 
-10 brand sections, each with a `section__label` title + one full-width image. Images in `Images/Proj_Graphics/`.
+10 brand sections, each: `section__label` + description + full-width image. Images in `Images/Proj_Graphics/`. Full-bleed override: `.project-section__full-img { border-radius: 0 }`.
+
+### FRENlit (`frenlit/index.html`)
+
+AI-powered group planning app case study.
 
 ---
 
 ## Key non-obvious facts
 
-1. **Hash detection on homepage load:** `window.location.hash.length > 0` at page load skips the entire hero animation and immediately removes `nav--hero`. Used when navigating from detail pages via `/#works`.
+1. **`cameFromDetail` flag:** Set by the card click handler on homepage AND by `project.js` on detail pages. Read on homepage load, cleared immediately. Skips entry animation on **both desktop and mobile** — adds `anim-done` to leftItems and cards, adds `is-visible` to tools icons.
 
-2. **`leaveTriggered` variable:** declared in desktop branch but assigned globally (no `var`) in the nav click handler. Safe because mobile branch always `return`s before reaching desktop code.
+2. **bfcache vs sessionStorage:** On iOS Safari back navigation, `pageshow` with `e.persisted` fires. `sessionStorage` still holds the flag at this point, so the `cameFromDetail` branch runs again. This is intentional — it also resets inline styles.
 
-3. **CSS specificity for icon-check:** `.nav__dropdown-item svg { display: block }` (0,1,1) overrides `.icon-check { display: none }` (0,1,0). The fix is `.nav__dropdown-item .icon-check { display: none }` (0,2,0).
+3. **`aria-expanded` for iOS hover fix:** The hero contact button uses `[aria-expanded="true"]` in CSS (not `:hover`) to activate the filled gradient state. `:hover` on iOS sticks after a tap and cannot be released with `blur()`.
 
-4. **Scroll target after position:fixed:** After releasing `document.body.style.position = 'fixed'`, `window.scrollY` resets to 0. Use `works.offsetTop - navHeight` (not `getBoundingClientRect().top + scrollY`) to compute the correct scroll target.
+4. **CSS specificity for icon-check:** `.nav__dropdown-item svg { display: block }` (0,1,1) beats `.icon-check { display: none }` (0,1,0). Fix: `.nav__dropdown-item .icon-check { display: none }` (0,2,0).
 
-5. **GSAP ticker pauses on hidden tabs:** `document.hidden = true` → rAF stops → GSAP doesn't tick. Cannot test GSAP animations in preview environments where the tab is hidden.
+5. **Tools fan-out missing on return:** The `cameFromDetail` branch must manually add `is-visible` to `.tools-icons` — `anim-done` class alone does not trigger it (CSS needs `.tools-icons.is-visible`).
 
-6. **ScrollTrigger is registered but not used:** `gsap.registerPlugin(ScrollTrigger)` is called for future compatibility. The hero animation uses raw rAF + `getBoundingClientRect`, not ScrollTrigger — this was intentional for iOS momentum scroll support.
+6. **Mobile animation is inline-style only:** Hero children (logo, heading spans, taglines, contact) are animated with `el.style.*` directly. `anim-in`/`anim-done` CSS classes are NOT used for them. Only `belowSections` receive `anim-done`.
 
-7. **Char splitting is per-branch:** Each of the 4 paths (mobile/desktop × reduce-motion on/off) calls `splitChars()` independently. Do NOT hoist char splitting to the top of the IIFE — sharing `allChars` between the mobile auto-play and swipe paths caused GSAP to interfere across paths even when `reducedMotion` was false.
+7. **Footer visibility:** `.page--home .site-footer { display: none }` on desktop (footer only shows on mobile homepage). Detail pages show footer on both sizes (no `.page--home` class on their body).
 
-8. **CSS reduce-motion overrides chars to blue:** `@media (prefers-reduced-motion: reduce) { .tg { color: #3677E4 } }` makes `.tg` blue immediately on page load. Since `.tg-ch` spans inherit from `.tg`, they also start blue. The auto-play path must call `gsap.set(rmChars, { color: '#ffffff' })` to reset before animating, otherwise the first tween (white→blue) is invisible.
+8. **`nav--hero` CSS is dead:** `components.css` still has `.nav.nav--hero` rules, but the class is no longer applied anywhere in HTML. Safe to remove if cleaning up.
 
 ---
 
