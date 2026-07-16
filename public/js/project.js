@@ -10,25 +10,26 @@
     var isMobile = window.innerWidth <= 1100;
 
     if (isMobile) {
-      // Overlay approach: most reliable on iOS Safari — animates a fresh element,
-      // no fill-mode conflicts, no body-transform issues
-      var overlay = document.createElement('div');
-      overlay.style.cssText = [
-        'position:fixed', 'inset:0', 'z-index:9999',
-        'background:var(--color-bg,#f5f5f3)',
-        'opacity:0',
-        'transition:opacity 0.35s ease',
-        'pointer-events:none'
-      ].join(';');
-      document.body.appendChild(overlay);
-      void overlay.offsetHeight; // commit opacity:0 as "from" state before transition
-      overlay.style.opacity = '1';
-      setTimeout(function () { window.location.href = href; }, 370);
+      document.body.style.pointerEvents = 'none';
+      var children = Array.from(document.body.children).filter(function (el) {
+        return el.tagName !== 'SCRIPT';
+      });
+      // Cancel fill-mode animations (e.g. nav-slide-down holds opacity:1 at animation cascade
+      // level and overrides inline opacity). Must reflow before starting the new transition.
+      children.forEach(function (el) {
+        el.style.animation = 'none';
+        el.style.transition = 'opacity 0.7s ease';
+      });
+      void document.body.offsetHeight;
+      requestAnimationFrame(function () {
+        children.forEach(function (el) { el.style.opacity = '0'; });
+      });
+      setTimeout(function () { window.location.href = href; }, 750);
     } else {
       // Desktop: slide body down + fade (keyframe, no fill-mode conflict)
       document.body.style.pointerEvents = 'none';
-      document.body.style.animation = 'exit-down 0.35s ease forwards';
-      setTimeout(function () { window.location.href = href; }, 370);
+      document.body.style.animation = 'exit-down 0.7s ease forwards';
+      setTimeout(function () { window.location.href = href; }, 720);
     }
   }
 
@@ -45,10 +46,15 @@
   interceptHomeLink('a.project-back[href="/#works"]');
   interceptHomeLink('a.nav__logo[href="/"]');
 
-  // bfcache: reset body if iOS Safari restores this page after exit animation
+  // bfcache: reset body + children if iOS Safari restores this page after exit animation
   window.addEventListener('pageshow', function (e) {
     if (!e.persisted) return;
     document.body.style.animation = '';
     document.body.style.pointerEvents = '';
+    Array.from(document.body.children).forEach(function (el) {
+      el.style.animation = '';
+      el.style.transition = '';
+      el.style.opacity = '';
+    });
   });
 })();
