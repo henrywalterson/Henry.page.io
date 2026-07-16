@@ -13,6 +13,10 @@ main { padding-bottom: 40px; }
 }
 body { animation: page-enter 0.3s ease both; }
 
+/* ── Page exit animations (triggered by project.js) ── */
+@keyframes exit-down  { from { opacity: 1; transform: translateY(0);   } to { opacity: 0; transform: translateY(20px);  } }
+@keyframes exit-right { from { opacity: 1; transform: translateX(0);   } to { opacity: 0; transform: translateX(40px);  } }
+
 /* ── Header ── */
 .project-header {
   padding-top: var(--space-6);
