@@ -548,31 +548,12 @@
 
 /* ===== SITE FOOTER ===== */
 .site-footer {
-  padding: 80px 0;
-  overflow: hidden;
-  width: 100%;
-}
-
-.footer-marquee { overflow: hidden; }
-
-.footer-marquee__track {
-  display: inline-flex;
-  will-change: transform;
-}
-
-.footer-marquee__set {
   display: flex;
-  padding-right: 40px;
-  flex-shrink: 0;
-}
-
-.footer-marquee__set span {
-  font-family: var(--font-heading);
-  font-size: 64px;
-  font-weight: var(--fw-extrabold);
-  color: var(--color-text-heading);
-  white-space: nowrap;
-  letter-spacing: var(--tracking-tight);
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px var(--container-padding);
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
 }
 
 /* Hide footer on homepage desktop; show on mobile via media query below */
