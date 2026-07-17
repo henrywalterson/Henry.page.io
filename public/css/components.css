@@ -548,18 +548,13 @@
 
 /* ===== SITE FOOTER ===== */
 .site-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   max-width: var(--container-max);
   margin-inline: auto;
   padding: 40px var(--container-padding);
-  font-size: var(--text-base);
-  color: var(--color-text-muted);
-}
-
-/* Hide footer on homepage desktop; show on mobile via media query below */
-.page--home .site-footer { display: none; }
-@media (max-width: 768px) {
-  .page--home .site-footer { display: block; }
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: var(--fw-normal);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--color-text-heading);
 }
