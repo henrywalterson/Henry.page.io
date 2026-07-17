@@ -2,15 +2,13 @@
 .split-layout {
   max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  gap: 68px;
+  display: grid;
+  grid-template-columns: 5fr 1fr 6fr;
   min-height: 100vh;
   align-items: flex-start;
 }
 
 .split-left {
-  width: 464px;
-  flex-shrink: 0;
   position: sticky;
   top: 0;
   height: 100vh;
@@ -28,8 +26,7 @@
 .split-left::-webkit-scrollbar { display: none; }
 
 .split-right {
-  flex: 1;
-  min-width: 0;
+  grid-column: 3;
   padding: 44px 80px;
 }
 
