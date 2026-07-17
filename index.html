@@ -331,24 +331,12 @@
       el.addEventListener('animationend', function() {
         el.classList.remove('anim-in');
         el.classList.add('anim-done');
-        if (el.classList.contains('left-tools')) {
-          setTimeout(function() {
-            var icons = el.querySelector('.tools-icons');
-            if (icons) icons.classList.add('is-visible');
-          }, 100);
-        }
       }, { once: true });
     }, delay);
   }
 
   if (cameFromDetail && isMobile) {
-    leftItems.forEach(function(el) {
-      el.classList.add('anim-done');
-      if (el.classList.contains('left-tools')) {
-        var icons = el.querySelector('.tools-icons');
-        if (icons) icons.classList.add('is-visible');
-      }
-    });
+    leftItems.forEach(function(el) { el.classList.add('anim-done'); });
     cards.forEach(function(el) { el.classList.add('anim-done'); });
     return;
   }
@@ -451,10 +439,6 @@
             onComplete: function() {
               gsap.set(el, { clearProps: 'opacity' });
               el.classList.add('anim-done');
-              if (el.classList.contains('left-tools')) {
-                var icons = el.querySelector('.tools-icons');
-                if (icons) icons.classList.add('is-visible');
-              }
             }
           });
         });
@@ -596,6 +580,12 @@ window.addEventListener('pageshow', function(e) {
   });
 });
 </script>
-<footer class="site-footer">You've reached the footer.<br>Thanks for scrolling this far!</footer>
+<footer class="site-footer">
+  <div class="footer-marquee">
+    <div class="footer-marquee__track">
+      <div class="footer-marquee__set"><span>You've reached the footer.</span><span>Thanks for scrolling this far!</span></div>
+    </div>
+  </div>
+</footer>
 </body>
 </html>

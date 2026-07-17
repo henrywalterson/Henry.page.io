@@ -98,3 +98,24 @@ document.querySelectorAll('.nav__mobile-copy-btn').forEach(function (btn) {
     });
   });
 });
+
+// Footer marquee: clone set, measure exact width after fonts load, then start animation
+(function () {
+  function initMarquee() {
+    var track = document.querySelector('.footer-marquee__track');
+    if (!track) return;
+    var set = track.querySelector('.footer-marquee__set');
+    if (!set) return;
+    var clone = set.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    track.appendChild(clone);
+    var w = set.getBoundingClientRect().width;
+    document.documentElement.style.setProperty('--marquee-offset', w + 'px');
+    track.style.animationPlayState = 'running';
+  }
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(initMarquee);
+  } else {
+    window.addEventListener('load', initMarquee);
+  }
+})();
