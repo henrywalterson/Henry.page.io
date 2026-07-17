@@ -307,6 +307,7 @@
   flex-direction: column;
   gap: 0;
 }
+.exp-cards .exp-card:first-child { padding-top: 0; }
 .exp-card {
   background: transparent;
   border-radius: 0;
