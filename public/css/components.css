@@ -364,7 +364,7 @@
   padding-bottom: var(--space-3); /* 24px on desktop */
 }
 .contact__inner {
-  background: url('/Images/BG_contact.png') center/cover no-repeat;
+  background: url('/Images/BG_contact.jpg') center/cover no-repeat;
   border-radius: 32px;
   min-height: 320px;
   display: flex;
