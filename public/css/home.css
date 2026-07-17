@@ -327,13 +327,16 @@
   margin-bottom: 4px;
 }
 .exp-card__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
   font-size: var(--text-sm);
   color: var(--color-text-muted);
   line-height: var(--leading-snug);
 }
-.exp-card__sep {
-  margin-inline: var(--space-1);
-  opacity: 0.4;
+.exp-card__date {
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 @media (max-width: 768px) {
   .exp-card__role { font-size: var(--text-sm); }
