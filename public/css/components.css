@@ -569,7 +569,6 @@
 
 .footer-marquee__set {
   display: flex;
-  gap: 40px;
   padding-right: 40px;
   flex-shrink: 0;
 }
