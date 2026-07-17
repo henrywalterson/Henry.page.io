@@ -127,7 +127,7 @@ ul, ol { list-style: none; }
   color: var(--color-accent-1);
   border: 1.5px solid var(--color-accent-1);
 }
-.btn--outline:hover { background: var(--color-accent-1); color: #fff; box-shadow: none; }
+.btn--outline:hover { opacity: 0.85; transform: translateY(-1px); box-shadow: none; }
 
 /* ===== PILLS ===== */
 .pill {
