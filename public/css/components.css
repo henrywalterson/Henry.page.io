@@ -551,6 +551,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: var(--container-max);
+  margin-inline: auto;
   padding: 40px var(--container-padding);
   font-size: var(--text-base);
   color: var(--color-text-muted);
