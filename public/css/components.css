@@ -3,16 +3,8 @@
   from { transform: translateY(-100%); opacity: 0; }
   to   { transform: translateY(0);     opacity: 1; }
 }
-@keyframes nav-slide-up {
-  from { transform: translateY(0);     opacity: 1; }
-  to   { transform: translateY(-100%); opacity: 0; }
-}
-
 .nav {
   animation: nav-slide-down 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-.nav.nav--exit {
-  animation: nav-slide-up 0.35s ease-in both;
 }
 
 .nav {
@@ -42,17 +34,6 @@
   display: flex;
   gap: var(--space-4);     /* 32px */
   margin-right: auto;
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-/* Hero state: links + contact hidden */
-.nav.nav--hero .nav__links,
-.nav.nav--hero .nav__contact {
-  opacity: 0;
-  transform: translateY(-5px);
-  pointer-events: none;
 }
 /* Nav contact button: black default, gradient wipe on hover */
 .nav__contact-btn {
@@ -179,16 +160,6 @@
 .nav__mobile-contact-item { display: none; }
 
 @media (max-width: 640px) {
-  /* Burger hidden in hero state, slides in on reveal */
-  .nav__burger { transition: opacity 0.5s ease, transform 0.5s ease; }
-  .nav.nav--hero .nav__burger {
-    opacity: 0;
-    transform: translateX(8px);
-    pointer-events: none;
-  }
-  /* Nav links still accessible if burger somehow opens before hero ends */
-  .nav.nav--hero .nav__links { opacity: 1; transform: none; pointer-events: auto; }
-
   .nav__links { display: none; flex-direction: column; }
   .nav__links.is-open {
     display: flex;

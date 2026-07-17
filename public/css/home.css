@@ -210,12 +210,6 @@
   /* About + Experience */
   .about-col { border-bottom: none; }
 
-  /* Exp card date on new line */
-  .exp-card__sep {
-    display: block;
-    height: 0;
-    overflow: hidden;
-  }
 }
 
 
