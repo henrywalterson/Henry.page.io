@@ -382,18 +382,18 @@ body { animation: page-enter 0.3s ease both; }
 
   .project-section__body,
   .project-section__body--reverse {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(8, 1fr);
   }
 
-  /* Cols grid → single column so children stack full-width */
+  /* Cols grid → 8-col so children stack full-width */
   .project-section__cols {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(8, 1fr);
   }
 
   .project-section__media,
   .project-section__text,
   .project-section__cols > * {
-    grid-column: span 1;
+    grid-column: 1 / -1;
   }
 
   .project-section__body--reverse .project-section__media,

@@ -224,6 +224,8 @@ textarea:focus {
 
 @media (hover: none) {
   .btn:hover { opacity: 1; transform: none; box-shadow: none; }
+  .btn--outline:hover { color: var(--color-accent-1); border-color: var(--color-accent-1); opacity: 1; transform: none; box-shadow: none; }
+  .btn--outline:hover::before { transform: translateX(-101%); }
   .link-arrow:hover { gap: 4px; }
 }
 
