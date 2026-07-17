@@ -126,8 +126,23 @@ ul, ol { list-style: none; }
   background: transparent;
   color: var(--color-accent-1);
   border: 1.5px solid var(--color-accent-1);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
 }
-.btn--outline:hover { opacity: 0.85; transform: translateY(-1px); box-shadow: none; }
+.btn--outline::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-btn);
+  border-radius: inherit;
+  transform: translateX(-101%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+.btn--outline:hover { color: #fff; border-color: transparent; opacity: 1; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(59, 130, 246, 0.35); }
+.btn--outline:hover::before { transform: translateX(0); }
 
 /* ===== PILLS ===== */
 .pill {
