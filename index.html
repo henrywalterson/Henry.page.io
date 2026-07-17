@@ -341,7 +341,7 @@
     }, delay);
   }
 
-  if (cameFromDetail) {
+  if (cameFromDetail && isMobile) {
     leftItems.forEach(function(el) {
       el.classList.add('anim-done');
       if (el.classList.contains('left-tools')) {
@@ -350,20 +350,6 @@
       }
     });
     cards.forEach(function(el) { el.classList.add('anim-done'); });
-    if (isMobile) {
-      // Fade homepage in to match the overlay fade-out on the detail page
-      document.body.style.opacity = '0';
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() {
-          document.body.style.transition = 'opacity 0.35s ease';
-          document.body.style.opacity = '1';
-          setTimeout(function() {
-            document.body.style.transition = '';
-            document.body.style.opacity = '';
-          }, 400);
-        });
-      });
-    }
     return;
   }
 
