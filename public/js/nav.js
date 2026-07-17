@@ -99,7 +99,7 @@ document.querySelectorAll('.nav__mobile-copy-btn').forEach(function (btn) {
   });
 });
 
-// Footer marquee: clone set, measure exact width after fonts load, then start animation
+// Footer marquee: rAF-driven so pos never jumps at loop reset
 (function () {
   function initMarquee() {
     var track = document.querySelector('.footer-marquee__track');
@@ -109,9 +109,26 @@ document.querySelectorAll('.nav__mobile-copy-btn').forEach(function (btn) {
     var clone = set.cloneNode(true);
     clone.setAttribute('aria-hidden', 'true');
     track.appendChild(clone);
-    var w = set.getBoundingClientRect().width;
-    document.documentElement.style.setProperty('--marquee-offset', w + 'px');
-    track.style.animationPlayState = 'running';
+    var setWidth = set.getBoundingClientRect().width;
+    var pos = 0;
+    var last = null;
+    var SPEED = 90; // px/s
+    function tick(ts) {
+      if (last !== null) {
+        var delta = ts - last;
+        if (delta < 100) { // skip large gaps (tab hidden, lag spike)
+          pos += SPEED * delta / 1000;
+          if (pos >= setWidth) pos -= setWidth;
+          track.style.transform = 'translateX(' + (-pos) + 'px)';
+        }
+      }
+      last = ts;
+      requestAnimationFrame(tick);
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) last = null; // reset on tab focus to avoid delta spike
+    });
+    requestAnimationFrame(tick);
   }
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(initMarquee);

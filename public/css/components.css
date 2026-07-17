@@ -553,17 +553,10 @@
   width: 100%;
 }
 
-@keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(calc(-1 * var(--marquee-offset, 1663px))); }
-}
-
 .footer-marquee { overflow: hidden; }
 
 .footer-marquee__track {
   display: inline-flex;
-  animation: marquee-scroll 18s linear infinite;
-  animation-play-state: paused;
   will-change: transform;
 }
 
