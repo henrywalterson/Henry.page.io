@@ -4,7 +4,7 @@
    ===================================================== */
 
 /* ── Page bottom breathing room ── */
-main { padding-bottom: 40px; }
+main { padding-bottom: 80px; }
 
 /* ── Page entry: fade in so there's no white flash on navigation ── */
 @keyframes page-enter {
