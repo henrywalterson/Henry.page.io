@@ -4,7 +4,7 @@
    ===================================================== */
 
 /* ── Page bottom breathing room ── */
-main { padding-bottom: 80px; }
+main { padding-bottom: 120px; }
 
 /* ── Page entry: fade in so there's no white flash on navigation ── */
 @keyframes page-enter {
@@ -276,15 +276,6 @@ body { animation: page-enter 0.3s ease both; }
 }
 .project-section__standalone-p:last-child { margin-bottom: 0; }
 
-/* ── Bottom: Behance + prev/next ── */
-.project-bottom {
-  padding-top: var(--space-8);
-  padding-bottom: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-5);
-}
 
 .project-nav {
   display: flex;
@@ -428,9 +419,6 @@ body { animation: page-enter 0.3s ease both; }
 
   /* Reset inline grid-column overrides (Challenge, What's next) */
   .project-section .grid > div { grid-column: 1 / -1 !important; }
-
-  /* Behance button full-width */
-  .project-bottom .btn { width: 100% !important; }
 
   /* Remove card hover on touch */
   .project-section__card:hover { transform: none; box-shadow: var(--shadow-card); }
