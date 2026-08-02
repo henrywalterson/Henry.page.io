@@ -16,6 +16,7 @@ body {
   color: var(--color-text-body);
   background: var(--color-bg-page);
   -webkit-font-smoothing: antialiased;
+  text-wrap: pretty;
 }
 
 h1, h2, h3, h4, h5, h6 {
