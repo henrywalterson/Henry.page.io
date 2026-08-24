@@ -1,4 +1,11 @@
 {
   "outputDirectory": ".",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://www.behance.net/huyisdesigning",
+      "permanent": true
+    }
+  ]
 }
